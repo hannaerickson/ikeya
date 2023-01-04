@@ -25,7 +25,7 @@ class RoomRepository:
                         """
                         SELECT id, name, description, picture_url
                         FROM rooms
-                        ORDER BY name;
+                        ORDER BY id;
                         """
                     )
                     result = []
@@ -41,3 +41,25 @@ class RoomRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get all rooms"}
+
+    def create(self, room: RoomIn) -> RoomOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        INSERT INTO rooms (name, description, picture_url)
+                        VALUES (%s, %s, %s)
+                        RETURNING id;
+                        """,
+                        [room.name, room.description, room.picture_url]
+                    )
+                    id = result.fetchone()[0]
+                    return self.room_in_to_out(id, room)
+        except Exception:
+            return {"message": "Could not create room"}
+
+    def room_in_to_out(self, id: int, room: RoomIn):
+        old_data = room.dict()
+        print(old_data)
+        return RoomOut(id=id, **old_data)

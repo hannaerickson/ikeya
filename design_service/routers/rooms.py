@@ -8,4 +8,10 @@ router = APIRouter()
 def get_all_rooms(
     repo: RoomRepository = Depends(),
 ):
-    return repo.get_all()
+    return repo.get_all_rooms()
+
+@router.post("/api/rooms", response_model=Union[RoomOut, Error])
+def create_room(room: RoomIn, response: Response, repo: RoomRepository = Depends()):
+    if room is None:
+        response.status_code = 400
+    return repo.create(room)
