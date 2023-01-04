@@ -1,8 +1,6 @@
 volumes:
   postgres-data:
     external: true
-  pg-admin:
-    external: true
 
 services:
   postgres:
@@ -17,36 +15,17 @@ services:
         - POSTGRES_PASSWORD=test-databases
     ports:
         - 15432:5432
-  fastapi:
-    build:
-      context: sample_service
-      dockerfile: Dockerfile.dev
-    ports:
-      - 8000:8000
-    volumes:
-      - ./sample_service:/app
   design_service:
     build:
         context: ./design_service
         dockerfile: ./Dockerfile.dev
     ports:
-        - "8100:8100"
+        - "8000:8000"
     volumes:
         - ./design_service:/app
     environment:
-      DATABASE_URL: postgresql://admin:secret@postgres/rooms
+      DATABASE_URL: postgresql://ikeya:test-databases@postgres/rooms
       WAIT_HOSTS: postgres:5432
-
-  pg-admin:
-    image: dpage/pgadmin4
-    volumes:
-      - pg-admin:/var/lib/pgadmin
-    ports:
-      - 8082:80
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ikeya@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: secret
-      PGADMIN_DISABLE_POSTFIX: 1
 
   ghi:
     image: node:lts-bullseye
