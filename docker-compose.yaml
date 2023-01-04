@@ -13,6 +13,7 @@ services:
         - postgres-data:/var/lib/postgresql/data
     environment:
         - POSTGRES_MULTIPLE_DATABASES=rooms
+        - POSTGRES_USER=ikeya
         - POSTGRES_PASSWORD=test-databases
     ports:
         - 15432:5432
