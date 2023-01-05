@@ -45,6 +45,26 @@ class RoomRepository:
             print(e)
             return {"message": "Could not get all rooms"}
 
+    def get_one_room(self, room_id: int) -> Optional[RoomOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, name, description, picture_url, user_id
+                        FROM rooms
+                        WHERE id = %s;
+                        """,
+                        [room_id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return self.record_to_room_out(record)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that room"}
+
     def create(self, room: RoomIn) -> RoomOut:
         try:
             with pool.connection() as conn:
@@ -62,7 +82,31 @@ class RoomRepository:
         except Exception:
             return {"message": "Could not create room"}
 
+    def delete(self, room_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM rooms
+                        WHERE id = %s;
+                        """,
+                        [room_id]
+                    )
+                    return True
+        except Exception as e:
+            return False
+
     def room_in_to_out(self, id: int, room: RoomIn):
         old_data = room.dict()
         print(old_data)
         return RoomOut(id=id, **old_data)
+
+    def record_to_room_out(self, record):
+        return RoomOut(
+            id=record[0],
+            name=record[1],
+            description=record[2],
+            picture_url=record[3],
+            user_id=record[4],
+        )
