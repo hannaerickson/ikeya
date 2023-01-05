@@ -1,6 +1,8 @@
 volumes:
   postgres-data:
     external: true
+  jwtdown-db-data:
+    external: true
 
 services:
   postgres:
@@ -24,6 +26,7 @@ services:
     volumes:
         - ./design_service:/app
     environment:
+      SIGNING_KEY: bCSJNnzsJKTeHIJLhMwtyUuaSqrmJd34Q5_ZFq-Oins
       DATABASE_URL: postgresql://ikeya:test-databases@postgres/rooms
       WAIT_HOSTS: postgres:5432
 
