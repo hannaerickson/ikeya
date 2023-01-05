@@ -11,9 +11,12 @@ class UserIn(BaseModel):
     username: str
     password: str
 
-class UserOut(UserIn):
+class UserOut(BaseModel):
     id: int
-
+    first_name: str
+    last_name: str
+    username: str
+    password: str
 
 class UserRepository:
     def get_all_users(self) -> Union[List[UserOut], Error]:
@@ -24,17 +27,17 @@ class UserRepository:
                         """
                         SELECT id, first_name, last_name, username, password
                         FROM users
-                        ORDER by id;
+                        ORDER BY id;
                         """
                     )
                     result = []
                     for record in db:
                         user = UserOut(
-                            first_name=record[0],
-                            last_name=record[1],
-                            username=record[2],
-                            password=record[3],
-                            id=record[4],
+                            id=record[0],
+                            first_name=record[1],
+                            last_name=record[2],
+                            username=record[3],
+                            password=record[4],
                         )
                         result.append(user)
                     return result
@@ -58,6 +61,7 @@ class UserRepository:
                     return self.user_in_to_out(id, user)
         except Exception:
             return {"message": "User could not be created"}
+
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         print(old_data)

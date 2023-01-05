@@ -9,12 +9,14 @@ class RoomIn(BaseModel):
     name: str
     description: Optional[str]
     picture_url: Optional[str]
+    user_id: int
 
 class RoomOut(BaseModel):
     id: int
     name: str
     description: Optional[str]
     picture_url: Optional[str]
+    user_id: int
 
 class RoomRepository:
     def get_all_rooms(self) -> Union[List[RoomOut], Error]:
@@ -23,7 +25,7 @@ class RoomRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT id, name, description, picture_url
+                        SELECT id, name, description, picture_url, user_id
                         FROM rooms
                         ORDER BY id;
                         """
@@ -35,6 +37,7 @@ class RoomRepository:
                             name=record[1],
                             description=record[2],
                             picture_url=record[3],
+                            user_id=record[4],
                         )
                         result.append(room)
                     return result
@@ -48,11 +51,11 @@ class RoomRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO rooms (name, description, picture_url)
-                        VALUES (%s, %s, %s)
+                        INSERT INTO rooms (name, description, picture_url, user_id)
+                        VALUES (%s, %s, %s, %s)
                         RETURNING id;
                         """,
-                        [room.name, room.description, room.picture_url]
+                        [room.name, room.description, room.picture_url, room.user_id]
                     )
                     id = result.fetchone()[0]
                     return self.room_in_to_out(id, room)
