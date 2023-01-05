@@ -28,6 +28,21 @@ steps = [
         """
         DROP TABLE rooms;
         """
+    ],
+    [
+        ## create the table
+        """
+        CREATE TABLE furniture (
+            id SERIAL PRIMARY KEY NOT NULL,
+            name VARCHAR(100) NOT NULL,
+            picture_url VARCHAR(256),
+            room_id INT NOT NULL REFERENCES rooms(id)
+        );
+        """,
+        ## drop the table
+        """
+        DROP TABLE furniture;
+        """
     ]
 
 ]
