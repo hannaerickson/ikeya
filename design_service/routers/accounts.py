@@ -17,7 +17,7 @@ class AccountToken(Token):
 class HttpError(BaseModel):
     detail: str
 
-@router.get("/api/accounts", response_model=Union[List[AccountOut], HttpError], tags=["Accounts"])
+@router.get("/api/accounts", response_model=Union[List[AccountOut], HttpError])
 def get(
     repo: AccountsQueries = Depends()
 ):
