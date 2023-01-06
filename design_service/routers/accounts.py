@@ -17,11 +17,17 @@ class AccountToken(Token):
 class HttpError(BaseModel):
     detail: str
 
-@router.get("/api/accounts", response_model=Union[List[AccountOut], HttpError])
-def get(
-    repo: AccountsQueries = Depends()
-):
-    return repo.get()
+@router.get("/token", response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+) -> AccountToken | None:
+    if authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
 
 @router.post("/api/accounts", response_model=AccountToken | HttpError)
 async def create_account(
