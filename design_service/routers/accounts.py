@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, Response, Request
-from queries.accounts import Account, AccountIn, AccountOut, AccountsQueries, Error
-from typing import Union, List, Optional
+from fastapi import APIRouter, Depends, Response, Request, HTTPException, status
+from typing import Union, List
+from queries.accounts import AccountIn, AccountOut, AccountsQueries
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 from pydantic import BaseModel
@@ -17,17 +17,27 @@ class AccountToken(Token):
 class HttpError(BaseModel):
     detail: str
 
-@router.get("/api/accounts", response_model=Union[List[AccountOut], Error], tags=["Accounts"])
+@router.get("/api/accounts", response_model=Union[List[AccountOut], HttpError], tags=["Accounts"])
 def get(
-    repo: AccountsQueries = Depends(),
+    repo: AccountsQueries = Depends()
 ):
     return repo.get()
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError, tags=["Accounts"])
-async def create_account(account: AccountIn, request: Request, response: Response, repo: AccountsQueries = Depends(),
+@router.post("/api/accounts", response_model=AccountToken | HttpError)
+async def create_account(
+    info: AccountIn,
+    request: Request,
+    response: Response,
+    repo: AccountsQueries = Depends(),
 ):
-    hashed_password = authenticator.hash_password(account.hashed_password)
-    account = repo.create(account, hashed_password)
-    form = AccountForm(username=account.username, password=account.hashed_password)
+    hashed_password = authenticator.hash_password(info.password)
+    try:
+        account = repo.create(info, hashed_password)
+    except:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot create an account with those credentials",
+        )
+    form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=account, **token.dict())

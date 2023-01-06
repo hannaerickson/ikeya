@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import Optional, List, Union
 from queries.pool import pool
 
 class Error(BaseModel):
@@ -20,7 +19,7 @@ class AccountOut(BaseModel):
 
 class AccountIn(BaseModel):
     username: str
-    hashed_password: str
+    password: str
     first_name: str
     last_name: str
 
