@@ -26,7 +26,7 @@ services:
     volumes:
         - ./design_service:/app
     environment:
-      SIGNING_KEY: bCSJNnzsJKTeHIJLhMwtyUuaSqrmJd34Q5_ZFq-Oins
+      SIGNING_KEY: 925271b7c247713497537b286e18a4b85e9fe65b641b8317c98681d4cf9c0ecf4d60fe2bcb94fa512ce535eb777d3acffc2f38f092fe261b253c559df8e76fed
       DATABASE_URL: postgresql://ikeya:test-databases@postgres/rooms
       WAIT_HOSTS: postgres:5432
 

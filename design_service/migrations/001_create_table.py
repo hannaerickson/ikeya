@@ -1,16 +1,16 @@
 steps = [
-     [
+    [
         """
-        CREATE TABLE users (
+        CREATE TABLE accounts (
             id SERIAL PRIMARY KEY NOT NULL,
-            first_name VARCHAR(100) NOT NULL,
-            last_name VARCHAR(100) NOT NULL,
-            username VARCHAR(100) NOT NULL UNIQUE,
-            password VARCHAR(100) NOT NULL
+            username VARCHAR(200) NOT NULL,
+            hashed_password VARCHAR(200) NOT NULL,
+            first_name VARCHAR(250) NOT NULL,
+            last_name VARCHAR(250) NOT NULL
         );
         """,
         """
-        DROP TABLE users;
+        DROP TABLE accounts;
         """
     ],
     [
@@ -21,7 +21,7 @@ steps = [
             name VARCHAR(100) NOT NULL,
             description TEXT,
             picture_url VARCHAR(256),
-            user_id INT NOT NULL REFERENCES users(id)
+            account_id INT NOT NULL REFERENCES accounts(id)
         );
         """,
         ## drop the table
