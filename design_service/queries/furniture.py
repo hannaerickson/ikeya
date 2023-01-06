@@ -17,7 +17,7 @@ class FurnitureOut(BaseModel):
     room_id: int
 
 class FurnitureRepository:
-    def get_all_furniture(self) -> Union[List[FurnitureOut], Error]:
+    def get_all_furniture(self, room_id) -> Union[List[FurnitureOut], Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -25,8 +25,10 @@ class FurnitureRepository:
                         """
                         SELECT id, name, picture_url, room_id
                         FROM furniture
+                        WHERE room_id = %s
                         ORDER BY id;
-                        """
+                        """,
+                        [room_id]
                     )
                     result = []
                     for record in db:

@@ -1,0 +1,5 @@
+Wednesday, January 4, 2023
+Today was our first day of coding for our project.  Our group worked as a unit during the entire day and completed the coding as a team.  We completed the setup portion of the project, including creating our Dockerfile and docker-compose.yaml file.  We also setup our PostgreSQL database and developed our GET and POST for our Rooms endpoint.  Although the FASTAPI instructional videos were extremely helpful, I found that coding through the FASTAPI as a group really helped formalize my knowledge.
+
+Thursday, January 5, 2023
+Today was my first day "driving" while peer programming.  Our team worked as a group to add a Furniture model with a GET and POST route.  We also added a GET one and DELETE route for the rooms.  Our group also completed our exploration on authentication, so that we can begin the process of adding authentication to our web application. We ran into a few issues when adding authentication, so we ultimately decided to wait until the lecture to continue the process of adding authentication.
