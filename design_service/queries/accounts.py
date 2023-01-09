@@ -30,35 +30,35 @@ class AccountIn(BaseModel):
 
 
 class AccountsQueries:
-    def get_all(self) -> Union[List[AccountOut], Error]:
-        # connect the database
-        with pool.connection() as conn:
-            # get a cursor (something to run SQL with)
-            with conn.cursor() as db:
-                # Run our SELECT statement
-                result = db.execute(
-                    """
-                    SELECT id
-                        , username
-                        , hashed_password
-                        , first_name
-                        , last_name
-                    FROM accounts
-                    """,
-                )
-                result = []
-                for record in db:
-                    account = AccountOut(
-                        id=record[0],
-                        username=record[1],
-                        hashed_password=record[2],
-                        first_name=record[3],
-                        last_name=record[4],
-                    )
-                    result.append(account)
-                return result
+    # def get_all(self) -> Union[List[AccountOut], Error]:
+    #     # connect the database
+    #     with pool.connection() as conn:
+    #         # get a cursor (something to run SQL with)
+    #         with conn.cursor() as db:
+    #             # Run our SELECT statement
+    #             result = db.execute(
+    #                 """
+    #                 SELECT id
+    #                     , username
+    #                     , hashed_password
+    #                     , first_name
+    #                     , last_name
+    #                 FROM accounts
+    #                 """,
+    #             )
+    #             result = []
+    #             for record in db:
+    #                 account = AccountOut(
+    #                     id=record[0],
+    #                     username=record[1],
+    #                     hashed_password=record[2],
+    #                     first_name=record[3],
+    #                     last_name=record[4],
+    #                 )
+    #                 result.append(account)
+    #             return result
 
-    def get_one(self, username: str) -> Account:
+    def get(self, username: str) -> Account:
         # connect the database
         with pool.connection() as conn:
             # get a cursor (something to run SQL with)

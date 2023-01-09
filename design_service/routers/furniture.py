@@ -41,7 +41,7 @@ def create_furniture(
 
 
 @router.delete(
-    "api/furniture/{furniture_id}", response_model=bool, tags=["Furniture"]
+    "/api/furniture/{furniture_id}", response_model=bool, tags=["Furniture"]
 )
 def delete_furniture(
     furniture_id: int,
