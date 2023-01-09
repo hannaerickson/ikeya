@@ -1,8 +1,11 @@
 from pydantic import BaseModel
+from typing import Optional, List, Union
 from queries.pool import pool
+
 
 class Error(BaseModel):
     message: str
+
 
 class Account(BaseModel):
     id: int
@@ -11,11 +14,13 @@ class Account(BaseModel):
     first_name: str
     last_name: str
 
+
 class AccountOut(BaseModel):
     id: int
     username: str
     first_name: str
     last_name: str
+
 
 class AccountIn(BaseModel):
     username: str
@@ -23,7 +28,36 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
 
+
 class AccountsQueries:
+    # def get_all(self) -> Union[List[AccountOut], Error]:
+    #     # connect the database
+    #     with pool.connection() as conn:
+    #         # get a cursor (something to run SQL with)
+    #         with conn.cursor() as db:
+    #             # Run our SELECT statement
+    #             result = db.execute(
+    #                 """
+    #                 SELECT id
+    #                     , username
+    #                     , hashed_password
+    #                     , first_name
+    #                     , last_name
+    #                 FROM accounts
+    #                 """,
+    #             )
+    #             result = []
+    #             for record in db:
+    #                 account = AccountOut(
+    #                     id=record[0],
+    #                     username=record[1],
+    #                     hashed_password=record[2],
+    #                     first_name=record[3],
+    #                     last_name=record[4],
+    #                 )
+    #                 result.append(account)
+    #             return result
+
     def get(self, username: str) -> Account:
         # connect the database
         with pool.connection() as conn:
@@ -40,7 +74,7 @@ class AccountsQueries:
                     FROM accounts
                     WHERE username = %s;
                     """,
-                    [username]
+                    [username],
                 )
                 record = result.fetchone()
                 if record is None:
@@ -65,7 +99,12 @@ class AccountsQueries:
                     VALUES (%s, %s, %s, %s)
                     RETURNING id;
                     """,
-                    [account.username, hashed_password, account.first_name, account.last_name]
+                    [
+                        account.username,
+                        hashed_password,
+                        account.first_name,
+                        account.last_name,
+                    ],
                 )
                 id = result.fetchone()[0]
                 return Account(
@@ -75,7 +114,6 @@ class AccountsQueries:
                     first_name=account.first_name,
                     last_name=account.last_name,
                 )
-
 
 
 # class UserIn(BaseModel):

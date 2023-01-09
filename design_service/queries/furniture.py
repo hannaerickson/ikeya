@@ -60,7 +60,25 @@ class FurnitureRepository:
         except Exception:
             return {"message": "Could not create furniture"}
 
+    def delete(self, furniture_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM furniture
+                        WHERE id = %s;
+                        """,
+                        [furniture_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
+
     def furniture_in_to_out(self, id: int, furniture: FurnitureIn):
         old_data = furniture.dict()
         print(old_data)
         return FurnitureOut(id=id, **old_data)
+
+    
