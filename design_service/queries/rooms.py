@@ -95,6 +95,7 @@ class RoomRepository:
                     )
                     return True
         except Exception as e:
+            print(e)
             return False
 
     def room_in_to_out(self, id: int, room: RoomIn):

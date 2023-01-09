@@ -36,7 +36,7 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             name VARCHAR(100) NOT NULL,
             picture_url VARCHAR(256),
-            room_id INT NOT NULL REFERENCES rooms(id)
+            room_id INT NOT NULL REFERENCES rooms(id) ON DELETE CASCADE
         );
         """,
         ## drop the table
