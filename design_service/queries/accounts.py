@@ -1,8 +1,15 @@
+import os
+from typing import Union, List
 from pydantic import BaseModel
-from queries.pool import pool
+
+from psycopg_pool import ConnectionPool
+
+pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+
 
 class Error(BaseModel):
     message: str
+
 
 class Account(BaseModel):
     id: int
@@ -11,11 +18,13 @@ class Account(BaseModel):
     first_name: str
     last_name: str
 
+
 class AccountOut(BaseModel):
     id: int
     username: str
     first_name: str
     last_name: str
+
 
 class AccountIn(BaseModel):
     username: str
@@ -23,25 +32,27 @@ class AccountIn(BaseModel):
     first_name: str
     last_name: str
 
+
 class AccountsQueries:
-    def get(self, username: str) -> Account:
+    def get(self, username: str) -> Union[List[Account], Error]:
         # connect the database
-        with pool.connection() as conn:
-            # get a cursor (something to run SQL with)
-            with conn.cursor() as db:
-                # Run our SELECT statement
-                result = db.execute(
-                    """
-                    SELECT id
-                         , username
-                         , hashed_password
-                         , first_name
-                         , last_name
-                    FROM accounts
-                    WHERE username = %s;
-                    """,
-                    [username]
-                )
+        try:
+            with pool.connection() as conn:
+                # get a cursor (something to run SQL with)
+                with conn.cursor() as db:
+                    # Run our SELECT statement
+                    result = db.execute(
+                        """
+                        SELECT id
+                            , username
+                            , hashed_password
+                            , first_name
+                            , last_name
+                        FROM accounts
+                        WHERE username = %s;
+                        """,
+                        [username],
+                    )
                 record = result.fetchone()
                 if record is None:
                     return None
@@ -52,6 +63,9 @@ class AccountsQueries:
                     first_name=record[3],
                     last_name=record[4],
                 )
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get all users"}
 
     def create(self, account: AccountIn, hashed_password: str) -> Account:
         # connect the database
@@ -65,7 +79,12 @@ class AccountsQueries:
                     VALUES (%s, %s, %s, %s)
                     RETURNING id;
                     """,
-                    [account.username, hashed_password, account.first_name, account.last_name]
+                    [
+                        account.username,
+                        hashed_password,
+                        account.first_name,
+                        account.last_name,
+                    ],
                 )
                 id = result.fetchone()[0]
                 return Account(
@@ -77,20 +96,17 @@ class AccountsQueries:
                 )
 
 
-
 # class UserIn(BaseModel):
 #     first_name: str
 #     last_name: str
 #     username: str
 #     hashed_password: str
-
 # class UserOut(BaseModel):
 #     id: int
 #     first_name: str
 #     last_name: str
 #     username: str
 #     hashed_password: str
-
 # class UserRepository:
 #     def get(self) -> Union[List[UserOut], Error]:
 #         try:
@@ -117,7 +133,6 @@ class AccountsQueries:
 #         except Exception as e:
 #             print(e)
 #             return {"message": "Could not get all users"}
-
 #     def create(self, user: UserIn) -> UserOut:
 #         try:
 #             with pool.connection() as conn:
@@ -134,7 +149,6 @@ class AccountsQueries:
 #                     return self.user_in_to_out(id, user)
 #         except Exception:
 #             return {"message": "User could not be created"}
-
 #     def user_in_to_out(self, id: int, user: UserIn):
 #         old_data = user.dict()
 #         print(old_data)

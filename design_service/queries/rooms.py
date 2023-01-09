@@ -2,8 +2,10 @@ from pydantic import BaseModel
 from typing import Optional, List, Union
 from queries.pool import pool
 
+
 class Error(BaseModel):
     message: str
+
 
 class RoomIn(BaseModel):
     name: str
@@ -11,12 +13,14 @@ class RoomIn(BaseModel):
     picture_url: Optional[str]
     account_id: int
 
+
 class RoomOut(BaseModel):
     id: int
     name: str
     description: Optional[str]
     picture_url: Optional[str]
     account_id: int
+
 
 class RoomRepository:
     def get_all_rooms(self) -> Union[List[RoomOut], Error]:
@@ -55,7 +59,7 @@ class RoomRepository:
                         FROM rooms
                         WHERE id = %s;
                         """,
-                        [room_id]
+                        [room_id],
                     )
                     record = result.fetchone()
                     if record is None:
@@ -71,14 +75,22 @@ class RoomRepository:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        INSERT INTO rooms (name, description, picture_url, account_id)
-                        VALUES (%s, %s, %s, %s)
-                        RETURNING id;
+                        INSERT INTO rooms
+                            (name, description, picture_url, account_id)
+                        VALUES
+                            (%s, %s, %s, %s)
+                        RETURNING ID;
                         """,
-                        [room.name, room.description, room.picture_url, room.account_id]
+                        [
+                            room.name,
+                            room.description,
+                            room.picture_url,
+                            room.account_id,
+                        ],
                     )
                     id = result.fetchone()[0]
-                    return self.room_in_to_out(id, room)
+                    old_data = room.dict()
+                    return RoomOut(id=id, **old_data)
         except Exception:
             return {"message": "Could not create room"}
 
@@ -91,7 +103,7 @@ class RoomRepository:
                         DELETE FROM rooms
                         WHERE id = %s;
                         """,
-                        [room_id]
+                        [room_id],
                     )
                     return True
         except Exception as e:
