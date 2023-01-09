@@ -82,6 +82,26 @@ class RoomRepository:
         except Exception:
             return {"message": "Could not create room"}
 
+    def update(self, room_id: int, room: RoomIn) -> Union[RoomOut, Error]:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    UPDATE rooms
+                    SET name = %s
+                        , description = %s
+                        , picture_url = %s
+                    WHERE id = %s
+                    """,
+                    [
+                        room.name,
+                        room.description,
+                        room.picture_url,
+                        room_id
+                    ]
+                )
+                return self.room_in_to_out(room_id, room)
+
     def delete(self, room_id: int) -> bool:
         try:
             with pool.connection() as conn:
