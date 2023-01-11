@@ -29,3 +29,5 @@ async function login(username, password) {
   let error = await response.json();
   // DO SOMETHING WITH THE ERROR, IF YOU WANT
 }
+
+export default login

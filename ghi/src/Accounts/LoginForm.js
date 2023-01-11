@@ -1,6 +1,9 @@
 import { useState } from "react";
+import login from "./Login";
+import { useToken } from "../token";
 
-function LoginForm() {
+function LoginComponent() {
+    const [token, login] = useToken();
     const [username, setUsername] = useState('');
     const [passowrd, setPassword] = useState('');
 
@@ -14,7 +17,7 @@ function LoginForm() {
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
             <h1>Login</h1>
-            <form id="login-form">
+            <form onSubmit={login} id="login-form">
               <div className="form-floating mb-3">
                 <input onChange={handleUsernameChange} value={username} placeholder="Enter your username" required type="text" name="username" id="username" className="form-control" />
                 <label htmlFor="username">Username</label>
@@ -31,4 +34,4 @@ function LoginForm() {
     )
 }
 
-export default LoginForm;
+export default LoginComponent;

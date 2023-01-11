@@ -5,7 +5,9 @@ function RoomsList() {
 
     const fetchData = async () => {
         const url = 'http://localhost:8000/api/rooms';
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
         if (response.ok) {
             const data = await response.json();
             console.log(data)
