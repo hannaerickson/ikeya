@@ -3,7 +3,7 @@ import { useAuthContext } from "../Accounts/Auth";
 
 function RoomsList() {
   const [list, setList] = useState([]);
-  const fetchData = async () => {
+  const FetchData = async () => {
     const { token } = useAuthContext();
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/rooms/`;
     const response = await fetch(url, {
@@ -21,7 +21,7 @@ function RoomsList() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    fetchData();
+    FetchData();
   }, []);
 
   return (

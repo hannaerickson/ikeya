@@ -4,7 +4,7 @@ import SignUpForm from "./Accounts/SignUpForm";
 import Nav from "./Nav";
 import Dashboard from "./Rooms/Dashboard";
 import LoginForm from "./Accounts/LoginForm";
-import { AuthProvider, useToken } from "./Auth";
+import { AuthProvider, useToken } from "./Accounts/Auth";
 
 function GetToken() {
   // Get token from JWT cookie (if already logged in)
@@ -14,6 +14,7 @@ function GetToken() {
 
 function App() {
   return (
+<<<<<<< HEAD
       <AuthProvider>
         <GetToken />
       <BrowserRouter>
@@ -28,6 +29,19 @@ function App() {
         </div>
       </BrowserRouter>
     </AuthProvider>
+=======
+    <BrowserRouter>
+      <AuthProvider>
+        <GetToken />
+          <div className="container">
+            <Routes>
+              <Route path="/rooms" element={<RoomsList />} />
+              <Route path="/login" element={<LoginForm />} />
+            </Routes>
+          </div>
+      </AuthProvider>
+    </BrowserRouter>
+>>>>>>> main
   );
 }
 
