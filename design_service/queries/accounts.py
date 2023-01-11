@@ -1,16 +1,6 @@
-import os
-from typing import Union, List
 from pydantic import BaseModel
-<<<<<<< HEAD
 from typing import Optional, List, Union
 from queries.pool import pool
-=======
-
-from psycopg_pool import ConnectionPool
-
-pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
-
->>>>>>> mel
 
 
 class Error(BaseModel):
@@ -40,7 +30,6 @@ class AccountIn(BaseModel):
 
 
 class AccountsQueries:
-<<<<<<< HEAD
     # def get_all(self) -> Union[List[AccountOut], Error]:
     #     # connect the database
     #     with pool.connection() as conn:
@@ -87,27 +76,6 @@ class AccountsQueries:
                     """,
                     [username],
                 )
-=======
-    def get(self, username: str) -> Union[List[Account], Error]:
-        # connect the database
-        try:
-            with pool.connection() as conn:
-                # get a cursor (something to run SQL with)
-                with conn.cursor() as db:
-                    # Run our SELECT statement
-                    result = db.execute(
-                        """
-                        SELECT id
-                            , username
-                            , hashed_password
-                            , first_name
-                            , last_name
-                        FROM accounts
-                        WHERE username = %s;
-                        """,
-                        [username],
-                    )
->>>>>>> mel
                 record = result.fetchone()
                 if record is None:
                     return None
@@ -118,9 +86,6 @@ class AccountsQueries:
                     first_name=record[3],
                     last_name=record[4],
                 )
-        except Exception as e:
-            print(e)
-            return {"message": "Could not get all users"}
 
     def create(self, account: AccountIn, hashed_password: str) -> Account:
         # connect the database
@@ -156,12 +121,14 @@ class AccountsQueries:
 #     last_name: str
 #     username: str
 #     hashed_password: str
+
 # class UserOut(BaseModel):
 #     id: int
 #     first_name: str
 #     last_name: str
 #     username: str
 #     hashed_password: str
+
 # class UserRepository:
 #     def get(self) -> Union[List[UserOut], Error]:
 #         try:
@@ -188,6 +155,7 @@ class AccountsQueries:
 #         except Exception as e:
 #             print(e)
 #             return {"message": "Could not get all users"}
+
 #     def create(self, user: UserIn) -> UserOut:
 #         try:
 #             with pool.connection() as conn:
@@ -204,6 +172,7 @@ class AccountsQueries:
 #                     return self.user_in_to_out(id, user)
 #         except Exception:
 #             return {"message": "User could not be created"}
+
 #     def user_in_to_out(self, id: int, user: UserIn):
 #         old_data = user.dict()
 #         print(old_data)
