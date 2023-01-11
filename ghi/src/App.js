@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RoomsList from "./Rooms/RoomsList";
+import SignUpForm from "./Accounts/SignUpForm";
+import Nav from "./Nav";
+import Dashboard from "./Rooms/Dashboard";
 import LoginForm from "./Accounts/LoginForm";
 import { AuthProvider, useToken } from "./Auth";
 
@@ -11,14 +14,17 @@ function GetToken() {
 
 function App() {
   return (
-    <AuthProvider>
-      <GetToken />
+      <AuthProvider>
+        <GetToken />
       <BrowserRouter>
+        <Nav />
         <div className="container">
-          <Routes>
-            <Route path="/rooms" element={<RoomsList />} />
-            <Route path="/login" element={<LoginForm />} />
-          </Routes>
+            <Routes>
+              <Route path="/rooms" element={<RoomsList />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/signup" element={<SignUpForm />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Routes>
         </div>
       </BrowserRouter>
     </AuthProvider>
