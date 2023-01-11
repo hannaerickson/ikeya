@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RoomsList from "./Rooms/RoomsList";
+import LoginForm from './Accounts/LoginForm';
 // import { AuthProvider } from './token';
 
 // function GetToken() {
@@ -16,6 +17,7 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/rooms" element={<RoomsList />} />
+          <Route path="/login" element={<LoginForm />} />
         </Routes>
       </div>
     </BrowserRouter>
