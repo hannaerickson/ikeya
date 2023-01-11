@@ -7,24 +7,24 @@ volumes:
 services:
   postgres:
     build:
-        context: ./relational-data
-        dockerfile: ./Dockerfile.dev
+      context: ./relational-data
+      dockerfile: ./Dockerfile.dev
     volumes:
-        - postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
-        - POSTGRES_MULTIPLE_DATABASES=rooms
-        - POSTGRES_USER=ikeya
-        - POSTGRES_PASSWORD=test-databases
+      - POSTGRES_MULTIPLE_DATABASES=rooms
+      - POSTGRES_USER=ikeya
+      - POSTGRES_PASSWORD=test-databases
     ports:
-        - 15432:5432
+      - 15432:5432
   design_service:
     build:
-        context: ./design_service
-        dockerfile: ./Dockerfile.dev
+      context: ./design_service
+      dockerfile: ./Dockerfile.dev
     ports:
-        - "8000:8000"
+      - "8000:8000"
     volumes:
-        - ./design_service:/app
+      - ./design_service:/app
     environment:
       SIGNING_KEY: 925271b7c247713497537b286e18a4b85e9fe65b641b8317c98681d4cf9c0ecf4d60fe2bcb94fa512ce535eb777d3acffc2f38f092fe261b253c559df8e76fed
       DATABASE_URL: postgresql://ikeya:test-databases@postgres/rooms
@@ -43,4 +43,4 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
-      REACT_APP_SAMPLE_SERVICE_API_HOST: http://localhost:8000
+      REACT_APP_ACCOUNTS_HOST: http://localhost:8000
