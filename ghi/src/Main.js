@@ -12,7 +12,7 @@ export default function Main() {
         <p className=" pt-3"></p>
         <p className="h2">Fill Rooms with Furniture</p>
         <blockquote className="blockquote">
-            <p>IKEYA is a resource for finding home decor inspiration for the everyday user.</p>
+            <p>IKEYA is an online resource for finding home decor inspiration for the everyday user.</p>
         </blockquote>
       </MDBCol>
       <MDBCol md='4' className='text-center' style={{
