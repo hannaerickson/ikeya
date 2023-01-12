@@ -94,23 +94,26 @@ export function useToken() {
       body: form,
     });
     if (response.ok) {
+      console.log(form)
+      console.log(response)
       const token = await getTokenInternal();
       setToken(token);
+      console.log(token)
       return;
     }
     let error = await response.json();
     return handleErrorMessage(error);
   }
 
-  async function signup(username, password, firstName, lastName) {
+  async function signup(username, password, first_name, last_name) {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/accounts`;
     const response = await fetch(url, {
       method: "post",
       body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
         username,
         password,
+        first_name: first_name,
+        last_name: last_name,
 
       }),
       headers: {
@@ -118,6 +121,7 @@ export function useToken() {
       },
     });
     if (response.ok) {
+      console.log(response)
       await login(username, password);
     }
     return false;
