@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useToken } from "./Auth";
+import { useNavigate } from "react-router-dom";
 
 function LoginComponent() {
   const [token, login] = useToken();
   const [username, setUsername] = useState("");
-  const [passowrd, setPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -13,12 +15,18 @@ function LoginComponent() {
     setPassword(e.target.value);
   };
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    login(username, password);
+    navigate("/dashboard");
+  }
+
   return (
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Login</h1>
-          <form onSubmit={login} id="login-form">
+          <form onSubmit={handleSubmit} id="login-form">
             <div className="form-floating mb-3">
               <input
                 onChange={handleUsernameChange}
@@ -35,7 +43,7 @@ function LoginComponent() {
             <div className="form-floating mb-3">
               <input
                 onChange={handlePasswordChange}
-                value={passowrd}
+                value={password}
                 placeholder="Enter your password"
                 required
                 type="password"
