@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useToken } from "./Auth";
+
 
 function SignUpForm() {
+    const [token, signup] = useToken();
     return (
         <>
+        <br/>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signup">
-            Launch demo modal
+                Sign Up
             </button>
 
             <div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,7 +44,7 @@ function SignUpForm() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Sign Up</button>
+                    <button onClick={signup} type="button" class="btn btn-primary">Sign Up</button>
                 </div>
                 </div>
             </div>
