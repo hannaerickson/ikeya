@@ -1,8 +1,8 @@
 import React from 'react';
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import SignUpForm from '../Accounts/SignUpForm';
+import SignUpForm from './Accounts/SignUpForm';
 
-export default function Dashboard() {
+export default function Main() {
   return (
     <MDBRow>
       <MDBCol md='8' style={{

@@ -3,15 +3,14 @@ import { useAuthContext } from "../Accounts/Auth";
 
 function RoomsList() {
   const [list, setList] = useState([]);
-  const FetchData = async () => {
-    const { token } = useAuthContext();
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/rooms/`;
+  const { token } = useAuthContext();
+  const fetchData = async () => {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setList(data);
     } else {
       alert("Oops! Something went wrong");
@@ -21,7 +20,7 @@ function RoomsList() {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    FetchData();
+    fetchData();
   }, []);
 
   return (
