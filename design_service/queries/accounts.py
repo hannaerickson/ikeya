@@ -109,10 +109,10 @@ class AccountsQueries:
                 id = result.fetchone()[0]
                 return Account(
                     id=id,
-                    username=account.username,
-                    hashed_password=hashed_password,
                     first_name=account.first_name,
                     last_name=account.last_name,
+                    username=account.username,
+                    hashed_password=hashed_password,
                 )
 
 

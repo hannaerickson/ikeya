@@ -1,3 +1,9 @@
+## January 13, 2023
+Today Missy and I paired off to try to figure out the signup function. I converted it to a form identical to login instead of a modal. We are getting an 'unauthorized' error, so we think the issue is that the account is not actually creating before we pass the credentials to the login function. Will continue troubleshooting. Meanwhile Tyler and Abdoul are trying to get a filter working so that when we click onto a dashboard page, it only shows the rooms for that specific logged in user.
+
+## January 12, 2023
+We got the login function working today- after speaking briefly with Riley I discovered we still needed to write some state management functions and an onSubmit for the login function. After doing that we are able to log in on the front end and the token and various details print to our console. I did much of the same for the Signup Form as well but are still working through details to get it to work.
+
 ## January 9, 2023
 Today we worked in a group before lunch trying to each see if we could make any progress on the authenticator. I briefly dabbled with trying to get a "list accounts" functionality but was unable to make much progress. One small bug fix that Abdoul noticed was needing an 'on delete' method for our FKs in our tables. We weren't able to delete a room that had furniture, but that was a simple fix. Will likely add the same method to our rooms table, so if a user is deleted so are their rooms. However we are having issues with the accounts, so that may be a ways away in terms of functionality.
 
