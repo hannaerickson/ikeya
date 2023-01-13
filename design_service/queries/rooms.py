@@ -65,6 +65,31 @@ class RoomRepository:
             print(e)
             return {"message": "Could not get that room"}
 
+    def get_current_user_rooms(self) -> Union[List[RoomOut], Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id, name, description, picture_url, account_id
+                        FROM rooms;
+                        """
+                    )
+                    result = []
+                    for record in db:
+                        room = RoomOut(
+                            id=record[0],
+                            name=record[1],
+                            description=record[2],
+                            picture_url=record[3],
+                            account_id=record[4],
+                        )
+                        result.append(room)
+                    return result
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get rooms for that user"}
+
     def create(self, room: RoomIn) -> RoomOut:
         try:
             with pool.connection() as conn:

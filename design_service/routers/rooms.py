@@ -12,8 +12,9 @@ router = APIRouter()
 )
 def get_all_rooms(
     repo: RoomRepository = Depends(),
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
 ):
+    print(account_data["id"])
     return repo.get_all_rooms()
 
 @router.get("/api/rooms/{room_id}", response_model=Optional[RoomOut], tags=["Rooms"])
@@ -49,3 +50,13 @@ def delete_room(
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> bool:
     return repo.delete(room_id)
+
+@router.get("/api/rooms/me", response_model=Union[RoomOut, Error], tags=["Rooms"])
+def get_current_user_rooms(
+    response: Response,
+    repo: RoomRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
+) -> RoomOut:
+    room = repo.get(room.account_id == account_data["id"])
+    # if room.account_id == account_data["id"]:
+    return room

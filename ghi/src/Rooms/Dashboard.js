@@ -1,15 +1,60 @@
 import React from 'react';
+import { useState, useEffect } from "react";
+import { useAuthContext } from "../Accounts/Auth";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import SignUpForm from '../Accounts/SignUpForm';
 
 export default function Dashboard() {
+  const [list, setList] = useState([]);
+  const { token } = useAuthContext();
+  const fetchData = async () => {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
+    const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setList(data);
+    } else {
+      alert("Oops! Something went wrong");
+    }
+  };
+
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
   return (
     <MDBRow>
       <MDBCol md='8' style={{
             backgroundColor: 'white',
             height: '100vh',
         }}>
-        text
+        <table className="table table-striped">
+            <thead>
+            <tr className="table-success">
+                <th>NAME</th>
+                <th>DESCRIPTION</th>
+                <th>URL</th>
+            </tr>
+            </thead>
+            <tbody>
+            {list
+                ?.filter((room) => room.name.includes(query))
+                .map((room) => {
+                return (
+                    <tr key={room.id}>
+                    <td>{room.name}</td>
+                    <td>{room.description}</td>
+                    <td>{room.picture_url}</td>
+                    </tr>
+                );
+                })}
+            </tbody>
+      </table>
       </MDBCol>
       <MDBCol md='4' className='text-center' style={{
             backgroundColor: '#EDEDE9',
@@ -51,7 +96,6 @@ export default function Dashboard() {
                 </div>
             </div>
             </div>
-
         <br/>
         <div className="d-grid gap-2">
             <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#signup">
