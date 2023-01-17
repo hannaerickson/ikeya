@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
 function Nav() {
+
+
     return (
         <nav className="navbar navbar-expand-lg" style={{backgroundColor: '#E3D5CA'}}>
             <div className="container-fluid">
@@ -21,6 +23,9 @@ function Nav() {
                     </li>
                     <li className="nav-item">
                     <NavLink className="nav-link" to="/signup">Sign Up</NavLink>
+                    </li>
+                    <li className="nav-item">
+                    <NavLink className="nav-link" to="/logout">Logout</NavLink>
                     </li>
                 </ul>
                 </div>
