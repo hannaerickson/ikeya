@@ -94,11 +94,8 @@ export function useToken() {
       body: form,
     });
     if (response.ok) {
-      console.log(form)
-      console.log(response)
       const token = await getTokenInternal();
       setToken(token);
-      console.log(token)
       return;
     }
     let error = await response.json();
@@ -117,13 +114,12 @@ export function useToken() {
       }),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearder ${getToken()}`,
       },
     });
     if (response.ok) {
-      const data = await response.json();
-      return data
+      await login(username, password);
     }
+    return false;
   }
 
   async function update(username, password, email, firstName, lastName) {

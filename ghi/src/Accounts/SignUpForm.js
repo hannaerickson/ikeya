@@ -25,7 +25,7 @@ function SignUpForm() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const newUser = await signup(first_name, last_name, username, password);
+        signup(first_name, last_name, username, password);
         navigate("/dashboard");
     }
 

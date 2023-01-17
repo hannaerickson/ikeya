@@ -13,8 +13,23 @@ def get_all_rooms(
     repo: RoomRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    print(account_data["id"])
+    print(account_data)
     return repo.get_all_rooms()
+
+
+@router.get(
+    "/api/rooms/me", response_model=Union[List[RoomOut], Error], tags=["Rooms"]
+)
+def get_current_user_room(
+    response: Response,
+    repo: RoomRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
+) -> RoomOut:
+    print('**************', account_data)
+    room = repo.get_current_user_rooms(account_data["username"])
+    if room is None:
+        response.status_code = 404
+    return room
 
 
 @router.get(
@@ -27,21 +42,6 @@ def get_one_room(
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> RoomOut:
     room = repo.get_one_room(room_id)
-    if room is None:
-        response.status_code = 404
-    return room
-
-
-@router.get(
-    "/api/rooms/user/{username}", response_model=Union[List[RoomOut], Error], tags=["Rooms"]
-)
-def get_current_user_room(
-    username: str,
-    response: Response,
-    repo: RoomRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
-) -> RoomOut:
-    room = repo.get_current_user_rooms(username)
     if room is None:
         response.status_code = 404
     return room

@@ -12,8 +12,6 @@ function RoomsList() {
     if (response.ok) {
       const data = await response.json();
       setList(data);
-    } else {
-      alert("Oops! Something went wrong");
     }
   };
 

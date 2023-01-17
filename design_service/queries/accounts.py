@@ -52,11 +52,8 @@ class AccountsQueries:
                 )
 
     def create(self, account: AccountIn, hashed_password: str) -> Account:
-        # connect the database
         with pool.connection() as conn:
-            # get a cursor (something to run SQL with)
             with conn.cursor() as db:
-                # Run our SELECT statement
                 result = db.execute(
                     """
                     INSERT INTO accounts (username, hashed_password, first_name, last_name)
