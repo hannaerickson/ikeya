@@ -50,22 +50,25 @@ class RoomRepository:
             print(e)
             return {"message": "Could not get that room"}
 
-    def get_current_user_rooms(self, username: str) -> Optional[RoomOut]:
+    def get_current_user_rooms(self, username: str) -> Union[List[RoomOut], Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
                         SELECT id, name, description, picture_url, username
-                        FROM rooms;
+                        FROM rooms
                         WHERE username = %s;
                         """,
                         [username],
                     )
-                    record = result.fetchall()
-                    if record is None:
+                    records = db.fetchall()
+                    if not records:
                         return None
-                    return self.record_to_room_out(record)
+                    rooms = []
+                    for record in records:
+                        rooms.append(self.record_to_room_out(record))
+                    return rooms
         except Exception as e:
             print(e)
             return {"message": "Could not get rooms for that user"}
@@ -101,7 +104,7 @@ class RoomRepository:
                     SET name = %s
                         , description = %s
                         , picture_url = %s
-                    WHERE id = %s
+                    WHERE id = %s;
                     """,
                     [room.name, room.description, room.picture_url, room_id],
                 )

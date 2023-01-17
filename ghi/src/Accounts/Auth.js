@@ -117,13 +117,13 @@ export function useToken() {
       }),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearder ${getToken()}`,
       },
     });
     if (response.ok) {
-      console.log(response)
-      await login(username, password);
+      const data = await response.json();
+      return data
     }
-    return false;
   }
 
   async function update(username, password, email, firstName, lastName) {

@@ -23,7 +23,47 @@ function RoomsList() {
     fetchData();
   }, []);
 
+    const imageSize = {
+      height: 250,
+      width: 350,
+    };
+
   return (
+//     <>
+//     <div>
+//       <br />
+//       <h1>Rooms</h1>
+//       <input
+//         type="search"
+//         placeholder="Search by room name"
+//         className="form-control"
+//         onChange={(e) => setQuery(e.target.value)}
+//       />
+//       <br />
+//       <div className="row">
+//         <div className="col-sm-6">
+//           <div className="card">
+//             <div className="card-body">
+//               {list?.filter((room) => room.name.includes(query)).map((room) => {
+//                   return (
+//                     <div key={room.id}>
+//                       <h5>{room.name}</h5>
+//                       <p>{room.description}</p>
+//                     </div>
+//                   );
+//                   })}
+//               <h5 className="card-title">{room.name}</h5>
+//               <p className="card-text">{room.description}</p>
+//             </div>
+//           </div>
+//         </div>
+//         </div>
+//         </div>
+//     </>
+//   )
+// }
+
+
     <div>
       <br />
       <h1>Rooms</h1>
@@ -50,7 +90,7 @@ function RoomsList() {
                 <tr key={room.id}>
                   <td>{room.name}</td>
                   <td>{room.description}</td>
-                  <td>{room.picture_url}</td>
+                  <td><img style={imageSize} className="list-images img-thumbnail" src={room.picture_url}/></td>
                 </tr>
               );
             })}

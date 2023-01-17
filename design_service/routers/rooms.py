@@ -33,7 +33,7 @@ def get_one_room(
 
 
 @router.get(
-    "/api/rooms/{username}", response_model=Optional[RoomOut], tags=["Rooms"]
+    "/api/rooms/user/{username}", response_model=Union[List[RoomOut], Error], tags=["Rooms"]
 )
 def get_current_user_room(
     username: str,

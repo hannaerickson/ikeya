@@ -2,13 +2,13 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import SignUpForm from '../Accounts/SignUpForm';
 
-export default function Dashboard() {
+export default function Dashboard(username) {
   const [list, setList] = useState([]);
   const { token } = useAuthContext();
+
   const fetchData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/user/${username}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -20,10 +20,8 @@ export default function Dashboard() {
     }
   };
 
-  const [query, setQuery] = useState("");
-
   useEffect(() => {
-    fetchData();
+    fetchData(username);
   }, []);
 
 
@@ -43,7 +41,7 @@ export default function Dashboard() {
             </thead>
             <tbody>
             {list
-                ?.filter((room) => room.name.includes(query))
+                ?.filter((room) => room.username === username)
                 .map((room) => {
                 return (
                     <tr key={room.id}>
