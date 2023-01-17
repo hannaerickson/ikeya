@@ -6,6 +6,7 @@ import Main from "./Main";
 import Dashboard from "./Rooms/Dashboard";
 import LoginForm from "./Accounts/LoginForm";
 import { AuthProvider, useToken } from "./Accounts/Auth";
+import LogoutComponent from "./Accounts/Logout";
 
 function GetToken() {
   // Get token from JWT cookie (if already logged in)
@@ -26,6 +27,7 @@ function App() {
                   <Route path="/login" element={<LoginForm />} />
                   <Route path="/signup" element={<SignUpForm />} />
                   <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/logout" element={<LogoutComponent />} />
                 </Routes>
             </div>
         </AuthProvider>

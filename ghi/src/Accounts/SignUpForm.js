@@ -3,7 +3,7 @@ import { useToken } from "./Auth";
 import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
-    const [token, signup] = useToken();
+    const [token, , , signup] = useToken();
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
     const [username, setUsername] = useState("");
