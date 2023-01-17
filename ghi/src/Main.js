@@ -14,6 +14,14 @@ export default function Main() {
         <blockquote className="blockquote">
             <p>IKEYA is an online resource for finding home decor inspiration for the everyday user.</p>
         </blockquote>
+        <div className="card">
+            <img src="https://static01.nyt.com/images/2019/02/10/realestate/10fixtop1/oakImage-1549299950264-videoSixteenByNineJumbo1600.jpg" className="card-img-top" alt="Sample Room"/>
+            <div className="card-body">
+                <h5 className="card-title">Living Room</h5>
+                <p className="card-text">A modern living room perfect for entertaining friends, reading or watching television.</p>
+                <a href="..." className="btn btn-primary">Read More</a>
+            </div>
+        </div>
       </MDBCol>
       <MDBCol md='4' className='text-center' style={{
             backgroundColor: '#EDEDE9',
