@@ -3,7 +3,6 @@ from queries.rooms import RoomIn, RoomOut, RoomRepository, Error
 from typing import Union, List, Optional
 from authenticator import authenticator
 
-
 router = APIRouter()
 
 
@@ -17,7 +16,10 @@ def get_all_rooms(
     print(account_data["id"])
     return repo.get_all_rooms()
 
-@router.get("/api/rooms/{room_id}", response_model=Optional[RoomOut], tags=["Rooms"])
+
+@router.get(
+    "/api/rooms/{room_id}", response_model=Optional[RoomOut], tags=["Rooms"]
+)
 def get_one_room(
     room_id: int,
     response: Response,
@@ -29,19 +31,45 @@ def get_one_room(
         response.status_code = 404
     return room
 
-@router.post("/api/rooms", response_model=Union[RoomOut, Error], tags=["Rooms"])
-def create_room(room: RoomIn, response: Response, repo: RoomRepository = Depends()):
+
+@router.get(
+    "/api/rooms/{username}", response_model=Optional[RoomOut], tags=["Rooms"]
+)
+def get_current_user_room(
+    username: str,
+    response: Response,
+    repo: RoomRepository = Depends(),
+    account_data: dict = Depends(authenticator.get_current_account_data),
+) -> RoomOut:
+    room = repo.get_current_user_rooms(username)
+    if room is None:
+        response.status_code = 404
+    return room
+
+
+@router.post(
+    "/api/rooms", response_model=Union[RoomOut, Error], tags=["Rooms"]
+)
+def create_room(
+    room: RoomIn, response: Response, repo: RoomRepository = Depends()
+):
     if room is None:
         response.status_code = 400
     return repo.create(room)
 
-@router.put("/api/rooms/{room_id}", response_model=Union[RoomOut, Error], tags=["Rooms"])
+
+@router.put(
+    "/api/rooms/{room_id}",
+    response_model=Union[RoomOut, Error],
+    tags=["Rooms"],
+)
 def update_room(
     room_id: int,
     room: RoomIn,
     repo: RoomRepository = Depends(),
 ) -> Union[RoomOut, Error]:
     return repo.update(room_id, room)
+
 
 @router.delete("/api/rooms/{room_id}", response_model=bool, tags=["Rooms"])
 def delete_room(
@@ -50,13 +78,3 @@ def delete_room(
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> bool:
     return repo.delete(room_id)
-
-@router.get("/api/rooms/me", response_model=Union[RoomOut, Error], tags=["Rooms"])
-def get_current_user_rooms(
-    response: Response,
-    repo: RoomRepository = Depends(),
-    account_data: dict = Depends(authenticator.get_current_account_data),
-) -> RoomOut:
-    room = repo.get(room.account_id == account_data["id"])
-    # if room.account_id == account_data["id"]:
-    return room

@@ -1,20 +1,7 @@
-from pydantic import BaseModel
-from typing import Optional, List, Union
+from typing import List, Union
 from queries.pool import pool
+from models.models import Error, FurnitureIn, FurnitureOut
 
-class Error(BaseModel):
-    message: str
-
-class FurnitureIn(BaseModel):
-    name: str
-    picture_url: Optional[str]
-    room_id: int
-
-class FurnitureOut(BaseModel):
-    id: int
-    name: str
-    picture_url: Optional[str]
-    room_id: int
 
 class FurnitureRepository:
     def get_all_furniture(self, room_id) -> Union[List[FurnitureOut], Error]:
@@ -28,7 +15,7 @@ class FurnitureRepository:
                         WHERE room_id = %s
                         ORDER BY id;
                         """,
-                        [room_id]
+                        [room_id],
                     )
                     result = []
                     for record in db:
@@ -43,6 +30,7 @@ class FurnitureRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not get all furniture"}
+
     def create(self, furniture: FurnitureIn) -> FurnitureOut:
         try:
             with pool.connection() as conn:
@@ -53,7 +41,11 @@ class FurnitureRepository:
                         VALUES (%s, %s, %s)
                         RETURNING id;
                         """,
-                        [furniture.name, furniture.picture_url, furniture.room_id]
+                        [
+                            furniture.name,
+                            furniture.picture_url,
+                            furniture.room_id,
+                        ],
                     )
                     id = result.fetchone()[0]
                     return self.furniture_in_to_out(id, furniture)
@@ -69,7 +61,7 @@ class FurnitureRepository:
                         DELETE FROM furniture
                         WHERE id = %s;
                         """,
-                        [furniture_id]
+                        [furniture_id],
                     )
                     return True
         except Exception as e:
@@ -80,5 +72,3 @@ class FurnitureRepository:
         old_data = furniture.dict()
         print(old_data)
         return FurnitureOut(id=id, **old_data)
-
-    

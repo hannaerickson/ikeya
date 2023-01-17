@@ -5,7 +5,7 @@ from queries.furniture import (
     FurnitureRepository,
     Error,
 )
-from typing import Union, List, Optional
+from typing import Union, List
 from authenticator import authenticator
 
 router = APIRouter()

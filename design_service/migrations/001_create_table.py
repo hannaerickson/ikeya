@@ -2,8 +2,8 @@ steps = [
     [
         """
         CREATE TABLE accounts (
-            id SERIAL PRIMARY KEY NOT NULL,
-            username VARCHAR(200) NOT NULL,
+            id SERIAL NOT NULL,
+            username VARCHAR(200) PRIMARY KEY NOT NULL,
             hashed_password VARCHAR(200) NOT NULL,
             first_name VARCHAR(250) NOT NULL,
             last_name VARCHAR(250) NOT NULL
@@ -11,7 +11,7 @@ steps = [
         """,
         """
         DROP TABLE accounts;
-        """
+        """,
     ],
     [
         ## create the table
@@ -21,13 +21,13 @@ steps = [
             name VARCHAR(100) NOT NULL,
             description TEXT,
             picture_url VARCHAR(256),
-            account_id INT NOT NULL REFERENCES accounts(id)
+            username VARCHAR(200) NOT NULL REFERENCES accounts(username)
         );
         """,
         ## drop the table
         """
         DROP TABLE rooms;
-        """
+        """,
     ],
     [
         ## create the table
@@ -42,7 +42,6 @@ steps = [
         ## drop the table
         """
         DROP TABLE furniture;
-        """
-    ]
-
+        """,
+    ],
 ]

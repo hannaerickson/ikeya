@@ -6,26 +6,19 @@ from fastapi import (
     HTTPException,
     status,
 )
-from typing import Union, List
-from queries.accounts import AccountIn, AccountOut, AccountsQueries
-from jwtdown_fastapi.authentication import Token
+from models.models import (
+    AccountOut,
+    AccountIn,
+    AccountToken,
+    HttpError,
+    AccountForm,
+    AccountList,
+)
+from queries.accounts import AccountsQueries
 from authenticator import authenticator
-from pydantic import BaseModel
+
 
 router = APIRouter()
-
-
-class AccountForm(BaseModel):
-    username: str
-    password: str
-
-
-class AccountToken(Token):
-    account: AccountOut
-
-
-class HttpError(BaseModel):
-    detail: str
 
 
 @router.get("/token", response_model=AccountToken | None)
@@ -41,7 +34,29 @@ async def get_token(
         }
 
 
-@router.post("/api/accounts", response_model=AccountToken | HttpError)
+@router.get("/api/accounts", response_model=AccountList, tags=["Accounts"])
+def list_accounts(
+    repo: AccountsQueries = Depends(),
+):
+    return AccountList(accounts=repo.get_all_accounts())
+
+
+@router.get(
+    "/api/accounts/{username}", response_model=AccountOut, tags=["Accounts"]
+)
+def show_one_account(
+    username: str, response: Response, repo: AccountsQueries = Depends()
+):  # dependency injection, will make sense in unit testing
+    account = repo.get_user_by_id(username)
+    if account is None:
+        # set a 404
+        response.status_code = 404
+    return account
+
+
+@router.post(
+    "/api/accounts", response_model=AccountToken | HttpError, tags=["Accounts"]
+)
 async def create_account(
     info: AccountIn,
     request: Request,
