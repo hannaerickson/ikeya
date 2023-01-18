@@ -10,14 +10,7 @@ import Modal from "react-bootstrap/Modal";
 
 export default function RoomView() {
   const [furniture, setFurniture] = useState("");
-  const [furniture_name, setFurnitureName] = useState("");
-  const [furniture_picture, setFurniturePictureUrl] = useState("");
-
-  const [room_id, setRoomId] = useState("");
-  const [room_name, setRoomName] = useState("");
-  const [room_description, setRoomDescription] = useState("");
-  const [room_picture, setRoomPictureUrl] = useState("");
-
+  const [room, setRoom] = useState("");
   const [show, setShow] = useState(false);
 
   const { token } = useAuthContext();
@@ -30,8 +23,6 @@ export default function RoomView() {
     if (response.ok) {
       const data = await response.json();
       setFurniture(data);
-      setFurnitureName(data[1]["name"]);
-      setFurniturePictureUrl(data[2]["picture_url"]);
     }
   };
 
@@ -43,10 +34,7 @@ export default function RoomView() {
     });
     if (response.ok) {
       const data = await response.json();
-      setRoomId(data[0]["id"]);
-      setRoomName(data[1]["name"]);
-      setRoomDescription(data[2]["description"]);
-      setRoomPictureUrl(data[3]["picture_url"]);
+      setRoom(data);
     }
   };
 
