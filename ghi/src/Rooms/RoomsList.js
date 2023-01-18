@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 
-function RoomsList() {
+function RoomsList(props) {
   const [list, setList] = useState([]);
   const { token } = useAuthContext();
+
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
     const response = await fetch(url, {
@@ -89,6 +90,7 @@ function RoomsList() {
                   <td>{room.name}</td>
                   <td>{room.description}</td>
                   <td><img style={imageSize} className="list-images img-thumbnail" src={room.picture_url}/></td>
+                  <td><button onClick={() => props.setSelectedRoomId(room.id)}>Furniture</button></td>
                 </tr>
               );
             })}
