@@ -13,7 +13,6 @@ def get_all_rooms(
     repo: RoomRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ):
-    print(account_data)
     return repo.get_all_rooms()
 
 
@@ -25,7 +24,6 @@ def get_current_user_room(
     repo: RoomRepository = Depends(),
     account_data: dict = Depends(authenticator.get_current_account_data),
 ) -> RoomOut:
-    print('**************', account_data)
     room = repo.get_current_user_rooms(account_data["username"])
     if room is None:
         response.status_code = 404

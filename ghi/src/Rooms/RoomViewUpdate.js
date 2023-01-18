@@ -7,54 +7,47 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useParams } from "react-router-dom";
 
 export default function RoomView() {
-  const [furniture, setFurniture] = useState("");
-  const [furniture_name, setFurnitureName] = useState("");
-  const [furniture_picture, setFurniturePictureUrl] = useState("");
-
-  const [room_id, setRoomId] = useState("");
-  const [room_name, setRoomName] = useState("");
-  const [room_description, setRoomDescription] = useState("");
-  const [room_picture, setRoomPictureUrl] = useState("");
-
+  const [furniture, setFurniture] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const { room_id } = useParams();
+  const [roomId, setRoomId] = useState(room_id);
   const [show, setShow] = useState(false);
-
   const { token } = useAuthContext();
+  const [name, setName] = useState("");
+  const [pictureUrl, setPictureUrl] = useState("");
 
   const fetchFurnitureData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}/furniture`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    if (response.ok) {
-      const data = await response.json();
-      setFurniture(data);
-      setFurnitureName(data[1]["name"]);
-      setFurniturePictureUrl(data[2]["picture_url"]);
-    }
+    const data = await response.json();
+    setFurniture(data.furniture);
   };
 
   const fetchRoomData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
     const response = await fetch(url, {
-      "Content-Type": "application/json",
       headers: { Authorization: `Bearer ${token}` },
     });
-    if (response.ok) {
-      const data = await response.json();
-      setRoomId(data[0]["id"]);
-      setRoomName(data[1]["name"]);
-      setRoomDescription(data[2]["description"]);
-      setRoomPictureUrl(data[3]["picture_url"]);
-    }
+    const data = await response.json();
+    setRooms(data);
   };
+
+  useEffect(() => {
+    fetchFurnitureData();
+    fetchRoomData();
+    setRoomId(room_id);
+  }, [roomId]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
-      name: furniture_name,
-      picture_url: furniture_picture,
+      name: name,
+      picture_url: pictureUrl,
       room_id: room_id,
     };
 
@@ -78,7 +71,7 @@ export default function RoomView() {
 
   const handleDelete = async (furniture_id) => {
     const resp = await fetch(
-      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}/furniture/${furniture_id}`,
+      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/${furniture_id}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
@@ -92,48 +85,36 @@ export default function RoomView() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {
-    fetchRoomData();
-    fetchFurnitureData();
-  }, [token]);
-
   return (
     <>
       <br></br>
-      <h1>room.name</h1>
-      <h2>room.description</h2>
+      <h1>{rooms.name}</h1>
+      <h2>{rooms.description}</h2>
       <br></br>
       <br></br>
       <Container>
         <Row>
-          {furniture.length === 0 ? (
-            <div>No Furniture Found</div>
-          ) : (
-            furniture.map((furniture) => (
-              <Col key={furniture.id}>
-                <Card className="bg-black text-white">
-                  <Card.Img variant="top" src={furniture.picture_url} />
-                  <Card.Body>
-                    <div className="text-center">
-                      <Card.Text className="text-right">
-                        {furniture_name}{" "}
-                      </Card.Text>
-
-                      <Button
-                        variant="outline-danger"
-                        className="text-right"
-                        onClick={() => {
-                          handleDelete(furniture.id);
-                        }}
-                      >
-                        Delete from room
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))
-          )}
+          {furniture.map((item) => (
+            <Col key={item.id}>
+              <Card className="bg-black text-white">
+                <Card.Img variant="top" src={item.picture_url} />
+                <Card.Body>
+                  <div className="text-center">
+                    <Card.Text className="text-right">{item.name} </Card.Text>
+                    <Button
+                      variant="outline-danger"
+                      className="text-right"
+                      onClick={() => {
+                        handleDelete(item.id);
+                      }}
+                    >
+                      Delete from room
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
         </Row>
         <br></br>
         <br></br>
@@ -163,14 +144,14 @@ export default function RoomView() {
               <input
                 type="text"
                 placeholder="Name"
-                value={furniture_name}
-                onChange={(e) => setFurnitureName(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
               <input
                 type="text"
                 placeholder="Picture URL"
-                value={furniture_picture}
-                onChange={(e) => setFurniturePictureUrl(e.target.value)}
+                value={pictureUrl}
+                onChange={(e) => setPictureUrl(e.target.value)}
               />
               <button type="submit">Submit</button>
             </form>
