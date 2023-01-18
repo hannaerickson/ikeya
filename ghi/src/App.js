@@ -7,7 +7,7 @@ import Dashboard from "./Rooms/Dashboard";
 import LoginForm from "./Accounts/LoginForm";
 import { AuthProvider, useToken } from "./Accounts/Auth";
 import LogoutComponent from "./Accounts/Logout";
-import RoomsView from "./Rooms/RoomsView";
+import RoomView from "./Rooms/RoomsView";
 import FurnitureList from "./Furniture/FurnitureList";
 
 function GetToken() {
@@ -31,7 +31,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/logout" element={<LogoutComponent />} />
             <Route path="/rooms/furniture" element={<FurnitureList />} />
-            <Route path="/rooms/:room_id" element={<RoomsView />} />
+            <Route path="/rooms/:room_id" element={<RoomView />} />
           </Routes>
         </div>
       </AuthProvider>
