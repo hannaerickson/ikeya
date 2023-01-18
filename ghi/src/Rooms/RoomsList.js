@@ -78,6 +78,7 @@ function RoomsList() {
             <th>NAME</th>
             <th>DESCRIPTION</th>
             <th>URL</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +90,7 @@ function RoomsList() {
                   <td>{room.name}</td>
                   <td>{room.description}</td>
                   <td><img style={imageSize} className="list-images img-thumbnail" src={room.picture_url}/></td>
+                  <td><button className="btn btn-success">Delete</button></td>
                 </tr>
               );
             })}
