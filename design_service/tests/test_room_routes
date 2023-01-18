@@ -1,0 +1,24 @@
+import json
+from fastapi.testclient import TestClient
+from queries.rooms import RoomRepository, RoomIn
+from main import app
+from models.models import RoomOut
+
+
+client = TestClient(app=app)
+
+class RoomRepositoryMock:
+    def create_room(self, room: RoomIn) -> RoomOut:
+        room_dict = room.dict()
+        return RoomOut(id= 99, **room_dict)
+
+
+
+
+def test_create_room():
+    app.dependency_overrides[RoomRepository] = RoomRepositoryMock
+    room_body = {"name": "Test", "description": "Test", "picture_url": "test.jpg", "username": "test"}
+    response = client.post("/api/rooms", json.dumps(room_body))
+    assert response.status_code == 200
+    assert response.json()["id"] == 99
+    app.dependency_overrides = {}

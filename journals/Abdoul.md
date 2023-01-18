@@ -9,3 +9,11 @@ Were making authentication tokens for our login and logout routes, which was a r
 
 #### January 9th:
 Fixed that pesky delete function today. Just had to add ON DELETE CASCADE to our table file, as we had a foreign key which was affecting our delete function.
+### January 10th:
+Trying to get the login function working, been a real pain the in the butt but we've made some good progress.
+
+#### January 13th:
+Tyler and I are trying to get the user logged-in view on the front end side of things working today, but we're struggling on where we would need to put an if statement for this code so we can filter the users views from each other.
+
+### January 17th:
+Hanna and I were able to get the route for our retrieving all the rooms from a single user rather than all the users working today. Just had to change the name of the route!
