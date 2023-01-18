@@ -58,9 +58,8 @@ class RoomRepository:
                     return None
                 rooms = []
                 for record in records:
-                    print(record)
+                    print("*********", record)
                     rooms.append(self.record_to_room_out(record))
-                print(rooms)
                 return rooms
 
     def create(self, room: RoomIn) -> RoomOut:

@@ -2,13 +2,11 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [list, setList] = useState([]);
   const [username, setUsername] = useState("");
   const { token } = useAuthContext();
-  const [selectedRoomId, setSelectedRoomId] = useState(null);
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -18,7 +16,6 @@ function Dashboard() {
     if (response.ok) {
       const data = await response.json();
       setList(data);
-      setSelectedRoomId(data[0]["id"])
       setUsername(data[0]["username"])
     }
   };
@@ -43,6 +40,7 @@ function Dashboard() {
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>URL</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +50,7 @@ function Dashboard() {
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.picture_url}</td>
-                    <td><button onClick={() => setSelectedRoomId(room.id)}>Furniture</button></td>
+                    <td><button className="btn btn-success">Furniture</button></td>
                     </tr>
                 );
                 })}
