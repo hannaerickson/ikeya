@@ -23,6 +23,15 @@ function Dashboard() {
     }
   };
 
+  const deletion = async (id) => {
+  const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`
+  const resp = await fetch(urlDelete, {
+      headers: { Authorization: `Bearer ${token}` },
+      method: "DELETE" });
+      const data = await resp.json();
+      fetchData();
+    };
+
   useEffect(() => {
     fetchData();
   }, [token]);
@@ -43,6 +52,8 @@ function Dashboard() {
                 <th>NAME</th>
                 <th>DESCRIPTION</th>
                 <th>URL</th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -52,7 +63,8 @@ function Dashboard() {
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.picture_url}</td>
-                    <td><button onClick={() => setSelectedRoomId(room.id)}>Furniture</button></td>
+                    <td><button onClick={() => setSelectedRoomId(room.id)} className="btn btn-secondary">Furniture</button></td>
+                    <td><button onClick={()=> deletion(room.id)} className="btn btn-secondary">Delete</button></td>
                     </tr>
                 );
                 })}
