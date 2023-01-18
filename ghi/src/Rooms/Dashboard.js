@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
@@ -7,6 +7,7 @@ function Dashboard() {
   const [list, setList] = useState([]);
   const [username, setUsername] = useState("");
   const { token } = useAuthContext();
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -20,30 +21,43 @@ function Dashboard() {
     }
   };
 
+  const deletion = async (id) => {
+    const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
+    const resp = await fetch(urlDelete, {
+      headers: { Authorization: `Bearer ${token}` },
+      method: "DELETE",
+    });
+    const data = await resp.json();
+    fetchData();
+  };
+
   useEffect(() => {
     fetchData();
   }, [token]);
 
-
   return (
     <MDBRow>
-      <MDBCol md='8' style={{
-            backgroundColor: 'white',
-            height: '100vh',
-        }}>
-        <br/>
+      <MDBCol
+        md="8"
+        style={{
+          backgroundColor: "white",
+          height: "100vh",
+        }}
+      >
+        <br />
         <h1>My Rooms</h1>
-        <br/>
+        <br />
         <table className="table table-striped">
-            <thead>
+          <thead>
             <tr className="table-success">
-                <th>NAME</th>
-                <th>DESCRIPTION</th>
-                <th>URL</th>
-                <th></th>
+              <th>NAME</th>
+              <th>DESCRIPTION</th>
+              <th>URL</th>
+              <th></th>
+              <th></th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             {list.map((room) => {
                 return (
                     <tr key={room.id}>
@@ -57,9 +71,14 @@ function Dashboard() {
             </tbody>
       </table>
       </MDBCol>
-      <MDBCol md='4' className='text-center' style={{
-            backgroundColor: '#EDEDE9',
-            height: '100vh',}}>
+      <MDBCol
+        md="4"
+        className="text-center"
+        style={{
+          backgroundColor: "#EDEDE9",
+          height: "100vh",
+        }}
+      >
         <br />
         <h1>Welcome, {username}</h1>
       </MDBCol>
