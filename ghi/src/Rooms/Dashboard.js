@@ -63,7 +63,7 @@ function Dashboard() {
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.picture_url}</td>
-                    <td><button onClick={() => setSelectedRoomId(room.id)}>Furniture</button></td>
+                    <td><button onClick={() => setSelectedRoomId(room.id)} className="btn btn-secondary">Furniture</button></td>
                     <td><button onClick={()=> deletion(room.id)} className="btn btn-secondary">Delete</button></td>
                     </tr>
                 );
