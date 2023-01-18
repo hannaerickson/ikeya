@@ -10,7 +10,14 @@ import Modal from "react-bootstrap/Modal";
 
 export default function RoomView() {
   const [furniture, setFurniture] = useState("");
+  const [furniture_name, setFurnitureName] = useState("");
+  const [furniture_picture, setFurniturePictureUrl] = useState("");
+
   const [room, setRoom] = useState("");
+  const [room_id, setRoomId] = useState("");
+  const [room_name, setRoomName] = useState("");
+  const [room_description, setRoomDescription] = useState("");
+
   const [show, setShow] = useState(false);
 
   const { token } = useAuthContext();
