@@ -19,6 +19,9 @@ function Nav() {
                     <NavLink className="nav-link" to="/rooms">All Rooms</NavLink>
                     </li>
                     <li className="nav-item">
+                    <NavLink className="nav-link" to="/furniture">Create Furniture</NavLink>
+                    </li>
+                    <li className="nav-item">
                     <NavLink className="nav-link" to="/logout">Logout</NavLink>
                     </li>
                 </ul>

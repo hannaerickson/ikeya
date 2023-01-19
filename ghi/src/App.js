@@ -8,6 +8,7 @@ import LogoutComponent from "./Accounts/Logout";
 import RoomView from "./Rooms/RoomsView";
 import FurnitureList from "./Furniture/FurnitureList";
 import RoomsForm from "./Rooms/RoomsForm";
+import FurnitureForm from "./Furniture/FurnitureForm";
 
 function GetToken() {
   // Get token from JWT cookie (if already logged in)
@@ -27,9 +28,9 @@ function App() {
             <Route path="/rooms" element={<RoomsList />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/logout" element={<LogoutComponent />} />
-            <Route path="/rooms/furniture" element={<FurnitureList />} />
             <Route path="/rooms/:room_id" element={<RoomView />} />
             <Route path="/roomsform" element={<RoomsForm />} />
+            <Route path="/furniture" element={<FurnitureForm />} />
           </Routes>
         </div>
       </AuthProvider>
