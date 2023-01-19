@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Dashboard() {
   const [list, setList] = useState([]);
@@ -31,7 +31,6 @@ function Dashboard() {
     })
     if (response.ok) {
       const accountData = await response.json();
-      console.log("****", accountData)
     }
   };
 
@@ -50,6 +49,7 @@ function Dashboard() {
     const url = `${process.env.PUBLIC_URL}/rooms/${id}`;
     navigate(url);
   }
+
 
   useEffect(() => {
     fetchData();
@@ -85,7 +85,7 @@ function Dashboard() {
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.picture_url}</td>
-                    <td><button onClick={() => redirect(room.id)} className="btn btn-success">Furniture</button></td>
+                    <td><Link to="/rooms/furniture" state={room.id}><button className="btn btn-success">Furniture</button></Link></td>
                     <td><button onClick={() => deletion(room.id)} className="btn btn-danger">Delete</button></td>
                     </tr>
                 );
