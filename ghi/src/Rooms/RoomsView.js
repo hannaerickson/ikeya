@@ -7,8 +7,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useLocation } from "react-router-dom";
 
 export default function RoomView() {
+  const location = useLocation();
+  const roomData = location.state;
+
   const [furniture, setFurniture] = useState("");
   const [furniture_name, setFurnitureName] = useState("");
   const [furniture_picture, setFurniturePictureUrl] = useState("");
@@ -23,7 +27,7 @@ export default function RoomView() {
   const { token } = useAuthContext();
 
   const fetchFurnitureData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}/furniture`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}/furniture`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -34,7 +38,7 @@ export default function RoomView() {
   };
 
   const fetchRoomData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}`;
     const response = await fetch(url, {
       "Content-Type": "application/json",
       headers: { Authorization: `Bearer ${token}` },
@@ -73,7 +77,7 @@ export default function RoomView() {
 
   const handleDelete = async (furniture_id) => {
     const resp = await fetch(
-      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}/furniture/${furniture_id}`,
+      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}/furniture/${furniture_id}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
