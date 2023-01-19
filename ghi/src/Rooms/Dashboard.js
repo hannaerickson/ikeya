@@ -2,12 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [list, setList] = useState([]);
   const [username, setUsername] = useState("");
   const { token } = useAuthContext();
   const [selectedRoomId, setSelectedRoomId] = useState(null);
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -21,6 +23,18 @@ function Dashboard() {
     }
   };
 
+  const fetchUserData = async () => {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
+    const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}` },
+      method: "GET",
+    })
+    if (response.ok) {
+      const accountData = await response.json();
+      console.log("****", accountData)
+    }
+  };
+
   const deletion = async (id) => {
     const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const resp = await fetch(urlDelete, {
@@ -31,8 +45,15 @@ function Dashboard() {
     fetchData();
   };
 
+  const redirect = async (id) => {
+    setSelectedRoomId(id);
+    const url = `${process.env.PUBLIC_URL}/rooms/${id}`;
+    navigate(url);
+  }
+
   useEffect(() => {
     fetchData();
+    fetchUserData();
   }, [token]);
 
   return (
@@ -64,7 +85,8 @@ function Dashboard() {
                     <td>{room.name}</td>
                     <td>{room.description}</td>
                     <td>{room.picture_url}</td>
-                    <td><button className="btn btn-success">Furniture</button></td>
+                    <td><button onClick={() => redirect(room.id)} className="btn btn-success">Furniture</button></td>
+                    <td><button onClick={() => deletion(room.id)} className="btn btn-danger">Delete</button></td>
                     </tr>
                 );
                 })}
