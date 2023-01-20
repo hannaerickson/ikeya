@@ -21,6 +21,7 @@ export default function RoomView() {
   const [rooms, setRooms] = useState([]);
   const [show, setShow] = useState(false);
   const { handleSubmit } = useState();
+  const [username, setUserName] = useState(null);
 
   const getData = async () => {
     const response = await fetch(
@@ -63,10 +64,25 @@ export default function RoomView() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const fetchConfig = {
+        method: "GET",
+        credentials: "include",
+    }
+
   useEffect(() => {
     getData();
     getRoomData();
-  }, [token]);
+    if (username === null ) {
+      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
+        .then((res) => res.json())
+        .then((res) => setUserName(res.account.username))
+          }
+
+  }, [token, username]);
+
+  // console.log("Username for Current Room:", rooms.username)
+  // console.log("Username for Current User:", username)
+    
 
   return (
     <>
