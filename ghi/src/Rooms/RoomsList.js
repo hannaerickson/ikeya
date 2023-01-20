@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Styling
 import Card from "react-bootstrap/Card";
@@ -11,8 +11,10 @@ import Button from "react-bootstrap/Button";
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 function RoomsList() {
-  const [list, setList] = useState([]);
   const { token } = useAuthContext();
+  const [list, setList] = useState([]);
+  const [query, setQuery] = useState("");
+  const [username, setUsername] = useState(null);
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
@@ -25,28 +27,19 @@ function RoomsList() {
     }
   };
 
-  const [query, setQuery] = useState("");
-
   useEffect(() => {
+    if (username === null) {
+      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {method: "GET", credentials: "include"})
+        .then((res) => res.json())
+        .then((res) => setUsername(res.account.username));
+    }
     fetchData();
-  }, [token]);
-
-    const imageSize = {
-      height: 250,
-      width: 350,
-    };
-
+  }, [token, username]);
 
   return (
-    <div>
+    <MDBRow>
+      <MDBCol md="8" style={{backgroundColor: "white", height: "100vh",}}>
       <br />
-      <h1>Rooms</h1>
-      <input
-        type="search"
-        placeholder="Search by room name"
-        className="form-control"
-        onChange={(e) => setQuery(e.target.value)}
-      />
       <br />
       <Container>
         <Row className="mb-3">
@@ -82,19 +75,22 @@ function RoomsList() {
           })}
         </Row>
       </Container>
-      <div style={{ position: "absolute", right: 0, top: 30, zIndex: 2 }}>
-        <MDBCol
-          md="4"
-          className="text-center"
-          style={{
-            backgroundColor: "#EDEDE9",
-            height: "100vh",
-          }}
-        >
-          <br />
-        </MDBCol>
-      </div>
-    </div>
+    </MDBCol>
+    <MDBCol md="4" className="text-center" style={{backgroundColor: "#EDEDE9", height: "100vh"}}>
+      <br/>
+      <h1>Welcome, {username}</h1>
+      <h4>You are currently viewing all rooms.</h4>
+      <br/>
+      <input type="search" placeholder="Search by room name" className="form-control"
+        onChange={(e) => setQuery(e.target.value)}/>
+      <br/>
+      <div className="d-grid gap-2"><button className="btn btn-secondary btn-lg">
+        <Link to="/dashboard" style={{textDecoration: "none", color: "white"}}>
+        Back to Dashboard
+        </Link>
+      </button></div>
+    </MDBCol>
+  </MDBRow>
   );
 }
 

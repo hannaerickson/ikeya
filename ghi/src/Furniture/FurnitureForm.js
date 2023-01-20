@@ -119,8 +119,8 @@ const FurnitureForm = () => {
                 })}
               </select>
             </div>
-            <button className="btn btn-outline-success d-block mx-auto">
-              Create
+            <button className="btn btn-outline-info d-block mx-auto">
+              Create!
             </button>
           </form>
         </div>
