@@ -7,42 +7,37 @@ function RoomsForm() {
     const [name, setName] = useState(""); 
     const [description, setDescription] = useState(""); 
     const [picture_url, setPictureUrl] = useState(""); 
-    const [username, setUserName] = useState(""); 
-
-    useEffect(() => {
-    fetchData();
-    setUserName("tbyrd");
-    }, []);
+    const [username, setUserName] = useState(null); 
 
 
-    const fetchData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (response.ok) {
-      const accountData = await response.json();
-    //   setUserName(accountData[0].username);
-    //   console.log("Account Data", accountData);
+    const fetchConfig = { 
+        method: "GET",
+        credentials: "include",
     }
-  };
+    useEffect(() => {
+        if (username === null ) {
+        fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
+            .then((res) => res.json())
+            .then((res) => setUserName(res.account.username))
+          }  
+    }, [username]);
 
-    const submit = async (name, description, picture_url, username) => {
-        // e.preventDefault(); Prevents the page from refreshing on submit
+    async function handleSubmit(e) {
+        e.preventDefault(); 
+        const room = { name, description, picture_url, username };
         const urlSubmit = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
-        console.log(name, description, picture_url, username);
-        const resp = await fetch(urlSubmit, {
-            headers: { Authorization: `Bearer ${token}` },
+        const response = await fetch(urlSubmit, {
             method: "POST",
-            body: JSON.stringify({
-                name: name,
-                description: description,
-                picture_url: picture_url,
-                username: username
-            }),
+            body: JSON.stringify(room),
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         });
-        const data = await resp.json();
-        fetchData();
+        if (response.ok){
+            const data = await response.json();
+            setName("");
+            setDescription("");
+            setPictureUrl("");
+        }
+
     };
 
     return (
@@ -55,10 +50,6 @@ function RoomsForm() {
                                 <input placeholder="name" required type="text" name="name" id="name" value = { name } onChange={(e) => setName(e.target.value)} className="form-control" />
                                 <label htmlFor="name">Room Name</label>
                             </div>
-                            {/* <div className="form-floating mb-3">
-                                <input placeholder="description" required type="textarea" rows="5" name="description" id="description" className="form-control" />
-                                <label htmlFor="name">Description</label>
-                            </div> */}
                             <div className="form-group mb-3">
                                 <label htmlFor="Description">Description:</label>
                                 <textarea className="form-control" placeholder="Description" required type="textarea" rows="4" name="description" id="description" value = { description } onChange={(e) => setDescription(e.target.value)}></textarea>
@@ -67,7 +58,7 @@ function RoomsForm() {
                                 <input placeholder="picture_url" required type="url" name="picture_url" id="picture_url" value = { picture_url } onChange={(e) => setPictureUrl(e.target.value)} className="form-control" />
                                 <label htmlFor="name">Picture URL</label>
                             </div>
-                            <button onClick={()=> submit()} className="btn btn-primary">Submit</button>
+                            <button onClick={ handleSubmit } className="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div >
