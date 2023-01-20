@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
+import { useNavigate, Link } from "react-router-dom";
+
+//Styling
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 function RoomsList() {
   const [list, setList] = useState([]);
@@ -39,31 +48,52 @@ function RoomsList() {
         onChange={(e) => setQuery(e.target.value)}
       />
       <br />
-      <table className="table table-striped">
-        <thead>
-          <tr className="table-success">
-            <th>NAME</th>
-            <th>DESCRIPTION</th>
-            <th>URL</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
+      <Container>
+        <Row className="mb-3">
           {list
-            ?.filter((room) => room.name.includes(query))
+            ?.filter((room) => room.name.toLowerCase().includes(query.toLowerCase()))
             .map((room) => {
-              return (
-                <tr key={room.id}>
-                  <td>{room.name}</td>
-                  <td>{room.description}</td>
-                  <td><img style={imageSize} className="list-images img-thumbnail" src={room.picture_url}/></td>
-                  <td><button className="btn btn-info">Furniture</button></td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+            return (
+              <Col key={room.id}>
+                <Card className="card bg-black text-white justify-content-center">
+                  <Card.Img variant="top" src={room.picture_url} />
+                  <Card.Body>
+                    <div className="text-center">
+                      <Card.Text className="text-right">{room.name}</Card.Text>
+
+                      <Card.Text className="text-right">
+                        {room.description}
+                      </Card.Text>
+
+                      <Button variant="outline-primary" className="text-right">
+                        <Link
+                          to="/rooms/furniture"
+                          state={room.id}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          See Furniture
+                        </Link>
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+      <div style={{ position: "absolute", right: 0, top: 30, zIndex: 2 }}>
+        <MDBCol
+          md="4"
+          className="text-center"
+          style={{
+            backgroundColor: "#EDEDE9",
+            height: "100vh",
+          }}
+        >
+          <br />
+        </MDBCol>
+      </div>
     </div>
   );
 }
