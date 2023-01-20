@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { useNavigate, Link } from "react-router-dom";
 
+//Form
+import UpdateRoomForm from "./UpdateRoom";
+
 //Styling
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -11,13 +14,14 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
+import Modal from "react-bootstrap/Modal";
 
 function Dashboard() {
   const [list, setList] = useState([]);
   const [username, setUsername] = useState("");
   const { token } = useAuthContext();
-  const [selectedRoomId, setSelectedRoomId] = useState(null);
-  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const { handleSubmit } = useState();
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -52,11 +56,8 @@ function Dashboard() {
     fetchData();
   };
 
-  const redirect = async (id) => {
-    setSelectedRoomId(id);
-    const url = `${process.env.PUBLIC_URL}/rooms/${id}`;
-    navigate(url);
-  };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     fetchData();
@@ -79,7 +80,6 @@ function Dashboard() {
                       <Card.Text className="text-right">
                         {room.description}
                       </Card.Text>
-
                       <Button variant="outline-primary" className="text-right">
                         <Link
                           to="/rooms/furniture"
@@ -89,7 +89,6 @@ function Dashboard() {
                           See Furniture
                         </Link>
                       </Button>
-
                       <Button
                         variant="outline-danger"
                         className="text-right"
@@ -114,7 +113,7 @@ function Dashboard() {
                           });
                         }}
                       >
-                        Delete
+                        Delete Room
                       </Button>
                     </div>
                   </Card.Body>
@@ -135,6 +134,16 @@ function Dashboard() {
         >
           <br />
           <h1>Welcome, {username}</h1>
+          <Button type="button" variant="outline-warning" onClick={handleShow}>
+            Update a Room
+          </Button>
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <UpdateRoomForm handleSubmit={handleSubmit} />
+            </Modal.Body>
+          </Modal>
         </MDBCol>
       </div>
     </div>

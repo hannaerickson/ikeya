@@ -1,13 +1,17 @@
+//Functionality
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import RoomsList from "./Rooms/RoomsList";
+import { AuthProvider, useToken } from "./Accounts/Auth";
 import Nav from "./Nav";
+import LogoutComponent from "./Accounts/Logout";
+//Views
+import RoomsList from "./Rooms/RoomsList";
 import Main from "./Main";
 import Dashboard from "./Rooms/Dashboard";
-import { AuthProvider, useToken } from "./Accounts/Auth";
-import LogoutComponent from "./Accounts/Logout";
 import RoomView from "./Rooms/RoomView";
+//Forms
 import RoomsForm from "./Rooms/RoomsForm";
 import FurnitureForm from "./Furniture/FurnitureForm";
+import UpdateRoomForm from "./Rooms/UpdateRoom";
 
 function GetToken() {
   // Get token from JWT cookie (if already logged in)
@@ -29,6 +33,7 @@ function App() {
             <Route path="/logout" element={<LogoutComponent />} />
             <Route path="/rooms/:room_id" element={<RoomView />} />
             <Route path="/roomsform" element={<RoomsForm />} />
+            <Route path="/updateRoomForm" element={<UpdateRoomForm />} />
             <Route path="/furniture" element={<FurnitureForm />} />
           </Routes>
         </div>
