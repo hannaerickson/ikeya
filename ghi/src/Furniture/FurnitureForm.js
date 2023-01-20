@@ -7,6 +7,7 @@ const FurnitureForm = () => {
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [rooms, setRooms] = useState([]);
+  const [show, setShow] = useState(true);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -43,8 +44,12 @@ const FurnitureForm = () => {
       setName("");
       setPictureUrl("");
       setRoomId("");
+      handleClose();
+      window.location.reload();
     }
   };
+
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +72,7 @@ const FurnitureForm = () => {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Create some new furniture</h1>
+          <h1 style={{ fontSize: "25px" }}>Create some new furniture</h1>
           <form onSubmit={handleSubmit} id="create-furniture-form">
             <div className="form-floating mb-3">
               <input
@@ -114,7 +119,9 @@ const FurnitureForm = () => {
                 })}
               </select>
             </div>
-            <button className="btn btn-primary">Create</button>
+            <button className="btn btn-outline-success d-block mx-auto">
+              Create
+            </button>
           </form>
         </div>
       </div>

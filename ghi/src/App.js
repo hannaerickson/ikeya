@@ -5,7 +5,7 @@ import Main from "./Main";
 import Dashboard from "./Rooms/Dashboard";
 import { AuthProvider, useToken } from "./Accounts/Auth";
 import LogoutComponent from "./Accounts/Logout";
-import RoomView from "./Rooms/RoomsView";
+import RoomView from "./Rooms/RoomView";
 import FurnitureForm from "./Furniture/FurnitureForm";
 
 function GetToken() {
