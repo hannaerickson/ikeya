@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Form
 import UpdateRoomForm from "./UpdateRoom";
@@ -18,21 +18,22 @@ import Swal from "sweetalert2";
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 import Modal from "react-bootstrap/Modal";
 
-function Dashboard() {
+export default function Dashboard() {
   const [list, setList] = useState([]);
   const [username, setUsername] = useState(null);
   const { token } = useAuthContext();
-  const [show, setShow] = useState(false);
   const { handleSubmit } = useState();
-  const [selectedRoomId, setSelectedRoomId] = useState(null);
-  const navigate = useNavigate();
   const [showRoom, setShowRoom] = useState(false);
   const [showFurniture, setShowFurniture] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
 
-  const fetchConfig = {
-    method: "GET",
-    credentials: "include",
-  };
+  const handleCloseRoom = () => setShowRoom(false);
+  const handleShowRoom = () => setShowRoom(true);
+  const handleCloseFurniture = () => setShowFurniture(false);
+  const handleShowFurniture = () => setShowFurniture(true);
+  const handleCloseUpdate = () => setShowUpdate(false);
+  const handleShowUpdate = () => setShowUpdate(true);
+
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -45,12 +46,6 @@ function Dashboard() {
     }
   };
 
-  const handleCloseRoom = () => setShowRoom(false);
-  const handleShowRoom = () => setShowRoom(true);
-
-  const handleCloseFurniture = () => setShowFurniture(false);
-  const handleShowFurniture = () => setShowFurniture(true);
-
   const deletion = async (id) => {
     const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const resp = await fetch(urlDelete, {
@@ -61,12 +56,9 @@ function Dashboard() {
     fetchData();
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   useEffect(() => {
     if (username === null) {
-      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
+      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {method: "GET", credentials: "include"})
         .then((res) => res.json())
         .then((res) => setUsername(res.account.username));
     }
@@ -75,16 +67,9 @@ function Dashboard() {
 
   return (
     <MDBRow>
-      <MDBCol
-        md="8"
-        style={{
-          backgroundColor: "white",
-          height: "100vh",
-        }}
-      >
+      <MDBCol md="8" style={{backgroundColor: "white", height: "100vh",}}>
         <Container>
-          <br />
-          <br />
+        <br/><br/>
           <Row className="mb-3">
             {list.map((room) => {
               return (
@@ -101,7 +86,7 @@ function Dashboard() {
                           {room.description}
                         </Card.Text>
                         <Button
-                          variant="outline-primary"
+                          variant="primary"
                           className="text-right"
                         >
                           <Link
@@ -136,7 +121,7 @@ function Dashboard() {
                             });
                           }}
                         >
-                          Delete Room
+                          Delete
                         </Button>
                       </div>
                     </Card.Body>
@@ -158,61 +143,48 @@ function Dashboard() {
         <br />
         <br />
         <h1>Welcome, {username}</h1>
-        <div className="d-grid gap-2">
-          <Button
-            type="button"
-            variant="outline-warning"
-            size="lg"
-            onClick={handleShow}
-          >
-            Update a Room
-          </Button>
+        <br/>
 
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-              <UpdateRoomForm handleSubmit={handleSubmit} />
-            </Modal.Body>
-          </Modal>
-          <br />
-        </div>
-        <div className="d-grid gap-2">
-          <Button
-            type="button"
-            variant="outline-success"
-            size="lg"
-            onClick={handleShowRoom}
-          >
-            Add a Room
-          </Button>
-
+      <div className="d-grid gap-2">
+        <Button type="button" variant="success" size="lg" onClick={handleShowRoom}>
+          Add a Room
+        </Button>
+      </div>
           <Modal show={showRoom} onHide={handleCloseRoom}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
-              <RoomsForm handleSubmit={handleSubmit} />
+              <RoomsForm handleSubmit={handleSubmit}/>
             </Modal.Body>
           </Modal>
-          <br />
-        </div>
+        <br/>
+
+
+      <div className="d-grid gap-2">
+        <Button type="button" variant="warning" size="lg" onClick={handleShowUpdate}>
+          Update a Room
+        </Button>
+      </div>
+        <Modal show={showUpdate} onHide={handleCloseUpdate}>
+          <Modal.Header closeButton></Modal.Header>
+          <Modal.Body>
+            <UpdateRoomForm handleSubmit={handleSubmit}/>
+          </Modal.Body>
+        </Modal>
+      <br/>
+
+
         <div className="d-grid gap-2">
-          <Button
-            type="button"
-            variant="outline-info"
-            size="lg"
-            onClick={handleShowFurniture}
-          >
+          <Button type="button" variant="info" size="lg" onClick={handleShowFurniture}>
             Add Furniture
           </Button>
-
+        </div>
           <Modal show={showFurniture} onHide={handleCloseFurniture}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
-              <FurnitureForm handleSubmit={handleSubmit} />
+              <FurnitureForm handleSubmit={handleSubmit}/>
             </Modal.Body>
           </Modal>
-        </div>
       </MDBCol>
     </MDBRow>
   );
 }
-export default Dashboard;
