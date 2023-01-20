@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { useNavigate, Link } from "react-router-dom";
 
+import RoomsForm from "./RoomsForm"
+import FurnitureForm from "../Furniture/FurnitureForm";
+
 //Styling
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -11,13 +14,22 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
+import Modal from "react-bootstrap/Modal";
 
 function Dashboard() {
   const [list, setList] = useState([]);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(null);
   const { token } = useAuthContext();
   const [selectedRoomId, setSelectedRoomId] = useState(null);
   const navigate = useNavigate();
+  const [showRoom, setShowRoom] = useState(false);
+  const [showFurniture, setShowFurniture] = useState(false);
+  const { handleSubmit } = useState();
+
+  const fetchConfig = {
+    method: "GET",
+    credentials: "include",
+  }
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -27,20 +39,14 @@ function Dashboard() {
     if (response.ok) {
       const data = await response.json();
       setList(data);
-      setUsername(data[0]["username"]);
     }
   };
 
-  const fetchUserData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/token`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
-      method: "GET",
-    });
-    if (response.ok) {
-      const accountData = await response.json();
-    }
-  };
+  const handleCloseRoom = () => setShowRoom(false);
+  const handleShowRoom = () => setShowRoom(true);
+
+  const handleCloseFurniture = () => setShowFurniture(false);
+  const handleShowFurniture = () => setShowFurniture(true);
 
   const deletion = async (id) => {
     const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
@@ -59,18 +65,28 @@ function Dashboard() {
   };
 
   useEffect(() => {
+    if (username === null ) {
+      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
+        .then((res) => res.json())
+        .then((res) => setUsername(res.account.username))
+    }
     fetchData();
-    fetchUserData();
-  }, [token]);
+  }, [token, username]);
 
   return (
-    <div>
+    <MDBRow>
+    <MDBCol md='8' style={{
+      backgroundColor: 'white',
+      height: '100vh',
+    }}>
       <Container>
+        <br/>
+        <br/>
         <Row className="mb-3">
           {list.map((room) => {
             return (
               <Col key={room.id}>
-                <Card className="card bg-black text-white justify-content-center">
+                <Card className="w-75 justify-content-center">
                   <Card.Img variant="top" src={room.picture_url} />
                   <Card.Body>
                     <div className="text-center">
@@ -80,18 +96,16 @@ function Dashboard() {
                         {room.description}
                       </Card.Text>
 
-                      <Button variant="outline-primary" className="text-right">
+                      <Button variant="primary" className="text-right me-1">
                         <Link
                           to="/rooms/furniture"
                           state={room.id}
-                          style={{ textDecoration: "none", color: "white" }}
-                        >
-                          See Furniture
+                          style={{ textDecoration: "none", color: "white" }}>
+                        Furniture
                         </Link>
                       </Button>
-
                       <Button
-                        variant="outline-danger"
+                        variant="danger"
                         className="text-right"
                         onClick={() => {
                           Swal.fire({
@@ -124,20 +138,53 @@ function Dashboard() {
           })}
         </Row>
       </Container>
-      <div style={{ position: "absolute", right: 0, top: 30, zIndex: 2 }}>
+      </MDBCol>
         <MDBCol
           md="4"
           className="text-center"
           style={{
             backgroundColor: "#EDEDE9",
             height: "100vh",
-          }}
-        >
-          <br />
+          }}>
+          <br/>
+          <br/>
           <h1>Welcome, {username}</h1>
+          <br/>
+          <div className="d-grid gap-2">
+            <Button
+              type="button"
+              variant="outline-success"
+              size="lg"
+              onClick={handleShowRoom}>
+              Add a Room
+            </Button>
+
+            <Modal show={showRoom} onHide={handleCloseRoom}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <RoomsForm handleSubmit={handleSubmit} />
+              </Modal.Body>
+        </Modal>
+        <br/>
+        </div>
+        <div className="d-grid gap-2">
+            <Button
+              type="button"
+              variant="outline-info"
+              size="lg"
+              onClick={handleShowFurniture}>
+              Add Furniture
+            </Button>
+
+            <Modal show={showFurniture} onHide={handleCloseFurniture}>
+              <Modal.Header closeButton></Modal.Header>
+              <Modal.Body>
+                <FurnitureForm handleSubmit={handleSubmit} />
+              </Modal.Body>
+        </Modal>
+        </div>
         </MDBCol>
-      </div>
-    </div>
+    </MDBRow>
   );
 }
 export default Dashboard;

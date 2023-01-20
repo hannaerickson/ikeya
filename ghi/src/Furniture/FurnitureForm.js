@@ -70,9 +70,9 @@ const FurnitureForm = () => {
 
   return (
     <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1 style={{ fontSize: "25px" }}>Create some new furniture</h1>
+        <div className="p-3">
+          <h1>New Furniture</h1>
+          <br/>
           <form onSubmit={handleSubmit} id="create-furniture-form">
             <div className="form-floating mb-3">
               <input
@@ -125,7 +125,6 @@ const FurnitureForm = () => {
           </form>
         </div>
       </div>
-    </div>
   );
 };
 
