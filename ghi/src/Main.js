@@ -59,7 +59,7 @@ export default function Main() {
         <MDBCol md='4' className='text-center' style={{backgroundColor: '#EDEDE9', height: '100vh',}}>
         <br/><br/>
         <div className="d-grid gap-2">
-            <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#login">
+            <button type="button" className="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#login">
                 Login
             </button>
         </div>
@@ -98,7 +98,7 @@ export default function Main() {
 
 
         <div className="d-grid gap-2">
-            <button type="button" className="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#signup">
+            <button type="button" className="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#signup">
                 Sign Up
             </button>
         </div>
