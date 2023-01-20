@@ -137,7 +137,7 @@ export default function Dashboard() {
         className="text-center"
         style={{
           backgroundColor: "#EDEDE9",
-          height: "100vh",
+          height: "auto",
         }}
       >
         <br />
