@@ -1,8 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
-import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import { useNavigate, Link } from "react-router-dom";
+
+//Styling
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Swal from "sweetalert2";
+import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 function Dashboard() {
   const [list, setList] = useState([]);
@@ -19,7 +27,7 @@ function Dashboard() {
     if (response.ok) {
       const data = await response.json();
       setList(data);
-      setUsername(data[0]["username"])
+      setUsername(data[0]["username"]);
     }
   };
 
@@ -28,7 +36,7 @@ function Dashboard() {
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
       method: "GET",
-    })
+    });
     if (response.ok) {
       const accountData = await response.json();
     }
@@ -48,8 +56,7 @@ function Dashboard() {
     setSelectedRoomId(id);
     const url = `${process.env.PUBLIC_URL}/rooms/${id}`;
     navigate(url);
-  }
-
+  };
 
   useEffect(() => {
     fetchData();
@@ -57,54 +64,80 @@ function Dashboard() {
   }, [token]);
 
   return (
-    <MDBRow>
-      <MDBCol
-        md="8"
-        style={{
-          backgroundColor: "white",
-          height: "100vh",
-        }}
-      >
-        <br />
-        <h1>My Rooms</h1>
-        <br />
-        <table className="table table-striped">
-          <thead>
-            <tr className="table-success">
-              <th>NAME</th>
-              <th>DESCRIPTION</th>
-              <th>URL</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {list.map((room) => {
-                return (
-                    <tr key={room.id}>
-                    <td>{room.name}</td>
-                    <td>{room.description}</td>
-                    <td>{room.picture_url}</td>
-                    <td><Link to="/rooms/furniture" state={room.id}><button className="btn btn-success">Furniture</button></Link></td>
-                    <td><button onClick={() => deletion(room.id)} className="btn btn-danger">Delete</button></td>
-                    </tr>
-                );
-                })}
-            </tbody>
-      </table>
-      </MDBCol>
-      <MDBCol
-        md="4"
-        className="text-center"
-        style={{
-          backgroundColor: "#EDEDE9",
-          height: "100vh",
-        }}
-      >
-        <br />
-        <h1>Welcome, {username}</h1>
-      </MDBCol>
-    </MDBRow>
+    <div>
+      <Container>
+        <Row className="mb-3">
+          {list.map((room) => {
+            return (
+              <Col key={room.id}>
+                <Card className="card bg-black text-white justify-content-center">
+                  <Card.Img variant="top" src={room.picture_url} />
+                  <Card.Body>
+                    <div className="text-center">
+                      <Card.Text className="text-right">{room.name}</Card.Text>
+
+                      <Card.Text className="text-right">
+                        {room.description}
+                      </Card.Text>
+
+                      <Button variant="outline-primary" className="text-right">
+                        <Link
+                          to="/rooms/furniture"
+                          state={room.id}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          See Furniture
+                        </Link>
+                      </Button>
+
+                      <Button
+                        variant="outline-danger"
+                        className="text-right"
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!",
+                          }).then((result) => {
+                            if (result.value) {
+                              deletion(room.id);
+                              Swal.fire(
+                                "Deleted!",
+                                "Your room has been deleted.",
+                                "success"
+                              );
+                            }
+                          });
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
+      <div style={{ position: "absolute", right: 0, top: 30, zIndex: 2 }}>
+        <MDBCol
+          md="4"
+          className="text-center"
+          style={{
+            backgroundColor: "#EDEDE9",
+            height: "100vh",
+          }}
+        >
+          <br />
+          <h1>Welcome, {username}</h1>
+        </MDBCol>
+      </div>
+    </div>
   );
 }
 export default Dashboard;
