@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../Accounts/Auth";
 
 function RoomsList() {
@@ -22,11 +23,10 @@ function RoomsList() {
     fetchData();
   }, [token]);
 
-    const imageSize = {
-      height: 250,
-      width: 350,
-    };
-
+  const imageSize = {
+    height: 250,
+    width: 350,
+  };
 
   return (
     <div>
@@ -57,8 +57,24 @@ function RoomsList() {
                 <tr key={room.id}>
                   <td>{room.name}</td>
                   <td>{room.description}</td>
-                  <td><img style={imageSize} className="list-images img-thumbnail" src={room.picture_url}/></td>
-                  <td><button className="btn btn-info">Furniture</button></td>
+                  <td>
+                    <img
+                      style={imageSize}
+                      className="list-images img-thumbnail"
+                      src={room.picture_url}
+                    />
+                  </td>
+                  <td>
+                    <button className="btn btn-info">
+                      <Link
+                        to="/rooms/furniture"
+                        state={room.id}
+                        style={{ textDecoration: "none" }}
+                      >
+                        Furniture
+                      </Link>
+                    </button>
+                  </td>
                 </tr>
               );
             })}
