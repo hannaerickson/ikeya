@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { useLocation } from "react-router-dom";
+
 //Form
 import FurnitureForm from "../Furniture/FurnitureForm";
+
 //Styling
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -12,6 +14,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
+import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 export default function RoomView() {
   const location = useLocation();
@@ -22,34 +25,28 @@ export default function RoomView() {
   const [show, setShow] = useState(false);
   const { handleSubmit } = useState();
   const [username, setUserName] = useState(null);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const getData = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}/furniture`,
-      {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}/furniture`;
+    const response = await fetch(url, {
         headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-
+    });
     if (response.ok) {
       const dataFurniture = await response.json();
       setFurnitures(dataFurniture);
-    }
-  };
+  }};
 
   const getRoomData = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}`,
-      {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}`;
+    const response = await fetch(url, {
         headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-
+      });
     if (response.ok) {
       const dataRooms = await response.json();
       setRooms(dataRooms);
-    }
-  };
+  }};
 
   const deletion = async (id) => {
     const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/${id}`;
@@ -61,38 +58,27 @@ export default function RoomView() {
     getData();
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const fetchConfig = {
-        method: "GET",
-        credentials: "include",
-    }
-
   useEffect(() => {
     getData();
     getRoomData();
     if (username === null ) {
-      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
+      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {method: "GET", credentials: "include"})
         .then((res) => res.json())
         .then((res) => setUserName(res.account.username))
-          }
-
+    }
   }, [token, username]);
 
-  // console.log("Username for Current Room:", rooms.username)
-  // console.log("Username for Current User:", username)
-    
-
   return (
-    <>
-      <br></br>
+    <MDBRow>
+      <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
+        <br />
       <header className="p-5 text-center bg-light">
-        <h1>{rooms.name}</h1>
-        <br></br>
-        <br></br>
-        <br></br>
-        <h2>{rooms.description}</h2>
+        <p>conditional check things here? if the room is yours, here you can update, etc</p>
+        <div className="col-md-12 gap-3">
+          <button className="btn btn-secondary m-2">Dashboard</button>
+          <button className="btn btn-primary m-2">Add Furniture</button>
+          <button className="btn btn-danger m-2">Delete Room</button>
+        </div>
       </header>
       <br></br>
       <br></br>
@@ -143,35 +129,20 @@ export default function RoomView() {
               );
             })
           ) : (
-            <div>No furniture yet!</div>
+            <div><h3>No furniture yet!</h3></div>
           )}
         </Row>
       </Container>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button
-          type="button"
-          variant="outline-success"
-          size="lg"
-          onClick={handleShow}
-        >
-          Add Furniture to Your Room
-        </Button>
-
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton></Modal.Header>
-          <Modal.Body>
-            <FurnitureForm handleSubmit={handleSubmit} />
-          </Modal.Body>
-        </Modal>
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-    </>
+  </MDBCol>
+  <MDBCol md="4" className="text-center" style={{ backgroundColor: "#EDEDE9", height: "auto"}}>
+    <br/><br/>
+    <h1>{rooms.name}</h1>
+    <p>Designed by {rooms.username}</p>
+    <br/>
+    <img src={rooms.picture_url} style={{height: "300px", width: "350px"}} ></img>
+    <br/><br/>
+    <h4>{rooms.description}</h4>
+  </MDBCol>
+  </MDBRow>
   );
 }

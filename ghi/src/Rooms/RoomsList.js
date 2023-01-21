@@ -89,7 +89,7 @@ function RoomsList() {
       <MDBCol
         md="4"
         className="text-center"
-        style={{ backgroundColor: "#EDEDE9", height: "100vh" }}
+        style={{ backgroundColor: "#EDEDE9", height: "auto" }}
       >
         <br />
         <h1>Welcome, {username}</h1>
