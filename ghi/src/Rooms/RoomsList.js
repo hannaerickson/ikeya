@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../Accounts/Auth";
-import { Link } from "react-router-dom";
 
 //Styling
 import Card from "react-bootstrap/Card";
