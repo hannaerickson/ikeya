@@ -87,9 +87,9 @@ const UpdateRoomForm = () => {
 
   return (
     <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1 style={{ fontSize: "25px" }}>Update Your Room</h1>
+        <div className="p-3">
+          <h1>Update Your Room</h1>
+          <br/>
           <form onSubmit={handleSubmit} id="create-furniture-form">
             <div className="form-floating mb-3">
               <input
@@ -102,20 +102,20 @@ const UpdateRoomForm = () => {
                 value={name}
                 className="form-control"
               />
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Room Name</label>
             </div>
-            <div className="form-floating mb-3">
+            <div className="form-group mb-3">
+              <label htmlFor="description">Description</label>
               <textarea
                 onChange={handleDescriptionChange}
-                placeholder="picture_url"
+                placeholder="Updated description"
                 required
-                type="text"
-                name="picture_url"
-                id="picture_url"
+                type="textarea"
+                name="description"
+                id="description"
                 value={description}
                 className="form-control"
               />
-              <label htmlFor="picture_url">Description</label>
             </div>
             <div className="form-floating mb-3">
               <input
@@ -128,7 +128,7 @@ const UpdateRoomForm = () => {
                 value={picture_url}
                 className="form-control"
               />
-              <label htmlFor="picture_url">Picture</label>
+              <label htmlFor="picture_url">Picture URL</label>
             </div>
             <div className="mb-3">
               <select
@@ -149,13 +149,12 @@ const UpdateRoomForm = () => {
                 })}
               </select>
             </div>
-            <button className="btn btn-outline-success d-block mx-auto">
+            <button className="btn btn-outline-warning d-block mx-auto">
               Update!
             </button>
           </form>
         </div>
       </div>
-    </div>
   );
 };
 

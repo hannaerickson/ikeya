@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../Accounts/Auth";
-import { useNavigate, Link } from "react-router-dom";
 
 //Styling
 import Card from "react-bootstrap/Card";
@@ -11,8 +11,10 @@ import Button from "react-bootstrap/Button";
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 function RoomsList() {
-  const [list, setList] = useState([]);
   const { token } = useAuthContext();
+  const [list, setList] = useState([]);
+  const [query, setQuery] = useState("");
+  const [username, setUsername] = useState(null);
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
@@ -25,76 +27,93 @@ function RoomsList() {
     }
   };
 
-  const [query, setQuery] = useState("");
-
   useEffect(() => {
+    if (username === null) {
+      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
+        method: "GET",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((res) => setUsername(res.account.username));
+    }
     fetchData();
-  }, [token]);
-
-    const imageSize = {
-      height: 250,
-      width: 350,
-    };
-
+  }, [token, username]);
 
   return (
-    <div>
-      <br />
-      <h1>Rooms</h1>
-      <input
-        type="search"
-        placeholder="Search by room name"
-        className="form-control"
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <br />
-      <Container>
-        <Row className="mb-3">
-          {list
-            ?.filter((room) => room.name.toLowerCase().includes(query.toLowerCase()))
-            .map((room) => {
-            return (
-              <Col key={room.id}>
-                <Card className="card bg-black text-white justify-content-center">
-                  <Card.Img variant="top" src={room.picture_url} />
-                  <Card.Body>
-                    <div className="text-center">
-                      <Card.Text className="text-right">{room.name}</Card.Text>
+    <MDBRow>
+      <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
+        <br />
+        <br />
+        <Container>
+          <Row className="mb-3">
+            {list
+              ?.filter((room) =>
+                room.name.toLowerCase().includes(query.toLowerCase())
+              )
+              .map((room) => {
+                return (
+                  <Col key={room.id}>
+                    <Card className="card bg-black text-white justify-content-center">
+                      <Card.Img variant="top" src={room.picture_url} />
+                      <Card.Body>
+                        <div className="text-center">
+                          <Card.Text className="text-right">
+                            {room.name}
+                          </Card.Text>
 
-                      <Card.Text className="text-right">
-                        {room.description}
-                      </Card.Text>
+                          <Card.Text className="text-right">
+                            {room.description}
+                          </Card.Text>
 
-                      <Button variant="outline-primary" className="text-right">
-                        <Link
-                          to="/rooms/furniture"
-                          state={room.id}
-                          style={{ textDecoration: "none", color: "white" }}
-                        >
-                          See Furniture
-                        </Link>
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
-      <div style={{ position: "absolute", right: 0, top: 30, zIndex: 2 }}>
-        <MDBCol
-          md="4"
-          className="text-center"
-          style={{
-            backgroundColor: "#EDEDE9",
-            height: "100vh",
-          }}
-        >
-          <br />
-        </MDBCol>
-      </div>
-    </div>
+                          <Button
+                            variant="outline-primary"
+                            className="text-right"
+                          >
+                            <Link
+                              to="/rooms/furniture"
+                              state={room.id}
+                              style={{ textDecoration: "none", color: "white" }}
+                            >
+                              See Furniture
+                            </Link>
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                );
+              })}
+          </Row>
+        </Container>
+      </MDBCol>
+      <MDBCol
+        md="4"
+        className="text-center"
+        style={{ backgroundColor: "#EDEDE9", height: "auto" }}
+      >
+        <br />
+        <h1>Welcome, {username}</h1>
+        <h4>You are currently viewing all rooms.</h4>
+        <br />
+        <input
+          type="search"
+          placeholder="Search by room name"
+          className="form-control"
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <br />
+        <div className="d-grid gap-2">
+          <button className="btn btn-secondary btn-lg">
+            <Link
+              to="/dashboard"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Back to Dashboard
+            </Link>
+          </button>
+        </div>
+      </MDBCol>
+    </MDBRow>
   );
 }
 
