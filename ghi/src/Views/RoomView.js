@@ -80,48 +80,20 @@ export default function RoomView() {
 
   return (
     <MDBRow>
-      {/* <div>
-      { isLoggedIn ?
-        <h1>Hello World</h1>
-      : ""} */}
-      {/* </div> */}
       <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-        <div>
-          {isLoggedIn ? (
-            // <br />
-            <>
-              <header className="p-5 text-center bg-light">
-                <p>
-                  conditional check things here? if the room is yours, here you
-                  can update, etc
-                </p>
-                <div className="col-md-12 gap-3">
-                  <button className="btn btn-secondary m-2">Dashboard</button>
-                  <button className="btn btn-primary m-2">Add Furniture</button>
-                  <button className="btn btn-danger m-2">Delete Room</button>
-                </div>
-              </header>
-              <br></br>
-              <br></br>
-            </>
-          ) : (
-            "You are not the user associated with this room"
-          )}
-        </div>
-        <Container>
-          <Row className="mb-3">
+        <br/><br/>
+          <div className="row row-cols-1 row-cols-md-3 g-4">
             {furnitures.length ? (
               furnitures.map((furniture) => {
                 return (
-                  <Col key={furniture.id}>
-                    <Card className="card bg-black text-white justify-content-center">
-                      <Card.Img variant="top" src={furniture.picture_url} />
-                      <Card.Body>
-                        <div className="text-center">
-                          <Card.Text className="text-right">
-                            {furniture.name}
-                          </Card.Text>
-
+                  <div className="col" key={furniture.id}>
+                    <div className="card bg-light mb-3 text-center h-100">
+                      <img src={furniture.picture_url} className="card-img-top card-image" alt="Image"/>
+                      <div className="card-body">
+                        <h5 className="card-title">{furniture.name}</h5>
+                        {/* <p className="card-text">Not needed for furniture</p> */}
+                      </div>
+                      <div className="card-footer">
                           <Button
                             variant="outline-danger"
                             className="text-right"
@@ -149,9 +121,8 @@ export default function RoomView() {
                             Delete from room
                           </Button>
                         </div>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                    </div>
+                  </div>
                 );
               })
             ) : (
@@ -159,9 +130,10 @@ export default function RoomView() {
                 <h3>No furniture yet!</h3>
               </div>
             )}
-          </Row>
-        </Container>
+          </div>
       </MDBCol>
+
+
       <MDBCol
         md="4"
         className="text-center"

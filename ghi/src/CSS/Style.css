@@ -76,3 +76,25 @@
 .MDBNavbar {
   background-color: #00539e !important;
 }
+
+.card-image {
+  height: 15vw;
+  width: 100%;
+  object-fit: cover;
+}
+
+.crop-text-1 {
+  -webkit-line-clamp: 4;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #eeb526 !important;
+}
+
+.btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
+    background-color: #8636e7 !important;
+} */
