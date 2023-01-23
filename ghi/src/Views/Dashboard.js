@@ -4,9 +4,9 @@ import { useAuthContext } from "../Accounts/Auth";
 import { useNavigate, Link } from "react-router-dom";
 
 //Form
-import UpdateRoomForm from "./UpdateRoom";
-import RoomsForm from "./RoomsForm";
-import FurnitureForm from "../Furniture/FurnitureForm";
+import UpdateRoomForm from "../ModalForms/UpdateRoom";
+import RoomsForm from "../ModalForms/RoomsForm";
+import FurnitureForm from "../ModalForms/FurnitureForm";
 
 //Styling
 import Card from "react-bootstrap/Card";

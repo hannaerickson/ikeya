@@ -4,14 +4,14 @@ import { AuthProvider, useToken } from "./Accounts/Auth";
 import Nav from "./Nav";
 import LogoutComponent from "./Accounts/Logout";
 //Views
-import RoomsList from "./Rooms/RoomsList";
+import RoomsList from "./Views/RoomsList";
 import Main from "./Main";
-import Dashboard from "./Rooms/Dashboard";
-import RoomView from "./Rooms/RoomView";
+import Dashboard from "./Views/Dashboard";
+import RoomView from "./Views/RoomView";
 //Forms
-import RoomsForm from "./Rooms/RoomsForm";
-import FurnitureForm from "./Furniture/FurnitureForm";
-import UpdateRoomForm from "./Rooms/UpdateRoom";
+import RoomsForm from "./ModalForms/RoomsForm";
+import FurnitureForm from "./ModalForms/FurnitureForm";
+import UpdateRoomForm from "./ModalForms/UpdateRoom";
 
 function GetToken() {
   // Get token from JWT cookie (if already logged in)

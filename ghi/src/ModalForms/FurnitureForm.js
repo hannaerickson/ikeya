@@ -7,7 +7,7 @@ const FurnitureForm = () => {
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [rooms, setRooms] = useState([]);
-  const [show, setShow] = useState(true);
+  const [setShow] = useState(true);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -66,65 +66,65 @@ const FurnitureForm = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   return (
     <div className="row">
-        <div className="p-3">
-          <h1>New Furniture</h1>
-          <br/>
-          <form onSubmit={handleSubmit} id="create-furniture-form">
-            <div className="form-floating mb-3">
-              <input
-                onChange={handleNameChange}
-                placeholder="Name"
-                required
-                type="text"
-                name="name"
-                id="name"
-                value={name}
-                className="form-control"
-              />
-              <label htmlFor="name">Name</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={handlePictureChange}
-                placeholder="picture_url"
-                required
-                type="text"
-                name="picture_url"
-                id="picture_url"
-                value={picture_url}
-                className="form-control"
-              />
-              <label htmlFor="picture_url">Picture URL</label>
-            </div>
-            <div className="mb-3">
-              <select
-                onChange={handleRoomChange}
-                required
-                name="room_id"
-                id="room_id"
-                value={room_id}
-                className="form-select"
-              >
-                <option value="">Choose a room</option>
-                {rooms.map((room) => {
-                  return (
-                    <option value={room.id} key={room.id}>
-                      {room.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <button className="btn btn-outline-success d-block mx-auto">
-              Create
-            </button>
-          </form>
-        </div>
+      <div className="p-3">
+        <h1>New Furniture</h1>
+        <br />
+        <form onSubmit={handleSubmit} id="create-furniture-form">
+          <div className="form-floating mb-3">
+            <input
+              onChange={handleNameChange}
+              placeholder="Name"
+              required
+              type="text"
+              name="name"
+              id="name"
+              value={name}
+              className="form-control"
+            />
+            <label htmlFor="name">Name</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              onChange={handlePictureChange}
+              placeholder="picture_url"
+              required
+              type="text"
+              name="picture_url"
+              id="picture_url"
+              value={picture_url}
+              className="form-control"
+            />
+            <label htmlFor="picture_url">Picture URL</label>
+          </div>
+          <div className="mb-3">
+            <select
+              onChange={handleRoomChange}
+              required
+              name="room_id"
+              id="room_id"
+              value={room_id}
+              className="form-select"
+            >
+              <option value="">Choose a room</option>
+              {rooms.map((room) => {
+                return (
+                  <option value={room.id} key={room.id}>
+                    {room.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <button className="btn btn-outline-success d-block mx-auto">
+            Create
+          </button>
+        </form>
       </div>
+    </div>
   );
 };
 

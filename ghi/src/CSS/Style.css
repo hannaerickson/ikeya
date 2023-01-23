@@ -1,0 +1,78 @@
+.image {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  border-left: 5px solid #00539e;
+  border-right: 5px solid #00539e;
+}
+
+.mainimage {
+  border-left: 5px solid #00539e;
+  border-right: 5px solid #00539e;
+}
+
+.maintext {
+  display: flex;
+  justify-content: space-between;
+  align-items: right;
+  border-top: 5px solid #f1d100;
+  border-bottom: 5px solid #f1d100;
+}
+
+.mdbcard1 {
+  background: #212529;
+  height: 435px;
+  width: 500px;
+  border-top: 5px solid #f1d100;
+  border-bottom: 5px solid #f1d100;
+}
+.mdbcard2 {
+  background: #212529;
+  height: 435px;
+  width: 500px;
+  border-top: 5px solid #f1d100;
+  border-bottom: 5px solid #f1d100;
+}
+
+.mdbcard3 {
+  background: #212529;
+  height: 435px;
+  width: 500px;
+  border-top: 5px solid #f1d100;
+  border-bottom: 5px solid #f1d100;
+}
+
+.h1 {
+  color: #00539e;
+  text-shadow: 3px 2px #f1d100;
+  font-variant: small-caps slashed-zero;
+  padding-top: 5px;
+  font-family: Century Gothic;
+}
+
+.h3 {
+  font-family: Ink Free;
+  font-size: 2rem;
+}
+
+.cardtext1 {
+  color: #f1d100;
+  font-size: 1.1rem;
+  font-family: papyrus;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  text-shadow: 3px 2px #00539e;
+}
+
+.NavbarBrand {
+  color: #f1d100 !important;
+}
+
+.nav-link {
+  color: #f1d100 !important;
+}
+.MDBNavbar {
+  background-color: #00539e !important;
+}

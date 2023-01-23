@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { useLocation } from "react-router-dom";
 //Form
-import FurnitureForm from "../Furniture/FurnitureForm";
+import FurnitureForm from "../ModalForms/FurnitureForm";
 //Styling
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
