@@ -25,6 +25,7 @@ export default function RoomView() {
   const [show, setShow] = useState(false);
   const { handleSubmit } = useState();
   const [username, setUserName] = useState(null);
+  const [isLoggedIn, setUserStatus] = useState(null);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -59,19 +60,34 @@ export default function RoomView() {
   };
 
   useEffect(() => {
-    getData();
-    getRoomData();
-    if (username === null ) {
+    getData(); 
+    getRoomData(); 
+    if (username === null ) { 
       fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {method: "GET", credentials: "include"})
         .then((res) => res.json())
-        .then((res) => setUserName(res.account.username))
+        .then((res) => setUserName(res.account.username)) 
     }
-  }, [token, username]);
+    if(username === rooms.username){
+      setUserStatus(true);
+    }
+    else{
+      setUserStatus(false);
+    }
+  }, [token, username, isLoggedIn]);
+
 
   return (
     <MDBRow>
+      {/* <div>
+      { isLoggedIn ?
+        <h1>Hello World</h1>
+      : ""} */}
+      {/* </div> */}
       <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-        <br />
+      <div>
+      {isLoggedIn ?
+        // <br />
+      <>
       <header className="p-5 text-center bg-light">
         <p>conditional check things here? if the room is yours, here you can update, etc</p>
         <div className="col-md-12 gap-3">
@@ -82,6 +98,9 @@ export default function RoomView() {
       </header>
       <br></br>
       <br></br>
+      </>
+      : "You are not the user associated with this room" }
+      </div>
       <Container>
         <Row className="mb-3">
           {furnitures.length ? (
