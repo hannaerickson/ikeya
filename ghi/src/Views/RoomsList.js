@@ -40,80 +40,44 @@ function RoomsList() {
   }, [token, username]);
 
   return (
-    <MDBRow>
-      <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-        <br />
-        <br />
-        <Container>
-          <Row className="mb-3">
-            {list
-              ?.filter((room) =>
-                room.name.toLowerCase().includes(query.toLowerCase())
-              )
-              .map((room) => {
-                return (
-                  <Col key={room.id}>
-                    <Card className="card bg-black text-white justify-content-center">
-                      <Card.Img variant="top" src={room.picture_url} />
-                      <Card.Body>
-                        <div className="text-center">
-                          <Card.Text className="text-right">
-                            {room.name}
-                          </Card.Text>
-
-                          <Card.Text className="text-right">
-                            {room.description}
-                          </Card.Text>
-
-                          <Button
-                            variant="outline-primary"
-                            className="text-right"
-                          >
-                            <Link
-                              to="/rooms/furniture"
-                              state={room.id}
-                              style={{ textDecoration: "none", color: "white" }}
-                            >
-                              See Furniture
-                            </Link>
-                          </Button>
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                );
-              })}
-          </Row>
-        </Container>
-      </MDBCol>
-      <MDBCol
-        md="4"
-        className="text-center"
-        style={{ backgroundColor: "#EDEDE9", height: "auto" }}
-      >
-        <br />
-        <h1>Welcome, {username}</h1>
-        <h4>You are currently viewing all rooms.</h4>
-        <br />
-        <input
-          type="search"
-          placeholder="Search by room name"
-          className="form-control"
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <br />
-        <div className="d-grid gap-2">
-          <button className="btn btn-secondary btn-lg">
-            <Link
-              to="/dashboard"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              Back to Dashboard
-            </Link>
-          </button>
-        </div>
-      </MDBCol>
-    </MDBRow>
+    <div>
+    <br/>
+      <h1>Welcome, {username}</h1>
+      <input
+        type="search"
+        placeholder="Search by room name"
+        className="form-control"
+        onChange={(e) => setQuery(e.target.value)}/>
+      <br/>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {list?.filter((room) =>
+          room.name.toLowerCase().includes(query.toLowerCase())
+          ).map((room) => {
+            return (
+              <div className="col" key={room.id}>
+                <div className="card bg-light mb-3 text-center h-100">
+                  <div className="card-header"><small className="text-muted">Designed by {room.username}</small></div>
+                  <img src={room.picture_url} className="card-img-top card-image" alt="Image"/>
+                  <div className="card-body">
+                    <h5 className="card-title">{room.name}</h5>
+                    <p className="card-text crop-text-1">{room.description}</p>
+                  </div>
+                  <div className="card-footer">
+                    <button className="btn btn-primary">
+                      <Link
+                        to="/rooms/furniture"
+                        state={room.id}
+                        style={{textDecoration: "none", color: "white"}}>
+                      Furniture
+                      </Link>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+      </div>
+    </div>
   );
 }
 

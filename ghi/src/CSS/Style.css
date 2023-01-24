@@ -43,8 +43,8 @@
 }
 
 .h1 {
-  color: #00539e;
-  text-shadow: 3px 2px #f1d100;
+  color: #f1d100;
+  text-shadow: 2px 2px #00539e;
   font-variant: small-caps slashed-zero;
   padding-top: 5px;
   font-family: Century Gothic;
@@ -70,9 +70,36 @@
   color: #f1d100 !important;
 }
 
-.nav-link {
-  color: #f1d100 !important;
-}
 .MDBNavbar {
   background-color: #00539e !important;
+}
+
+.border-bottom {
+  border-bottom: 5px solid #00539e !important;
+}
+
+.border-top {
+  border-top: 5px solid #f1d100 !important;
+}
+
+.p {
+  color: #f1d100;
+  text-align: center;
+  text-shadow: 3px 2px #00539e;
+  font-family: Ink Free;
+  font-size: x-large;
+  margin: 0px;
+}
+.card-image {
+  height: 15vw;
+  width: 100%;
+  object-fit: cover;
+}
+
+.crop-text-1 {
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }

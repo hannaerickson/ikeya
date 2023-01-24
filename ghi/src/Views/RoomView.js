@@ -110,15 +110,14 @@ export default function RoomView() {
             {furnitures.length ? (
               furnitures.map((furniture) => {
                 return (
-                  <Col key={furniture.id}>
-                    <Card className="card bg-black text-white justify-content-center">
-                      <Card.Img variant="top" src={furniture.picture_url} />
-                      <Card.Body>
-                        <div className="text-center">
-                          <Card.Text className="text-right">
-                            {furniture.name}
-                          </Card.Text>
-
+                  <div className="col" key={furniture.id}>
+                    <div className="card bg-light mb-3 text-center h-100">
+                      <img src={furniture.picture_url} className="card-img-top card-image" alt="Image"/>
+                      <div className="card-body">
+                        <h5 className="card-title">{furniture.name}</h5>
+                        {/* <p className="card-text">Not needed for furniture</p> */}
+                      </div>
+                      <div className="card-footer">
                           <Button
                             variant="outline-danger"
                             className="text-right"
@@ -146,9 +145,8 @@ export default function RoomView() {
                             Delete from room
                           </Button>
                         </div>
-                      </Card.Body>
-                    </Card>
-                  </Col>
+                    </div>
+                  </div>
                 );
               })
             ) : (
@@ -156,9 +154,10 @@ export default function RoomView() {
                 <h3>No furniture yet!</h3>
               </div>
             )}
-          </Row>
-        </Container>
+          </div>
       </MDBCol>
+
+
       <MDBCol
         md="4"
         className="text-center"

@@ -1,3 +1,22 @@
+## January 23, 2023
+On the agena today is bootstrap card styling (still) and just general visual appeal. Most of the functionality of the site is done, so this week unit tests also need to be written and worked on. Tyler and Abdoul did start on these previously so hopefully getting the remainder of the tests written shouldn't be too bad.
+
+## January 20, 2023
+Still working on the cards. I took a break and finished the 'sidebar' for all the pages, just making them the same size and changing what data is shown. For the dashboard it houses buttons to create or update a room and to create furniture. On the room specific view it shows the room name, who made it, the image and description. I also have a little header as an example of what we want to show if the logged in user is the one who created that room.
+
+Still need to figure out the sizing of the cards, as well as how to complete that credentials check so that we have different options available to a user if they view a room that they created, despite how they navigate to it (either from their dashboard or the all rooms view).
+
+## January 19, 2023
+Today the main focus was getting the card components working. Missy got a lot of the code done after class, but they're not too visually appealing and they don't render the same way. We want them to be the same shape and size for all new pieces of data, which is more difficult to get done than we thought.
+
+The main focus I had today regarding these card elements was to get the buttons on them working. The ah-ha moment was that we can create new instances of either a room or a piece of furniture and the page re-renders to show it. We can also delete and they are gone from the front end right away.
+
+## January 18, 2023
+Today's ah-ha moment was fixing how the user data was pulled from the database. I wrote a little query in my component to fetch from the token endpoint. The issue before was that if a user didn't have data, like if they were new, it wouldn't show their username on the Dashboard. But by fetching the account data from '/token', we have that information regardless of whether or not they have data.
+
+## January 17, 2023
+Completed the filter today for getting only the rooms for a specific logged in user. Also adjusted some database fetches so we can have this as a backend route as suggested instead of doing the filter on the front end. The other main feature I worked on was on the Dashboard page, creating a greeting for the logged in user. Right now it's pulling from our room data, not the token.
+
 ## January 13, 2023
 Today Missy and I paired off to try to figure out the signup function. I converted it to a form identical to login instead of a modal. We are getting an 'unauthorized' error, so we think the issue is that the account is not actually creating before we pass the credentials to the login function. Will continue troubleshooting. Meanwhile Tyler and Abdoul are trying to get a filter working so that when we click onto a dashboard page, it only shows the rooms for that specific logged in user.
 
