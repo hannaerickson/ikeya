@@ -70,9 +70,6 @@
   color: #f1d100 !important;
 }
 
-.nav-link {
-  color: #f1d100 !important;
-}
 .MDBNavbar {
   background-color: #00539e !important;
 }
@@ -106,11 +103,3 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-
-/* .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #eeb526 !important;
-}
-
-.btn-outline-primary, .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:visited {
-    background-color: #8636e7 !important;
-} */
