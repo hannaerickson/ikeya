@@ -5,15 +5,13 @@ import { useLocation } from "react-router-dom";
 
 //Form
 import FurnitureForm from "../ModalForms/FurnitureForm";
+import UpdateRoomForm from "../ModalForms/UpdateRoom";
+
 //Styling
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import Swal from "sweetalert2";
 import { MDBRow, MDBCol } from "mdb-react-ui-kit";
+import { Modal } from "react-bootstrap";
 
 export default function RoomView() {
   const location = useLocation();
@@ -21,13 +19,16 @@ export default function RoomView() {
   const { token } = useAuthContext();
   const [furnitures, setFurnitures] = useState([]);
   const [rooms, setRooms] = useState([]);
-  const [show, setShow] = useState(false);
   const { handleSubmit } = useState();
-  const [isLoggedIn, setUserStatus] = useState(false);
   const [roomUserName, setUserName] = useState("");
   const [tokenUserName, setTokenUserName] = useState("");
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showFurniture, setShowFurniture] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+
+  const handleCloseFurniture = () => setShowFurniture(false);
+  const handleShowFurniture = () => setShowFurniture(true);
+  const handleCloseUpdate = () => setShowUpdate(false);
+  const handleShowUpdate = () => setShowUpdate(true);
 
   const getData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}/furniture`;
@@ -70,43 +71,45 @@ export default function RoomView() {
       method: "DELETE",
     });
     const dataFurniture = await resp.json();
-    getData(); 
+    getData();
   };
 
   useEffect(() => {
     getData();
-    getRoomData(); 
+    getRoomData();
     getTokenUserName();
-    if (roomUserName !== null && roomUserName === tokenUserName) {
-      setUserStatus(true);
-    } else {
-      setUserStatus(false);
-    }
   }, [token, roomUserName, tokenUserName]);
 
-    
+
   return (
     <MDBRow>
       <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-        <div>
+        <br/>
           { roomUserName === tokenUserName ? (
             <>
-              <header className="p-5 text-center bg-light">
+              <header className="p-3 text-center bg-light">
                 <div className="col-md-12 gap-3">
                   <button className="btn btn-secondary m-2">Dashboard</button>
-                  <button className="btn btn-primary m-2">Add Furniture</button>
-                  <button className="btn btn-danger m-2">Delete Room</button>
+                  <button onClick={handleShowFurniture} className="btn btn-success m-2">Add Furniture</button>
+                  <Modal show={showFurniture} onHide={handleCloseFurniture}>
+                      <Modal.Body>
+                        <FurnitureForm handleSubmit={handleSubmit} />
+                      </Modal.Body>
+                    </Modal>
+                  <button onClick={handleShowUpdate} className="btn btn-warning m-2">Update Room</button>
+                  <Modal show={showUpdate} onHide={handleCloseUpdate}>
+                      <Modal.Body>
+                        <UpdateRoomForm handleSubmit={handleSubmit} />
+                      </Modal.Body>
+                  </Modal>
                 </div>
               </header>
-              <br></br>
               <br></br>
             </>
           ) : (
             ""
           )}
-        </div>
-        <Container>
-          <Row className="mb-3">
+        <div className="row row-cols-1 row-cols-md-3 g-4">
             {furnitures.length ? (
               furnitures.map((furniture) => {
                 return (
