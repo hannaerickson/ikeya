@@ -23,8 +23,9 @@ export default function RoomView() {
   const [rooms, setRooms] = useState([]);
   const [show, setShow] = useState(false);
   const { handleSubmit } = useState();
-  const [username, setUserName] = useState(null);
-  const [isLoggedIn, setUserStatus] = useState(null);
+  const [isLoggedIn, setUserStatus] = useState(false);
+  const [roomUserName, setUserName] = useState("");
+  const [tokenUserName, setTokenUserName] = useState("");
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -47,8 +48,20 @@ export default function RoomView() {
     if (response.ok) {
       const dataRooms = await response.json();
       setRooms(dataRooms);
+      setUserName(dataRooms.username);
     }
   };
+
+  const getTokenUserName = async () => {
+    const res = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if(res.ok){
+      const data = await res.json();
+      setTokenUserName(data.account.username);
+    }
+  }
 
   const deletion = async (id) => {
     const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/${id}`;
@@ -57,32 +70,43 @@ export default function RoomView() {
       method: "DELETE",
     });
     const dataFurniture = await resp.json();
-    getData();
+    getData(); 
   };
 
   useEffect(() => {
     getData();
-    getRoomData();
-    if (username === null) {
-      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
-        method: "GET",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((res) => setUserName(res.account.username));
-    }
-    if (username === rooms.username) {
+    getRoomData(); 
+    getTokenUserName();
+    if (roomUserName !== null && roomUserName === tokenUserName) {
       setUserStatus(true);
     } else {
       setUserStatus(false);
     }
-  }, [token, username, isLoggedIn]);
+  }, [token, roomUserName, tokenUserName]);
 
+    
   return (
     <MDBRow>
       <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-        <br/><br/>
-          <div className="row row-cols-1 row-cols-md-3 g-4">
+        <div>
+          { roomUserName === tokenUserName ? (
+            <>
+              <header className="p-5 text-center bg-light">
+                <div className="col-md-12 gap-3">
+                  <button className="btn btn-secondary m-2">Dashboard</button>
+                  <button className="btn btn-primary m-2">Add Furniture</button>
+                  <button className="btn btn-danger m-2">Delete Room</button>
+                </div>
+              </header>
+              <br></br>
+              <br></br>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+        <Container>
+          <Row className="mb-3">
             {furnitures.length ? (
               furnitures.map((furniture) => {
                 return (

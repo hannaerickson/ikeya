@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 //Form
 import UpdateRoomForm from "../ModalForms/UpdateRoom";
-import UpdateForm from "../ModalForms/Update";
 import RoomsForm from "../ModalForms/RoomsForm";
 import FurnitureForm from "../ModalForms/FurnitureForm";
 
