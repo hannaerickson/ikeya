@@ -6,18 +6,19 @@ import { Link } from "react-router-dom";
 
 //Form
 import UpdateRoomForm from "../ModalForms/UpdateRoom";
+import UpdateForm from "../ModalForms/Update";
 import RoomsForm from "../ModalForms/RoomsForm";
 import FurnitureForm from "../ModalForms/FurnitureForm";
 
 //Styling
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import Card from "react-bootstrap/Card";
+// import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import { MDBRow, MDBCol } from "mdb-react-ui-kit";
-import Modal from "react-bootstrap/Modal";
+// import { MDBRow, MDBCol } from "mdb-react-ui-kit";
+import {Modal} from "react-bootstrap";
 import "../CSS/Style.css";
 
 export default function Dashboard() {
@@ -75,7 +76,6 @@ export default function Dashboard() {
       <div className="btn-group">
         <button onClick={handleShowRoom} className="btn btn-info m-1">Create A Room</button>
         <Modal show={showRoom} onHide={handleCloseRoom}>
-          <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
               <RoomsForm handleSubmit={handleSubmit} />
             </Modal.Body>
@@ -83,19 +83,17 @@ export default function Dashboard() {
 
         <button onClick={handleShowFurniture} className="btn btn-success m-1">Create Furniture</button>
         <Modal show={showFurniture} onHide={handleCloseFurniture}>
-          <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
               <FurnitureForm handleSubmit={handleSubmit} />
             </Modal.Body>
           </Modal>
 
-        <button onClick={handleShowUpdate} className="btn btn-success m-1">Update</button>
+        <button onClick={handleShowUpdate} className="btn btn-warning m-1">Update</button>
         <Modal show={showUpdate} onHide={handleCloseUpdate}>
-          <Modal.Header closeButton></Modal.Header>
             <Modal.Body>
               <UpdateRoomForm handleSubmit={handleSubmit} />
             </Modal.Body>
-          </Modal>
+        </Modal>
 
       </div>
       <br/>
@@ -114,14 +112,6 @@ export default function Dashboard() {
                       Furniture
                         </Link>
                       </button>
-
-                      <button onClick={handleShowUpdate} className="btn btn-outline-warning btn-sm m-1">Update</button>
-                        <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                          <Modal.Header closeButton></Modal.Header>
-                          <Modal.Body>
-                            <UpdateRoomForm handleSubmit={handleSubmit} />
-                          </Modal.Body>
-                        </Modal>
 
                       <Button
                         variant="outline-danger btn-sm m-1"
