@@ -12,6 +12,7 @@ import RoomView from "./Views/RoomView";
 import RoomsForm from "./ModalForms/RoomsForm";
 import FurnitureForm from "./ModalForms/FurnitureForm";
 import UpdateRoomForm from "./ModalForms/UpdateRoom";
+import UpdateForm from "./ModalForms/Update";
 
 function GetToken() {
   // Get token from JWT cookie (if already logged in)
@@ -35,6 +36,7 @@ function App() {
             <Route path="/roomsform" element={<RoomsForm />} />
             <Route path="/updateRoomForm" element={<UpdateRoomForm />} />
             <Route path="/furniture" element={<FurnitureForm />} />
+            <Route path="/new" element={<UpdateForm />} />
           </Routes>
         </div>
       </AuthProvider>
