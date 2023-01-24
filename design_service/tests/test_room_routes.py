@@ -5,21 +5,14 @@ from queries.rooms import RoomRepository
 from queries.accounts import AccountsQueries
 from main import app
 from models.models import RoomOut, RoomIn, AccountOut
-from authenticator import MyAuthenticator
+from authenticator import authenticator
 
 
 client = TestClient(app=app)
 
-class MyAuthenticatorMock(MyAuthenticator):
-    async def get_account_data(self,username:str, accounts: AccountsQueries):
-        return AccountOut(id=1, username="test")
-    def get_account_getter(
-        self,
-        accounts: AccountsQueries = Depends(),
-    ):
-        return accounts
-    def get_hashed_password(self, account: AccountOut):
-        return "password"
+def get_current_account_data_mock():
+    return {"username": "Abdoul"}
+
 
 
 
@@ -32,7 +25,7 @@ class RoomRepositoryMock:
         return RoomOut(id= 99, **room_dict)
 
     def get_all_rooms(self):
-        return []
+        return [RoomOut(id=1, name='room1', username='test_user1'), RoomOut(id=2, name='room2', username='test_user2')]
 
 
 def test_create_room():
@@ -46,9 +39,8 @@ def test_create_room():
 
 def test_get_rooms():
     app.dependency_overrides[RoomRepository] = RoomRepositoryMock
-    app.dependency_overrides[MyAuthenticator] = MyAuthenticatorMock
-    print(app.dependency_overrides[MyAuthenticator])
+    app.dependency_overrides[authenticator.get_current_account_data] = get_current_account_data_mock
     response = client.get("/api/rooms")
     assert response.status_code == 200
-    assert response.json() == {"rooms": []}
+    assert response.json() == [{'id': 1, 'name': 'room1', 'description': None, 'picture_url': None, 'username': 'test_user1'}, {'id': 2, 'name': 'room2', 'description': None, 'picture_url': None, 'username': 'test_user2'}]
     app.dependency_overrides = {}
