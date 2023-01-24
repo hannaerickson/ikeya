@@ -47,6 +47,7 @@ def test_create_room():
 def test_get_rooms():
     app.dependency_overrides[RoomRepository] = RoomRepositoryMock
     app.dependency_overrides[MyAuthenticator] = MyAuthenticatorMock
+    print(app.dependency_overrides[MyAuthenticator])
     response = client.get("/api/rooms")
     assert response.status_code == 200
     assert response.json() == {"rooms": []}
