@@ -70,140 +70,96 @@ export default function Dashboard() {
   }, [token, username]);
 
   return (
-    <>
-      <MDBRow>
-        <MDBRow>
-          <MDBRow
-            md="4"
-            className="align-items-center justify-content-center"
-            style={{
-              backgroundColor: "#212529",
-              height: "auto",
-            }}
-          >
-            <div>
-              <p className="text-center p margin">
-                Welcome, {username}. Here you can{" "}
-                <Button
-                  type="button"
-                  variant="success"
-                  onClick={handleShowRoom}
-                >
-                  Add a Room
-                </Button>
-                {", "}
-                <Modal show={showRoom} onHide={handleCloseRoom}>
-                  <Modal.Header closeButton></Modal.Header>
-                  <Modal.Body>
-                    <RoomsForm handleSubmit={handleSubmit} />
-                  </Modal.Body>
-                </Modal>
-                {/* UPDATE */}
-                <Button
-                  type="button"
-                  variant="warning"
-                  onClick={handleShowUpdate}
-                >
-                  Update a Room
-                </Button>
-                <Modal show={showRoom} onHide={handleCloseRoom}>
-                  <Modal.Header closeButton></Modal.Header>
-                  <Modal.Body>
-                    <RoomsForm handleSubmit={handleSubmit} />
-                  </Modal.Body>
-                </Modal>
-                {", "}
-                {/* Furniture */}
-                and{" "}
-                <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                  <Modal.Header closeButton></Modal.Header>
-                  <Modal.Body>
-                    <UpdateRoomForm handleSubmit={handleSubmit} />
-                  </Modal.Body>
-                </Modal>
-                <Button
-                  type="button"
-                  variant="info"
-                  onClick={handleShowFurniture}
-                >
-                  Add Furniture
-                </Button>
-                <Modal show={showFurniture} onHide={handleCloseFurniture}>
-                  <Modal.Header closeButton></Modal.Header>
-                  <Modal.Body>
-                    <FurnitureForm handleSubmit={handleSubmit} />
-                  </Modal.Body>
-                </Modal>
-                {"."}
-              </p>
-            </div>
-          </MDBRow>
-        </MDBRow>
+    <div className="d-grid gap-2">
+      <br/>
+      <div className="btn-group">
+        <button onClick={handleShowRoom} className="btn btn-info m-1">Create A Room</button>
+        <Modal show={showRoom} onHide={handleCloseRoom}>
+          <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <RoomsForm handleSubmit={handleSubmit} />
+            </Modal.Body>
+        </Modal>
 
-        <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-          <Container>
-            <br />
-            <br />
-            <Row className="mb-3">
-              {list.map((room) => {
-                return (
-                  <Col key={room.id}>
-                    <Card className="w-75 justify-content-center">
-                      <Card.Img variant="top" src={room.picture_url} />
-                      <Card.Body>
-                        <div className="text-center">
-                          <Card.Text className="text-right">
-                            {room.name}
-                          </Card.Text>
+        <button onClick={handleShowFurniture} className="btn btn-success m-1">Create Furniture</button>
+        <Modal show={showFurniture} onHide={handleCloseFurniture}>
+          <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <FurnitureForm handleSubmit={handleSubmit} />
+            </Modal.Body>
+          </Modal>
 
-                          <Card.Text className="text-right">
-                            {room.description}
-                          </Card.Text>
-                          <Button variant="primary" className="text-right">
-                            <Link
-                              to="/rooms/furniture"
-                              state={room.id}
-                              style={{ textDecoration: "none", color: "white" }}
-                            >
-                              Furniture
-                            </Link>
-                          </Button>
-                          <Button
-                            variant="danger"
-                            className="text-right"
-                            onClick={() => {
-                              Swal.fire({
-                                title: "Are you sure?",
-                                text: "You won't be able to revert this!",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
-                                confirmButtonText: "Yes, delete it!",
-                              }).then((result) => {
-                                if (result.value) {
-                                  deletion(room.id);
-                                  Swal.fire(
-                                    "Deleted!",
-                                    "Your room has been deleted.",
-                                    "success"
-                                  );
-                                }
-                              });
-                            }}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                );
-              })}
-            </Row>
-          </Container>
-        </MDBCol>
-      </MDBRow>
-    </>
-  );
-}
+        <button onClick={handleShowUpdate} className="btn btn-success m-1">Update</button>
+        <Modal show={showUpdate} onHide={handleCloseUpdate}>
+          <Modal.Header closeButton></Modal.Header>
+            <Modal.Body>
+              <UpdateRoomForm handleSubmit={handleSubmit} />
+            </Modal.Body>
+          </Modal>
+
+      </div>
+      <br/>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+          {list?.map((room) => {
+              return (
+                <div className="col" key={room.id}>
+                  <div className="card bg-light mb-3 text-center h-100">
+                    <div className="card-header">
+
+                      <button className="btn btn-outline-primary btn-sm m-1">
+                        <Link
+                          to="/rooms/furniture"
+                          state={room.id}
+                          style={{textDecoration: "none", color: "black"}}>
+                      Furniture
+                        </Link>
+                      </button>
+
+                      <button onClick={handleShowUpdate} className="btn btn-outline-warning btn-sm m-1">Update</button>
+                        <Modal show={showUpdate} onHide={handleCloseUpdate}>
+                          <Modal.Header closeButton></Modal.Header>
+                          <Modal.Body>
+                            <UpdateRoomForm handleSubmit={handleSubmit} />
+                          </Modal.Body>
+                        </Modal>
+
+                      <Button
+                        variant="outline-danger btn-sm m-1"
+                        className="text-right"
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, delete it!",
+                          }).then((result) => {
+                            if (result.value) {
+                              deletion(room.id);
+                              Swal.fire(
+                                "Deleted!",
+                                "Your room has been deleted.",
+                                "success"
+                              );
+                            }
+                          });
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                    <img src={room.picture_url} className="card-img-top card-image" alt="Image"/>
+                    <div className="card-body">
+                      <h5 className="card-title">{room.name}</h5>
+                      <p className="card-text crop-text-1">{room.description}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+        </div>
+    </div>
+  )
+};
