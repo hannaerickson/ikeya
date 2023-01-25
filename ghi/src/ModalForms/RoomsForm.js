@@ -7,8 +7,7 @@ function RoomsForm() {
     const [description, setDescription] = useState("");
     const [picture_url, setPictureUrl] = useState("");
     const [username, setUserName] = useState(null);
-    const [show, setShow] = useState(false);
-
+    const [setShow] = useState(true);
     const handleClose = () => setShow(false);
 
     const fetchConfig = {
@@ -26,8 +25,8 @@ function RoomsForm() {
     async function handleSubmit(e) {
         e.preventDefault();
         const room = { name, description, picture_url, username };
-        const urlSubmit = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
-        const response = await fetch(urlSubmit, {
+        const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
+        const response = await fetch(url, {
             method: "POST",
             body: JSON.stringify(room),
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -40,7 +39,6 @@ function RoomsForm() {
             handleClose();
             window.location.reload();
         }
-
     };
 
     return (

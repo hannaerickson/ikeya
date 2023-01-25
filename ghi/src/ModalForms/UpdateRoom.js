@@ -2,68 +2,30 @@ import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../Accounts/Auth";
 import { useLocation } from "react-router-dom";
 
-const UpdateRoomForm = () => {
+function UpdateRoomForm() {
   const { token } = useContext(AuthContext);
-  const location = useLocation();
-  const roomData = location.state;
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [username, setUserName] = useState(null);
   const [rooms, setRooms] = useState([]);
-  const [show, setShow] = useState(true);
-
-  const handleRoomChange = (event) => {
-    setRoomId(event.target.value);
-  };
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const handlePictureChange = (event) => {
-    setPictureUrl(event.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = { name, description, picture_url, username };
-    const furnitureUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
-    const response = await fetch(furnitureUrl, {
-      method: "PUT",
-      credentials: "include",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (response.ok) {
-      const newFurniture = await response.json();
-      console.log(newFurniture);
-
-      setName("");
-      setDescription("");
-      setPictureUrl("");
-      setUserName();
-      handleClose();
-      window.location.reload();
-    }
-  };
-
+  const [setShow] = useState(true);
   const handleClose = () => setShow(false);
+
+  const handleRoomChange = (e) => {
+    setRoomId(e.target.value);};
+  const handleNameChange = (e) => {
+    setName(e.target.value);};
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);};
+  const handlePictureChange = (e) => {
+    setPictureUrl(e.target.value);};
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
     const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: {Authorization: `Bearer ${token}`,},
     });
     if (response.ok) {
       const data = await response.json();
@@ -85,12 +47,36 @@ const UpdateRoomForm = () => {
     fetchData();
   }, [username]);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const data = { name, description, picture_url, username };
+    const furnitureUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
+    const response = await fetch(furnitureUrl, {
+      method: "PUT",
+      credentials: "include",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.ok) {
+      const newFurniture = await response.json();
+      setName("");
+      setDescription("");
+      setPictureUrl("");
+      setUserName();
+      handleClose();
+      window.location.reload();
+    }
+  };
+
   return (
     <div className="row">
         <div className="p-3">
           <h1>Update Your Room</h1>
           <br/>
-          <form onSubmit={handleSubmit} id="create-furniture-form">
+          <form onSubmit={handleSubmit} id="update-room-form">
             <div className="form-floating mb-3">
               <input
                 onChange={handleNameChange}

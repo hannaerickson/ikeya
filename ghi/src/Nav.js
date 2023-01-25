@@ -67,7 +67,6 @@ export default function Nav() {
                   Login
                 </MDBNavbarLink>
                 <Modal show={showLoginModal} onHide={handleCloseLogin}>
-                  <Modal.Header closeButton></Modal.Header>
                   <Modal.Body>
                     <LoginForm handleSubmit={handleSubmit} />
                   </Modal.Body>
@@ -76,7 +75,6 @@ export default function Nav() {
                   Signup
                 </MDBNavbarLink>
                 <Modal show={showSignupModal} onHide={handleCloseSignup}>
-                  <Modal.Header closeButton></Modal.Header>
                   <Modal.Body>
                     <SignupForm handleSubmit={handleSubmit} />
                   </Modal.Body>

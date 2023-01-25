@@ -1,46 +1,48 @@
 import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../Accounts/Auth";
+import { useAuthContext } from "../Accounts/Auth";
 
-const FurnitureForm = () => {
-  const { token } = useContext(AuthContext);
+function FurnitureForm() {
+  const { token } = useAuthContext();
   const [name, setName] = useState("");
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [rooms, setRooms] = useState([]);
   const [setShow] = useState(true);
+  const handleClose = () => setShow(false);
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
+  const handleNameChange = (e) => {
+    setName(e.target.value);};
+  const handlePictureChange = (e) => {
+    setPictureUrl(e.target.value);};
+  const handleRoomChange = (e) => {
+    setRoomId(e.target.value);};
 
-  const handlePictureChange = (event) => {
-    setPictureUrl(event.target.value);
-  };
-
-  const handleRoomChange = (event) => {
-    setRoomId(event.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = { name, picture_url, room_id };
-    console.log(data);
-
-    const furnitureUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/`;
-    const fetchConfig = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    const response = await fetch(furnitureUrl, fetchConfig);
+  const fetchData = async () => {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
+    const response = await fetch(url, {
+      headers: {Authorization: `Bearer ${token}`}
+    });
     if (response.ok) {
-      const newFurniture = await response.json();
-      console.log(newFurniture);
+      const data = await response.json();
+      setRooms(data);
+    }
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, [token]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const furniture = {name, picture_url, room_id};
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/`;
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(furniture),
+      headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}`},
+    });
+    if (response.ok) {
+      const data = await response.json();
       setName("");
       setPictureUrl("");
       setRoomId("");
@@ -49,31 +51,11 @@ const FurnitureForm = () => {
     }
   };
 
-  const handleClose = () => setShow(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
-      const fetchConfig = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      const response = await fetch(url, fetchConfig);
-      if (response.ok) {
-        const data = await response.json();
-        setRooms(data);
-      }
-    };
-    fetchData();
-  }, [token]);
-
   return (
     <div className="row">
       <div className="p-3">
         <h1>New Furniture</h1>
         <br />
-        <form onSubmit={handleSubmit} id="create-furniture-form">
           <div className="form-floating mb-3">
             <input
               onChange={handleNameChange}
@@ -119,10 +101,9 @@ const FurnitureForm = () => {
               })}
             </select>
           </div>
-          <button className="btn btn-outline-success d-block mx-auto">
+          <button onClick={handleSubmit} className="btn btn-outline-success d-block mx-auto">
             Create
           </button>
-        </form>
       </div>
     </div>
   );

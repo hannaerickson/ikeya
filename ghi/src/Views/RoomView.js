@@ -54,19 +54,19 @@ export default function RoomView() {
   };
 
   const getTokenUserName = async () => {
-    const res = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
+    const response = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
       method: "GET",
       credentials: "include",
     });
-    if(res.ok){
-      const data = await res.json();
+    if(response.ok){
+      const data = await response.json();
       setTokenUserName(data.account.username);
     }
   }
 
   const deletion = async (id) => {
-    const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/${id}`;
-    const resp = await fetch(urlDelete, {
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/${id}`;
+    const resp = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
       method: "DELETE",
     });
@@ -90,18 +90,21 @@ export default function RoomView() {
               <header className="p-3 text-center bg-light">
                 <div className="col-md-12 gap-3">
                   <button className="btn btn-secondary m-2">Dashboard</button>
+
                   <button onClick={handleShowFurniture} className="btn btn-success m-2">Add Furniture</button>
                   <Modal show={showFurniture} onHide={handleCloseFurniture}>
                       <Modal.Body>
                         <FurnitureForm handleSubmit={handleSubmit} />
                       </Modal.Body>
                     </Modal>
+
                   <button onClick={handleShowUpdate} className="btn btn-warning m-2">Update Room</button>
                   <Modal show={showUpdate} onHide={handleCloseUpdate}>
                       <Modal.Body>
                         <UpdateRoomForm handleSubmit={handleSubmit} />
                       </Modal.Body>
                   </Modal>
+
                 </div>
               </header>
               <br></br>
@@ -118,7 +121,6 @@ export default function RoomView() {
                       <img src={furniture.picture_url} className="card-img-top card-image" alt="Image"/>
                       <div className="card-body">
                         <h5 className="card-title">{furniture.name}</h5>
-                        {/* <p className="card-text">Not needed for furniture</p> */}
                       </div>
                       <div className="card-footer">
                           <Button

@@ -1,6 +1,5 @@
 //Function
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect }from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { Link } from "react-router-dom";
 
@@ -10,13 +9,8 @@ import RoomsForm from "../ModalForms/RoomsForm";
 import FurnitureForm from "../ModalForms/FurnitureForm";
 
 //Styling
-// import Card from "react-bootstrap/Card";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-// import { MDBRow, MDBCol } from "mdb-react-ui-kit";
 import {Modal} from "react-bootstrap";
 import "../CSS/Style.css";
 
