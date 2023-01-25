@@ -122,6 +122,7 @@ export default function RoomView() {
                       <div className="card-body">
                         <h5 className="card-title">{furniture.name}</h5>
                       </div>
+                      { roomUserName === tokenUserName ? (
                       <div className="card-footer">
                           <Button
                             variant="outline-danger"
@@ -150,6 +151,9 @@ export default function RoomView() {
                             Delete from room
                           </Button>
                         </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 );
