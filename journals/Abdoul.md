@@ -31,3 +31,11 @@ Trying to get these unit tests running, was stuck on getting the tests to show f
 #### January 19th:
 
 Working on getting our Create some furniture form working on the front end side today. I was able to finishing making the form show up on our development server, but I can't seem to get the rooms to populate currently. I also have to make sure it's only the rooms for the current user logged in as well.
+
+#### January 20th:
+
+Was able to get the create some furntiure form working on the front end side without issue. It wasn't working at first and I was getting a CORS error but all I had to do was login into our website through the front end side rather than through the back end side. Working on the unit tests today but struggling with getting the tests to pass.
+
+#### January 23rd:
+
+I got one of my 2 unit tests to pass!!! Just had to change the name of one of my functions. The 2nd unit test is making me really mad though. The other test was easy enough but it's a different story with authentication needed. If i figure out how to get this working the rest of the tests should be easy but right now, no such luck. Sigh.

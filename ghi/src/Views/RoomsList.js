@@ -2,14 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../Accounts/Auth";
 
-//Styling
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import { MDBRow, MDBCol } from "mdb-react-ui-kit";
-
 function RoomsList() {
   const { token } = useAuthContext();
   const [list, setList] = useState([]);
@@ -42,7 +34,7 @@ function RoomsList() {
   return (
     <div>
     <br/>
-      <h1>Welcome, {username}</h1>
+      <h1>Welcome {username}</h1>
       <input
         type="search"
         placeholder="Search by room name"
