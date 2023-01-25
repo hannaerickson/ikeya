@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
+import { useLocation } from "react-router-dom";
 
 function RoomsForm() {
     const { token } = useAuthContext();
@@ -7,8 +8,8 @@ function RoomsForm() {
     const [description, setDescription] = useState("");
     const [picture_url, setPictureUrl] = useState("");
     const [username, setUserName] = useState(null);
-    const [setShow] = useState(true);
-    const handleClose = () => setShow(false);
+    const [show, setShow] = useState(true);
+    const location = useLocation();
 
     const fetchConfig = {
         method: "GET",
@@ -36,7 +37,7 @@ function RoomsForm() {
             setName("");
             setDescription("");
             setPictureUrl("");
-            handleClose();
+            setShow(false);
             window.location.reload();
         }
     };

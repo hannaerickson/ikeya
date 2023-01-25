@@ -10,8 +10,7 @@ function UpdateRoomForm() {
   const [room_id, setRoomId] = useState("");
   const [username, setUserName] = useState(null);
   const [rooms, setRooms] = useState([]);
-  const [setShow] = useState(true);
-  const handleClose = () => setShow(false);
+  const [show, setShow] = useState(true);
 
   const handleRoomChange = (e) => {
     setRoomId(e.target.value);};
@@ -66,7 +65,7 @@ function UpdateRoomForm() {
       setDescription("");
       setPictureUrl("");
       setUserName();
-      handleClose();
+      setShow(false);
       window.location.reload();
     }
   };
@@ -81,7 +80,6 @@ function UpdateRoomForm() {
               <input
                 onChange={handleNameChange}
                 placeholder="Name"
-                required
                 type="text"
                 name="name"
                 id="name"
@@ -95,7 +93,6 @@ function UpdateRoomForm() {
               <textarea
                 onChange={handleDescriptionChange}
                 placeholder="Updated description"
-                required
                 type="textarea"
                 name="description"
                 id="description"
@@ -107,7 +104,6 @@ function UpdateRoomForm() {
               <input
                 onChange={handlePictureChange}
                 placeholder="picture_url"
-                required
                 type="text"
                 name="picture_url"
                 id="picture_url"

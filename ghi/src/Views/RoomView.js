@@ -84,7 +84,7 @@ export default function RoomView() {
 
   return (
     <MDBRow>
-      <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
+      <MDBCol md="8" style={{ backgroundColor: "white", height: "auto" }}>
         <br/>
           { roomUserName === tokenUserName ? (
             <>
@@ -119,7 +119,7 @@ export default function RoomView() {
           ) : (
             ""
           )}
-        <div className="row row-cols-1 row-cols-md-3 g-4">
+        <div className="row row-cols-1 row-cols-md-3 g-4 mb-5">
             {furnitures.length ? (
               furnitures.map((furniture) => {
                 return (
@@ -179,7 +179,7 @@ export default function RoomView() {
       <MDBCol
         md="4"
         className="text-center"
-        style={{ backgroundColor: "#EDEDE9", height: "auto" }}
+        style={{ backgroundColor: "#EDEDE9", height: "auto"}}
       >
         <br />
         <br />
