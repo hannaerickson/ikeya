@@ -64,24 +64,26 @@ export default function Dashboard() {
   }, [token, username]);
 
   return (
-    <div className="d-grid gap-2">
+    <div>
       <br/>
+      <h1>Welcome back, {username}</h1>
+    <div className="d-grid gap-2">
       <div className="btn-group">
-        <button onClick={handleShowRoom} className="btn btn-info m-1">Create A Room</button>
+        <button onClick={handleShowRoom} className="btn btn-orange m-1">Create A Room</button>
         <Modal show={showRoom} onHide={handleCloseRoom}>
             <Modal.Body>
               <RoomsForm handleSubmit={handleSubmit} />
             </Modal.Body>
         </Modal>
 
-        <button onClick={handleShowFurniture} className="btn btn-success m-1">Create Furniture</button>
+        <button onClick={handleShowFurniture} className="btn btn-green m-1">Create Furniture</button>
         <Modal show={showFurniture} onHide={handleCloseFurniture}>
             <Modal.Body>
               <FurnitureForm handleSubmit={handleSubmit} />
             </Modal.Body>
           </Modal>
 
-        <button onClick={handleShowUpdate} className="btn btn-warning m-1">Update</button>
+        <button onClick={handleShowUpdate} className="btn btn-yellow m-1">Update A Room</button>
         <Modal show={showUpdate} onHide={handleCloseUpdate}>
             <Modal.Body>
               <UpdateRoomForm handleSubmit={handleSubmit} />
@@ -97,26 +99,26 @@ export default function Dashboard() {
                   <div className="card bg-light mb-3 text-center h-100">
                     <div className="card-header">
 
-                      <button className="btn btn-outline-primary btn-sm m-1">
+                      <button className="btn btn-blue btn-sm m-1">
                         <Link
                           to="/rooms/furniture"
                           state={room.id}
-                          style={{textDecoration: "none", color: "black"}}>
+                          style={{textDecoration: "none", color: "white"}}>
                       Furniture
                         </Link>
                       </button>
 
                       <Button
-                        variant="outline-danger btn-sm m-1"
-                        className="text-right"
+                        variant="btn-sm m-1"
+                        className="btn-red btn-sm text-right"
                         onClick={() => {
                           Swal.fire({
                             title: "Are you sure?",
                             text: "You won't be able to revert this!",
                             icon: "warning",
                             showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
+                            confirmButtonColor: "#bb7e74",
+                            cancelButtonColor: "#808080",
                             confirmButtonText: "Yes, delete it!",
                           }).then((result) => {
                             if (result.value) {
@@ -144,5 +146,6 @@ export default function Dashboard() {
             })}
         </div>
     </div>
+  </div>
   )
 };

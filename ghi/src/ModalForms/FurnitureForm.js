@@ -101,7 +101,7 @@ function FurnitureForm() {
               })}
             </select>
           </div>
-          <button onClick={handleSubmit} className="btn btn-outline-success d-block mx-auto">
+          <button onClick={handleSubmit} className="btn btn-green d-block mx-auto">
             Create
           </button>
       </div>

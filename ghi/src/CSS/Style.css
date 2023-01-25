@@ -67,11 +67,11 @@
 }
 
 .NavbarBrand {
-  color: #f1d100 !important;
+  color: #d6c8a3 !important;
 }
 
 .MDBNavbar {
-  background-color: #00539e !important;
+  background-color: #6c7971 !important;
 }
 
 .border-bottom {
@@ -102,4 +102,38 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+}
+
+.card-style {
+  background-color: rgb(214, 200, 163);
+}
+
+.btn-green {
+  background-color: #6c7971;
+  color: white;
+}
+
+.btn-yellow {
+  background-color: #d7c48f;
+  color: white;
+}
+
+.btn-red {
+  background-color: #bb7e74;
+  color: white;
+}
+
+.btn-blue {
+  background-color: #6788a5;
+  color: white;
+}
+
+.btn-orange {
+  background-color: #b28363;
+  color: white;
+}
+
+.btn-gray {
+  background-color: #808080;
+  color: white;
 }

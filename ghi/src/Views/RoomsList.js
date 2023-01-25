@@ -37,7 +37,7 @@ function RoomsList() {
       <h1>Welcome {username}</h1>
       <input
         type="search"
-        placeholder="Search by room name"
+        placeholder="Search by room type"
         className="form-control"
         onChange={(e) => setQuery(e.target.value)}/>
       <br/>
@@ -55,7 +55,7 @@ function RoomsList() {
                     <p className="card-text crop-text-1">{room.description}</p>
                   </div>
                   <div className="card-footer">
-                    <button className="btn btn-primary">
+                    <button className="btn btn-blue">
                       <Link
                         to="/rooms/furniture"
                         state={room.id}

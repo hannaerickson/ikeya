@@ -135,7 +135,7 @@ function UpdateRoomForm() {
                 })}
               </select>
             </div>
-            <button className="btn btn-outline-warning d-block mx-auto">
+            <button className="btn btn-yellow d-block mx-auto">
               Update!
             </button>
           </form>
