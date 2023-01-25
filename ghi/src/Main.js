@@ -36,8 +36,8 @@ export default function Main() {
                 className="image"
                 src="	https://images2.imgbox.com/75/77/pB6ZAA7J_o.png"
               />
-              <div class="card-body">
-                <p class="cardtext1">Create Your Space</p>
+              <div className="card-body">
+                <p className="cardtext1">Create Your Space</p>
               </div>
             </MDBCard>
 
@@ -46,8 +46,8 @@ export default function Main() {
                 className="image"
                 src="	https://images2.imgbox.com/f2/de/HhRfNVZp_o.png"
               />
-              <div class="card-body">
-                <p class="cardtext1">Simple Functionality</p>
+              <div className="card-body">
+                <p className="cardtext1">Simple Functionality</p>
               </div>
             </MDBCard>
 
@@ -56,8 +56,8 @@ export default function Main() {
                 className="image"
                 src="https://images2.imgbox.com/ec/a9/1uLdstyZ_o.png"
               />
-              <div class="card-body">
-                <p class="cardtext1">Browse for Inspiration</p>
+              <div className="card-body">
+                <p className="cardtext1">Browse for Inspiration</p>
               </div>
             </MDBCard>
           </div>

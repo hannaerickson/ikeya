@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../Accounts/Auth";
 import { useLocation } from "react-router-dom";
 
-const UpdateRoomForm = () => {
+const UpdateRoomForm = (id) => {
   const { token } = useContext(AuthContext);
   const location = useLocation();
   const roomData = location.state;
@@ -11,12 +11,8 @@ const UpdateRoomForm = () => {
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [username, setUserName] = useState(null);
-  const [rooms, setRooms] = useState([]);
+  // const [rooms, setRooms] = useState([]);
   const [show, setShow] = useState(true);
-
-  const handleRoomChange = (event) => {
-    setRoomId(event.target.value);
-  };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -30,11 +26,11 @@ const UpdateRoomForm = () => {
     setPictureUrl(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleUpdate = async (event, room_id) => {
     event.preventDefault();
     const data = { name, description, picture_url, username };
-    const furnitureUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
-    const response = await fetch(furnitureUrl, {
+    const roomUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
+    const response = await fetch(roomUrl, {
       method: "PUT",
       credentials: "include",
       body: JSON.stringify(data),
@@ -44,9 +40,9 @@ const UpdateRoomForm = () => {
       },
     });
     if (response.ok) {
-      const newFurniture = await response.json();
-      console.log(newFurniture);
-
+      const updateRoom = await response.json();
+      console.log(updateRoom);
+      setRoomId(updateRoom.id);
       setName("");
       setDescription("");
       setPictureUrl("");
@@ -58,8 +54,9 @@ const UpdateRoomForm = () => {
 
   const handleClose = () => setShow(false);
 
-  const fetchData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
+  const fetchData = async (room_id) => {
+    console.log(room_id);
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -67,7 +64,9 @@ const UpdateRoomForm = () => {
     });
     if (response.ok) {
       const data = await response.json();
-      setRooms(data);
+      setName(data.name);
+      setDescription(data.description);
+      setPictureUrl(data.picture_url);
     }
   };
 
@@ -77,84 +76,63 @@ const UpdateRoomForm = () => {
   };
 
   useEffect(() => {
-    if (username === null) {
-      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
-        .then((res) => res.json())
-        .then((res) => setUserName(res.account.username));
+    if (room_id) {
+      console.log(room_id);
+      fetchData(room_id);
     }
-    fetchData();
-  }, [username]);
+  }, [room_id]);
 
   return (
     <div className="row">
-        <div className="p-3">
-          <h1>Update Your Room</h1>
-          <br/>
-          <form onSubmit={handleSubmit} id="create-furniture-form">
-            <div className="form-floating mb-3">
-              <input
-                onChange={handleNameChange}
-                placeholder="Name"
-                required
-                type="text"
-                name="name"
-                id="name"
-                value={name}
-                className="form-control"
-              />
-              <label htmlFor="name">Room Name</label>
-            </div>
-            <div className="form-group mb-3">
-              <label htmlFor="description">Description</label>
-              <textarea
-                onChange={handleDescriptionChange}
-                placeholder="Updated description"
-                required
-                type="textarea"
-                name="description"
-                id="description"
-                value={description}
-                className="form-control"
-              />
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={handlePictureChange}
-                placeholder="picture_url"
-                required
-                type="text"
-                name="picture_url"
-                id="picture_url"
-                value={picture_url}
-                className="form-control"
-              />
-              <label htmlFor="picture_url">Picture URL</label>
-            </div>
-            <div className="mb-3">
-              <select
-                onChange={handleRoomChange}
-                required
-                name="room_id"
-                id="room_id"
-                value={room_id}
-                className="form-select"
-              >
-                <option value="">Which room would you like to update?</option>
-                {rooms.map((room) => {
-                  return (
-                    <option value={room.id} key={room.id}>
-                      {room.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <button className="btn btn-outline-warning d-block mx-auto">
-              Update!
-            </button>
-          </form>
-        </div>
+      <div className="p-3">
+        <h1>Update Your Room</h1>
+        <br />
+        <form onSubmit={() => handleUpdate(room_id)} id="create-furniture-form">
+          <div className="form-floating mb-3">
+            <input
+              onChange={handleNameChange}
+              placeholder="Name"
+              required
+              type="text"
+              name="name"
+              id="name"
+              value={name}
+              className="form-control"
+            />
+            <label htmlFor="name">Room Name</label>
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="description">Description</label>
+            <textarea
+              onChange={handleDescriptionChange}
+              placeholder="Updated description"
+              required
+              type="textarea"
+              name="description"
+              id="description"
+              value={description}
+              className="form-control"
+            />
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              onChange={handlePictureChange}
+              placeholder="picture_url"
+              required
+              type="text"
+              name="picture_url"
+              id="picture_url"
+              value={picture_url}
+              className="form-control"
+            />
+            <label htmlFor="picture_url">Picture URL</label>
+          </div>
+          <button className="btn btn-outline-warning d-block mx-auto">
+            Update!
+          </button>
+        </form>
       </div>
+    </div>
   );
 };
 

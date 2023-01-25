@@ -82,14 +82,18 @@
   border-top: 5px solid #f1d100 !important;
 }
 
-.p {
-  color: #f1d100;
-  text-align: center;
-  text-shadow: 3px 2px #00539e;
-  font-family: Ink Free;
-  font-size: x-large;
-  margin: 0px;
+.nav-link {
+  color: #f1d100 !important;
 }
+
+.p {
+  color: #00539e;
+  text-shadow: 3px 2px #f1d100;
+  font-family: Ink Free;
+  font-size: 80px;
+  margin: 5px;
+}
+
 .card-image {
   height: 15vw;
   width: 100%;
@@ -102,4 +106,11 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+}
+
+.button {
+  width: 100%;
+  font-weight: 500;
+  background-color: #00539e;
+  color: #f1d100;
 }
