@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Form
 import FurnitureForm from "../ModalForms/FurnitureForm";
@@ -78,7 +79,7 @@ export default function RoomView() {
     getData();
     getRoomData();
     getTokenUserName();
-  }, [token, roomUserName, tokenUserName]);
+  }, [token, roomUserName, tokenUserName, furnitures]);
 
 
   return (
@@ -89,20 +90,26 @@ export default function RoomView() {
             <>
               <header className="p-3 text-center bg-light">
                 <div className="col-md-12 gap-3">
-                  <button className="btn btn-secondary m-2">Dashboard</button>
+                  <button className="btn btn-secondary m-2">
+                    <Link
+                      to="/dashboard"
+                      style={{textDecoration: "none", color: "white"}}>
+                      Dashboard
+                    </Link>
+                  </button>
 
                   <button onClick={handleShowFurniture} className="btn btn-success m-2">Add Furniture</button>
                   <Modal show={showFurniture} onHide={handleCloseFurniture}>
-                      <Modal.Body>
-                        <FurnitureForm handleSubmit={handleSubmit} />
-                      </Modal.Body>
-                    </Modal>
+                    <Modal.Body>
+                      <FurnitureForm handleSubmit={handleSubmit} />
+                    </Modal.Body>
+                  </Modal>
 
                   <button onClick={handleShowUpdate} className="btn btn-warning m-2">Update Room</button>
                   <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                      <Modal.Body>
-                        <UpdateRoomForm handleSubmit={handleSubmit} />
-                      </Modal.Body>
+                    <Modal.Body>
+                      <UpdateRoomForm handleSubmit={handleSubmit} />
+                    </Modal.Body>
                   </Modal>
 
                 </div>
