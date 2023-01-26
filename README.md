@@ -1,17 +1,20 @@
 IKEYA
 
-Team Members
+## Team Members
 * Hanna Erickson
 * Missy Pompeo
 * Abdoul Nayete
 * Tyler Byrd
 
-Design
+## Design
 * API design
 * Data model
 * GHI
 
-Set up 
+## Intended market
+The IKEYA application targets the mainstream consumer who is seeking home decor inspiration.  IKEYA users interested in designing a room can upload furniture inspiration and ideas that meet their interior design needs or browse the rooms of other users.
+
+## Set up 
 To access the application on your local computer, please follow these steps:
 1. Clone the repository: https://gitlab.com/team-ikeya/ikeya.git. 
 2. CD into the project directory.
@@ -21,7 +24,7 @@ To access the application on your local computer, please follow these steps:
 5. Run docker compose up.
 6. Enjoy the application.
 
-Test
+## Test
 * design_service/tests/test_room_routes / test_create_room / Abdoul Nayete
 * design_service/tests/test_room_routes / test_get_rooms / Abdoul Nayete
 * design_service/tests/test_room_routes / test_update_room / Tyler Byrd
