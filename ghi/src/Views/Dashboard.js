@@ -1,5 +1,5 @@
 //Function
-import React, { useState, useEffect }from "react";
+import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import FurnitureForm from "../ModalForms/FurnitureForm";
 //Styling
 import Button from "react-bootstrap/Button";
 import Swal from "sweetalert2";
-import {Modal} from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "../CSS/Style.css";
 
 export default function Dashboard() {
@@ -65,86 +65,96 @@ export default function Dashboard() {
 
   return (
     <div>
-      <br/>
+      <br />
       <h1>Welcome back, {username}</h1>
-    <div className="d-grid gap-2">
-      <div className="btn-group">
-        <button onClick={handleShowRoom} className="btn btn-orange m-1">Create A Room</button>
-        <Modal show={showRoom} onHide={handleCloseRoom}>
+      <div className="d-grid gap-2">
+        <div className="btn-group">
+          <button onClick={handleShowRoom} className="btn btn-orange m-1">
+            Create A Room
+          </button>
+          <Modal show={showRoom} onHide={handleCloseRoom}>
             <Modal.Body>
               <RoomsForm handleSubmit={handleSubmit} />
             </Modal.Body>
-        </Modal>
+          </Modal>
 
-        <button onClick={handleShowFurniture} className="btn btn-green m-1">Create Furniture</button>
-        <Modal show={showFurniture} onHide={handleCloseFurniture}>
+          <button onClick={handleShowFurniture} className="btn btn-green m-1">
+            Create Furniture
+          </button>
+          <Modal show={showFurniture} onHide={handleCloseFurniture}>
             <Modal.Body>
               <FurnitureForm handleSubmit={handleSubmit} />
             </Modal.Body>
           </Modal>
 
-        <button onClick={handleShowUpdate} className="btn btn-yellow m-1">Update A Room</button>
-        <Modal show={showUpdate} onHide={handleCloseUpdate}>
+          <button onClick={handleShowUpdate} className="btn btn-yellow m-1">
+            Update A Room
+          </button>
+          <Modal show={showUpdate} onHide={handleCloseUpdate}>
             <Modal.Body>
               <UpdateRoomForm handleSubmit={handleSubmit} />
             </Modal.Body>
-        </Modal>
-
-      </div>
-      <br/>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
+          </Modal>
+        </div>
+        <br />
+        <div className="row row-cols-1 row-cols-md-3 g-4">
           {list?.map((room) => {
-              return (
-                <div className="col" key={room.id}>
-                  <div className="card bg-light mb-3 text-center h-100">
-                    <img src={room.picture_url} className="card-img-top card-image" alt="Image"/>
-                    <div className="card-body">
-                      <h5 className="card-title">{room.name}</h5>
-                      <p className="card-text crop-text-1">{room.description}</p>
-                    </div>
-                    <div className="card-footer">
-                      <button className="btn btn-blue btn-sm m-1">
-                        <Link
-                          to="/rooms/furniture"
-                          state={room.id}
-                          style={{textDecoration: "none", color: "white"}}>
-                      Furniture
-                        </Link>
-                      </button>
-
-                      <Button
-                        variant="btn-sm m-1"
-                        className="btn-red btn-sm text-right"
-                        onClick={() => {
-                          Swal.fire({
-                            title: "Are you sure?",
-                            text: "You won't be able to revert this!",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#bb7e74",
-                            cancelButtonColor: "#808080",
-                            confirmButtonText: "Yes, delete it!",
-                          }).then((result) => {
-                            if (result.value) {
-                              deletion(room.id);
-                              Swal.fire(
-                                "Deleted!",
-                                "Your room has been deleted.",
-                                "success"
-                              );
-                            }
-                          });
-                        }}
+            return (
+              <div className="col" key={room.id}>
+                <div className="card bg-light mb-3 text-center h-100">
+                  <img
+                    src={room.picture_url}
+                    className="card-img-top card-image"
+                    alt="Image"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{room.name}</h5>
+                    <p className="card-text crop-text-1">{room.description}</p>
+                  </div>
+                  <div className="card-footer">
+                    <button className="btn btn-blue btn-sm m-1">
+                      <Link
+                        to="/rooms/furniture"
+                        state={room.id}
+                        style={{ textDecoration: "none", color: "white" }}
                       >
-                        Delete
-                      </Button>
-                    </div>
+                        Furniture
+                      </Link>
+                    </button>
+
+                    <Button
+                      variant="btn-sm m-1"
+                      className="btn-red btn-sm text-right"
+                      onClick={() => {
+                        Swal.fire({
+                          title: "Are you sure?",
+                          text: "You won't be able to revert this!",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#bb7e74",
+                          cancelButtonColor: "#808080",
+                          confirmButtonText: "Yes, delete it!",
+                        }).then((result) => {
+                          if (result.value) {
+                            deletion(room.id);
+                            Swal.fire(
+                              "Deleted!",
+                              "Your room has been deleted.",
+                              "success"
+                            );
+                          }
+                        });
+                      }}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </div>
-              )
-            })}
+              </div>
+            );
+          })}
         </div>
+      </div>
     </div>
-  </div>
-  )
-};
+  );
+}

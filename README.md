@@ -9,7 +9,7 @@ Team Members
 Design
 * API design
 * Data model
-* GHI  
+* GHI
 
 Set up 
 To access the application on your local computer, please follow these steps:
@@ -126,7 +126,7 @@ deployment, but it just consists of these steps:
 * make sure this project is in a group. If it isn't, stop
   now and move it to a GitLab group
 * remove the fork relationship: In GitLab go to:
-  
+
   Settings -> General -> Advanced -> Remove fork relationship
 
 * add these GitLab CI/CD variables:

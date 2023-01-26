@@ -7,7 +7,8 @@ function FurnitureForm() {
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [rooms, setRooms] = useState([]);
-  const [show, setShow] = useState(true);
+  const [setShow] = useState(true);
+  const handleClose = () => setShow(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);};
@@ -45,7 +46,7 @@ function FurnitureForm() {
       setName("");
       setPictureUrl("");
       setRoomId("");
-      setShow(false);
+      handleClose();
       window.location.reload();
     }
   };
