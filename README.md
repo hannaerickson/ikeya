@@ -7,20 +7,25 @@ IKEYA
 * Tyler Byrd
 
 ## Design
-* API design
-* Data model
-* GHI
+* API Design![API](API_DESIGN.md)
+* GHI![Wireframe](GHI_WIREFRAME.png)
 
 ## Intended market
 The IKEYA application targets the mainstream consumer who is seeking home decor inspiration.  IKEYA users interested in designing a room can upload furniture inspiration and ideas that meet their interior design needs or browse the rooms of other users.
 
-## Set up 
+## Stretch Goal Functionality
+* Adding functionality to the 'update room' feature so that the unique room ID is passed with the click handler. Currently the update form features a drop-down to select a room.
+* Similar to the above feature, functionality for the update form to auto-generate the current room data passed with the click handler. Currently the form renders blank, and if a piece of information is not provided it will update that field to be blank. Ideally the current name, description and image for the room would generate in these fields so that the user can deicde what to update while all other fields remain intact.
+* The ability to link another URL to individual furniture pieces that lead to an available site to purchase that item. Details regarding price could also be displayed on the furniture card beside the button to navigate to the link.
+* Dashboard could display the furniture items inside a room as a carosel of images as opposed to the static image it has now. If no furniture exists in a room, the static room image would replace the carosel. Either way the static room image appears on that specific room view.
+
+## Set up
 To access the application on your local computer, please follow these steps:
-1. Clone the repository: https://gitlab.com/team-ikeya/ikeya.git. 
+1. Clone the repository: https://gitlab.com/team-ikeya/ikeya.git.
 2. CD into the project directory.
 2. Run docker volume create postgres-data.
 3. Run docker volume create jwtdown-db-data.
-4. If you are a PC user, run docker compose build.  If you are a Mac user, run DOCKER_DEFAULT_PLATFORM=linux/amd64  docker-compose build.
+4. If you are a PC user, run docker compose build.  If you are a Mac user, run DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose build.
 5. Run docker compose up.
 6. Enjoy the application.
 
@@ -30,151 +35,3 @@ To access the application on your local computer, please follow these steps:
 * design_service/tests/test_room_routes / test_update_room / Tyler Byrd
 * design_service/tests/test_furniture_routes / test_create_furniture / Hanna Erickson
 * design_service/tests/test_account_routes / test_get_all_accounts / Hanna Erickson
-
-# Module3 Project Gamma
-
-## Getting started
-
-You have a project repository, now what? The next section
-lists all of the deliverables that are due at the end of the
-week. Below is some guidance for getting started on the
-tasks for this week.
-
-## Install Extensions
-
-* Prettier: <https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode>
-* Black Formatter: <https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter>
-
-## Deliverables
-
-* [ ] Wire-frame diagrams
-* [ ] API documentation
-* [ ] Project is deployed to Render.com/GitLab-pages
-* [ ] GitLab issue board is setup and in use
-* [ ] Journals
-
-## Project layout
-
-The layout of the project is just like all of the projects
-you did with `docker-compose` in module #2. You will create
-a directory in the root of the repository for each service
-that you add to your project just like those previous
-projects were setup.
-
-### Directories
-
-Several directories have been added to your project. The
-directories `docs` and `journals` are places for you and
-your team-mates to, respectively, put any documentation
-about your project that you create and to put your
-project-journal entries. See the _README.md_ file in each
-directory for more info.
-
-The other directories, `ghi` and `sample_service`, are
-sample services, that you can start building off of or use
-as a reference point.
-
-Inside of `ghi` is a minimal React app that has an "under
-construction" page. It is setup similarly to all of the
-other React projects that you have worked on.
-
-Inside of `sample_service` is a minimal FastAPI application.
-"Where are all the files?" you might ask? Well, the
-`main.py` file is the whole thing, and go take look inside
-of it... There's not even much in there..., hmm? That is
-FastAPI, we'll learn more about it in the coming days. Can
-you figure out what this little web-application does even
-though you haven't learned about FastAPI yet?
-
-Also in `sample_service` is a directory for your migrations.
-If you choose to use PostgreSQL, then you'll want to use
-migrations to control your database. Unlike Django, where
-migrations were automatically created for you, you'll write
-yours by hand using DDL. Don't worry about not knowing what
-DDL means; we have you covered. There's a sample migration
-in there that creates two tables so you can see what they
-look like.
-
-The sample Dockerfile and Dockerfile.dev run your migrations
-for you automatically.
-
-### Other files
-
-The following project files have been created as a minimal
-starting point. Please follow the guidance for each one for
-a most successful project.
-
-* `docker-compose.yaml`: there isn't much in here, just a
-  **really** simple UI and FastAPI service. Add services
-  (like a database) to this file as you did with previous
-  projects in module #2.
-* `.gitlab-ci.yml`: This is your "ci/cd" file where you will
-  configure automated unit tests, code quality checks, and
-  the building and deployment of your production system.
-  Currently, all it does is deploy an "under construction"
-  page to your production UI on GitLab and a sample backend
-  to Render.com. We will learn much more about this file.
-* `.gitignore`: This is a file that prevents unwanted files
-  from getting added to your repository, files like
-  `pyc` files, `__pycache__`, etc. We've set it up so that
-  it has a good default configuration for Python projects.
-
-## How to complete the initial deploy
-
-There will be further guidance on completing the initial
-deployment, but it just consists of these steps:
-
-### Setup GitLab repo/project
-
-* make sure this project is in a group. If it isn't, stop
-  now and move it to a GitLab group
-* remove the fork relationship: In GitLab go to:
-
-  Settings -> General -> Advanced -> Remove fork relationship
-
-* add these GitLab CI/CD variables:
-  * PUBLIC_URL : this is your gitlab pages URL
-  * SAMPLE_SERVICE_API_HOST: enter "blank" for now
-
-#### Your GitLab pages URL
-
-You can't find this in GitLab until after you've done a deploy
-but you can figure it out yourself from your GitLab project URL.
-
-If this is your project URL
-
-https://gitlab.com/GROUP_NAME/PROJECT_NAME
-
-then your GitLab pages URL will be
-
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
-
-### Create render.com account and application
-
-* create account on render.com
-* one person create a group and invite all other members
-* create a new "Web Service"
-  * authenticate with GitLab and choose your project
-  * Enter fields:
-    * Name: name of your service
-    * Root Directory: the directory of your service in your git repo.
-      For this example use "sample_service".
-    * Environment: Docker
-    * Plan Type: Free
-  * click the "Create Web Service" button to create it
-  * the build will succeed and it will look like the server is running,
-    most likely, in 6-10 minutes, it will fail.
-  * click "Manual Deploy" -> "Deploy latest commit" and the service
-    should deploy successfully.
-
-### Update GitLab CI/CD variables
-
-Copy the service URL for your new render.com service and then paste
-that into the value for the SAMPLE_SERVICE_API_HOST CI/CD variable
-in GitLab.
-
-### Deploy it
-
-Merge a change into main to kick off the initial deploy. Once the build pipeline
-finishes you should be able to see an "under construction" page on your GitLab
-pages site.
