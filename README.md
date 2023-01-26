@@ -5,10 +5,9 @@ IKEYA
 * Tyler Byrd
 
 Design
-* API Design
-* Data Model
-* GHI
-* Integrations  
+* API design
+* Data model
+* GHI  
 
 
 # Module3 Project Gamma
