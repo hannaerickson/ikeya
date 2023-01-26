@@ -22,13 +22,17 @@ export default function Dashboard() {
   const [showRoom, setShowRoom] = useState(false);
   const [showFurniture, setShowFurniture] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
+  const [id, setId] = useState("");
 
   const handleCloseRoom = () => setShowRoom(false);
   const handleShowRoom = () => setShowRoom(true);
   const handleCloseFurniture = () => setShowFurniture(false);
   const handleShowFurniture = () => setShowFurniture(true);
   const handleCloseUpdate = () => setShowUpdate(false);
-  const handleShowUpdate = () => setShowUpdate(true);
+
+  const handleShowUpdate = () => {
+    setShowUpdate(true)
+  };
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
@@ -61,7 +65,7 @@ export default function Dashboard() {
         .then((res) => setUsername(res.account.username));
     }
     fetchData();
-  }, [token, username, list]);
+  }, [token, username]);
 
   return (
     <div>
@@ -84,15 +88,6 @@ export default function Dashboard() {
           <Modal show={showFurniture} onHide={handleCloseFurniture}>
             <Modal.Body>
               <FurnitureForm handleSubmit={handleSubmit} />
-            </Modal.Body>
-          </Modal>
-
-          <button onClick={handleShowUpdate} className="btn btn-yellow m-1">
-            Update A Room
-          </button>
-          <Modal show={showUpdate} onHide={handleCloseUpdate}>
-            <Modal.Body>
-              <UpdateRoomForm handleSubmit={handleSubmit} />
             </Modal.Body>
           </Modal>
         </div>
@@ -121,6 +116,16 @@ export default function Dashboard() {
                         Furniture
                       </Link>
                     </button>
+
+                    <button onClick={(e) => {setId(e.target.value); handleShowUpdate();}}
+                      value={room.id}
+                      className="btn btn-yellow btn-sm m-1">Update</button>
+
+                    <Modal show={showUpdate} onHide={handleCloseUpdate}>
+                      <Modal.Body>
+                        <UpdateRoomForm id={id} handleSubmit={handleSubmit} />
+                      </Modal.Body>
+                    </Modal>
 
                     <Button
                       variant="btn-sm m-1"

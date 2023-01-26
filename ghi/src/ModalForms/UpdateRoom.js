@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../Accounts/Auth";
-import { useLocation } from "react-router-dom";
 
-function UpdateRoomForm() {
+function UpdateRoomForm({id}) {
   const { token } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -26,7 +25,7 @@ function UpdateRoomForm() {
   };
 
   const fetchData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -53,7 +52,7 @@ function UpdateRoomForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     const data = { name, description, picture_url, username };
-    const furnitureUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${room_id}`;
+    const furnitureUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const response = await fetch(furnitureUrl, {
       method: "PUT",
       credentials: "include",
@@ -64,7 +63,7 @@ function UpdateRoomForm() {
       },
     });
     if (response.ok) {
-      const newFurniture = await response.json();
+      const updatedRoom = await response.json();
       setName("");
       setDescription("");
       setPictureUrl("");
@@ -89,7 +88,7 @@ function UpdateRoomForm() {
               id="name"
               value={name}
               className="form-control"
-            />
+              />
             <label htmlFor="name">Room Name</label>
           </div>
           <div className="form-group mb-3">
@@ -115,25 +114,6 @@ function UpdateRoomForm() {
               className="form-control"
             />
             <label htmlFor="picture_url">Picture URL</label>
-          </div>
-          <div className="mb-3">
-            <select
-              onChange={handleRoomChange}
-              required
-              name="room_id"
-              id="room_id"
-              value={room_id}
-              className="form-select"
-            >
-              <option value="">Which room would you like to update?</option>
-              {rooms.map((room) => {
-                return (
-                  <option value={room.id} key={room.id}>
-                    {room.name}
-                  </option>
-                );
-              })}
-            </select>
           </div>
           <button className="btn btn-yellow d-block mx-auto">Update!</button>
         </form>
