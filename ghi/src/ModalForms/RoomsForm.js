@@ -7,7 +7,7 @@ function RoomsForm() {
     const [description, setDescription] = useState("");
     const [picture_url, setPictureUrl] = useState("");
     const [username, setUserName] = useState(null);
-    const [setShow] = useState(true);
+    const [show, setShow] = useState(true);
     const handleClose = () => setShow(false);
 
     const fetchConfig = {

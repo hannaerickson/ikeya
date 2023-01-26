@@ -16,7 +16,7 @@ import { Modal } from "react-bootstrap";
 
 export default function RoomView() {
   const location = useLocation();
-  const roomData = location.state;
+  const id = location.state;
   const { token } = useAuthContext();
   const [furnitures, setFurnitures] = useState([]);
   const [rooms, setRooms] = useState([]);
@@ -32,7 +32,7 @@ export default function RoomView() {
   const handleShowUpdate = () => setShowUpdate(true);
 
   const getData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}/furniture`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}/furniture`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -43,7 +43,7 @@ export default function RoomView() {
   };
 
   const getRoomData = async () => {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${roomData}`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const response = await fetch(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -101,14 +101,14 @@ export default function RoomView() {
                   <button onClick={handleShowFurniture} className="btn btn-blue m-2">Add Furniture</button>
                   <Modal show={showFurniture} onHide={handleCloseFurniture}>
                     <Modal.Body>
-                      <FurnitureForm handleSubmit={handleSubmit} />
+                      <FurnitureForm id={id} handleSubmit={handleSubmit} />
                     </Modal.Body>
                   </Modal>
 
-                  <button onClick={handleShowUpdate} className="btn btn-yellow m-2">Update Room</button>
+                  <button onClick={handleShowUpdate} className="btn btn-yellow m-2">Update</button>
                   <Modal show={showUpdate} onHide={handleCloseUpdate}>
                     <Modal.Body>
-                      <UpdateRoomForm handleSubmit={handleSubmit} />
+                      <UpdateRoomForm id={id} handleSubmit={handleSubmit} />
                     </Modal.Body>
                   </Modal>
 

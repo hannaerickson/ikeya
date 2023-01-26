@@ -4,7 +4,7 @@ import "./CSS/Style.css";
 export default function Main() {
   return (
     <div className="container custom-bg h3">
-      <figure class="figure">
+      <figure className="figure">
         <img
           src="https://images2.imgbox.com/b6/27/MxZkOHAS_o.png"
           className="figure-img img-fluid rounded"
