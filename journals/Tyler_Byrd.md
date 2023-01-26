@@ -26,12 +26,12 @@ As a team, we continued to work on the authentication process. We created a logi
 Our ah-ha moment for the day was it is helpful to stick with the authentication cookbook.
 
 Wednesday, January 11, 2023
-Our team worked to fix a few warning/error messages that we received in the console.  Abdoul was able to find a fix to a key error message that we found on our console. Also, Hannah worked on setting up the Homepage, the Navigation Bar, the Login Form, and the Sign-Up Form. For these, we simply got the styling setup without adding the functionality.
+Our team worked to fix a few warning/error messages that we received in the console.  Abdoul was able to find a fix to a key error message that we found on our console. Also, Hanna worked on setting up the Homepage, the Navigation Bar, the Login Form, and the Sign-Up Form. For these, we simply got the styling setup without adding the functionality.
 
 Our ah-ha moment for the day was it is helpful to work in smaller sections.  It is better to split up larger tasks into smaller manageable pieces.  
 
 Thursday, January 12, 2023
-Our team finally was able to get our Login form up and working! Hannah took the lead on figuring out how to get the Login Form working, after consulting with Riley. After consulting with my team on the design, I worked on adding a description to the Homepage of our project. I worked alone on this portion of the project.  
+Our team finally was able to get our Login form up and working! Hanna took the lead on figuring out how to get the Login Form working, after consulting with Riley. After consulting with my team on the design, I worked on adding a description to the Homepage of our project. I worked alone on this portion of the project.  
 
 Our ah-ha moment for the day was that it is helpful to compare errors as a group. We tend to experience similar errors, so we are able to help each other through the errors.
 
@@ -44,7 +44,7 @@ Monday, January 16, 2023
 Today is MLK Day, so there was no class today.
 
 Tuesday, January 17, 2023
-Today I worked with Missy to fix our Signup form. We had an existing Signup Form, but when we filled it out with data and clicked “Submit” there was a “401 (Unauthorized)” error in the console and the POST method failed.  We spent several hours on this feature today, but we were unable able to find a resolution to this issue.  Hannah and Abdoul worked to fix the “Dashboard” page so that it only shows the rooms associated with a specific user.  They were successful and were able to get this feature up and running. 
+Today I worked with Missy to fix our Signup form. We had an existing Signup Form, but when we filled it out with data and clicked “Submit” there was a “401 (Unauthorized)” error in the console and the POST method failed.  We spent several hours on this feature today, but we were unable able to find a resolution to this issue.  Hanna and Abdoul worked to fix the “Dashboard” page so that it only shows the rooms associated with a specific user.  They were successful and were able to get this feature up and running. 
 
 The ah-ha moment for the day is that it is important to follow the FastAPI Authentication Cookbook closely when developing our authentication. One of our main issues was resolved today by following the FastAPI Authentication Cookbook more closely.
 
@@ -71,7 +71,7 @@ The ah-ha moment of the day is that it is important to be mindful of the order i
 Tuesday, January 24, 2023
 I worked on a feature on the "Room View" page so that the “Dashboard,” “Add Furniture,” and “Update Room” buttons are visible only when the room is viewed by the creator of the room.  If the room does not belong to the logged-in user, then those buttons are not visible.  After a full day on this feature, I was finally able to get it working!  I fixed the issue by simplifying my code.  Instead of having a separate function to check whether the username of the logged-in user matches the username of the room creator, I completed that conditional check directly in the JSX code.
 
-The ah-ha moment of the day was that sometimes if you run into a persistent issue, it is helpful to ask a team member for assistance.  Since I worked on this issue for a few days, I asked Hannah if I could talk through the bug with her, and we were ultimately able to fix the problem together with the assistance of an SEIR.  
+The ah-ha moment of the day was that sometimes if you run into a persistent issue, it is helpful to ask a team member for assistance.  Since I worked on this issue for a few days, I asked Hanna if I could talk through the bug with her, and we were ultimately able to fix the problem together with the assistance of an SEIR.  
 
 Wednesday, January 25, 2023
 I created a unit test for our “Update a Room” function.  This was my first time developing a unit test, so it took some additional research to figure out the process.  Once I created the test, I changed a few values within my unit test to confirm that the unit test was working as expected and that the unit test checks the correct elements. 

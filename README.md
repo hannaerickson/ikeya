@@ -1,5 +1,7 @@
 IKEYA
-* Hannah Erickson
+
+Team Members
+* Hanna Erickson
 * Missy Pompeo
 * Abdoul Nayete
 * Tyler Byrd
@@ -9,6 +11,22 @@ Design
 * Data model
 * GHI  
 
+Set up 
+To access the application on your local computer, please follow these steps:
+1. Clone the repository: https://gitlab.com/team-ikeya/ikeya.git. 
+2. CD into the project directory.
+2. Run docker volume create postgres-data.
+3. Run docker volume create jwtdown-db-data.
+4. If you are a PC user, run docker compose build.  If you are a Mac user, run DOCKER_DEFAULT_PLATFORM=linux/amd64  docker-compose build.
+5. Run docker compose up.
+6. Enjoy the application.
+
+Test
+* design_service/tests/test_room_routes / test_create_room / Abdoul Nayete
+* design_service/tests/test_room_routes / test_get_rooms / Abdoul Nayete
+* design_service/tests/test_room_routes / test_update_room / Tyler Byrd
+* design_service/tests/test_furniture_routes / test_create_furniture / Hanna Erickson
+* design_service/tests/test_account_routes / test_get_all_accounts / Hanna Erickson
 
 # Module3 Project Gamma
 
