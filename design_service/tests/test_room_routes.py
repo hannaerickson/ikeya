@@ -13,12 +13,6 @@ client = TestClient(app=app)
 def get_current_account_data_mock():
     return {"username": "Abdoul"}
 
-
-
-
-
-
-
 class RoomRepositoryMock:
     def create(self, room: RoomIn) -> RoomOut:
         room_dict = room.dict()
@@ -39,7 +33,6 @@ def test_create_room():
     assert response.json()["id"] == 99
     app.dependency_overrides = {}
 
-
 def test_get_rooms():
     app.dependency_overrides[RoomRepository] = RoomRepositoryMock
     app.dependency_overrides[authenticator.get_current_account_data] = get_current_account_data_mock
@@ -49,20 +42,14 @@ def test_get_rooms():
     app.dependency_overrides = {}
 
 def test_update_room():
-    #ARRANGE
     app.dependency_overrides[RoomRepository] = RoomRepositoryMock
     app.dependency_overrides[authenticator.get_current_account_data] = get_current_account_data_mock
     room_body = {"name": "Test", "description": "Test", "picture_url": "test.jpg", "username": "test"}
-    #ACT
     response = client.put("/api/rooms/1", json.dumps(room_body))
-
-    #ASSERT 
     assert response.status_code == 200
     assert response.json()["id"] == 1
     assert response.json()["name"] == "Bedroom"
     assert response.json()["description"] == "A bedroom with a view."
     assert response.json()["picture_url"] == "www.test.jpg"
     assert response.json()["username"] == "test"
-
-    #CLEANUP 
     app.dependency_overrides = {}

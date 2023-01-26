@@ -1,3 +1,16 @@
+IKEYA
+* Hannah Erickson
+* Missy Pompeo
+* Abdoul Nayete
+* Tyler Byrd
+
+Design
+* API Design
+* Data Model
+* GHI
+* Integrations  
+
+
 # Module3 Project Gamma
 
 ## Getting started
