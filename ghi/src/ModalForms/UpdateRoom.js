@@ -34,8 +34,8 @@ const UpdateRoomForm = ({ room, roomId, onSelectRoom, onSubmit }) => {
       },
     });
     if (response.ok) {
-      const newFurniture = await response.json();
-      console.log(newFurniture);
+      const updateRoom = await response.json();
+      console.log(updateRoom);
 
       setName("");
       setDescription("");

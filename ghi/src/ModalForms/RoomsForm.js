@@ -58,7 +58,7 @@ function RoomsForm() {
                         <input placeholder="picture_url" required type="url" name="picture_url" id="picture_url" value = { picture_url } onChange={(e) => setPictureUrl(e.target.value)} className="form-control" />
                         <label htmlFor="name">Picture URL</label>
                     </div>
-                    <button onClick={handleSubmit} className="btn btn-outline-success d-block mx-auto">Create!</button>
+                    <button onClick={handleSubmit} className="btn btn-orange d-block mx-auto">Create!</button>
             </div>
         </div>
   );

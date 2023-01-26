@@ -94,12 +94,12 @@ export function SignupForm() {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-red"
               onClick={handleClose}
             >
               Close
             </button>
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-green">
               Sign Up
             </button>
           </div>
@@ -168,12 +168,12 @@ export function LoginForm() {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-red"
               onClick={handleClose}
             >
               Close
             </button>
-            <button type="submit" className="btn btn-success">
+            <button type="submit" className="btn btn-green">
               Login
             </button>
           </div>

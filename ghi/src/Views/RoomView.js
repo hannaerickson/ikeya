@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../Accounts/Auth";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Form
 import FurnitureForm from "../ModalForms/FurnitureForm";
@@ -78,7 +79,7 @@ export default function RoomView() {
     getData();
     getRoomData();
     getTokenUserName();
-  }, [token, roomUserName, tokenUserName]);
+  }, [token, roomUserName, tokenUserName, furnitures]);
 
 
   return (
@@ -89,20 +90,26 @@ export default function RoomView() {
             <>
               <header className="p-3 text-center bg-light">
                 <div className="col-md-12 gap-3">
-                  <button className="btn btn-secondary m-2">Dashboard</button>
+                  <button className="btn btn-gray m-2">
+                    <Link
+                      to="/dashboard"
+                      style={{textDecoration: "none", color: "white"}}>
+                      Dashboard
+                    </Link>
+                  </button>
 
-                  <button onClick={handleShowFurniture} className="btn btn-success m-2">Add Furniture</button>
+                  <button onClick={handleShowFurniture} className="btn btn-blue m-2">Add Furniture</button>
                   <Modal show={showFurniture} onHide={handleCloseFurniture}>
-                      <Modal.Body>
-                        <FurnitureForm handleSubmit={handleSubmit} />
-                      </Modal.Body>
-                    </Modal>
+                    <Modal.Body>
+                      <FurnitureForm handleSubmit={handleSubmit} />
+                    </Modal.Body>
+                  </Modal>
 
-                  <button onClick={handleShowUpdate} className="btn btn-warning m-2">Update Room</button>
+                  <button onClick={handleShowUpdate} className="btn btn-yellow m-2">Update Room</button>
                   <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                      <Modal.Body>
-                        <UpdateRoomForm handleSubmit={handleSubmit} />
-                      </Modal.Body>
+                    <Modal.Body>
+                      <UpdateRoomForm handleSubmit={handleSubmit} />
+                    </Modal.Body>
                   </Modal>
 
                 </div>
@@ -125,16 +132,16 @@ export default function RoomView() {
                       { roomUserName === tokenUserName ? (
                       <div className="card-footer">
                           <Button
-                            variant="outline-danger"
-                            className="text-right"
+                            variant="btn"
+                            className="btn-red text-right"
                             onClick={() => {
                               Swal.fire({
                                 title: "Are you sure?",
                                 text: "You won't be able to revert this!",
                                 icon: "warning",
                                 showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
+                                confirmButtonColor: "#bb7e74",
+                                cancelButtonColor: "#808080",
                                 confirmButtonText: "Yes, delete it!",
                               }).then((result) => {
                                 if (result.value) {
@@ -159,8 +166,10 @@ export default function RoomView() {
                 );
               })
             ) : (
-              <div>
-                <h3>No furniture yet!</h3>
+              <div className="w-100">
+                <figure className="figure">
+                  <img src="https://images2.imgbox.com/13/c6/JVWff3xJ_o.png" className="figure-img img-fluid rounded"/>
+                </figure>
               </div>
             )}
           </div>
@@ -179,7 +188,7 @@ export default function RoomView() {
         <br />
         <img
           src={rooms.picture_url}
-          style={{ height: "300px", width: "350px" }}
+          className="col-md-12"
         ></img>
         <br />
         <br />
