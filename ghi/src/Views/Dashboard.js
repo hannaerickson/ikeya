@@ -61,7 +61,7 @@ export default function Dashboard() {
         .then((res) => setUsername(res.account.username));
     }
     fetchData();
-  }, [token, username]);
+  }, [token, username, list]);
 
   return (
     <div>
@@ -97,8 +97,12 @@ export default function Dashboard() {
               return (
                 <div className="col" key={room.id}>
                   <div className="card bg-light mb-3 text-center h-100">
-                    <div className="card-header">
-
+                    <img src={room.picture_url} className="card-img-top card-image" alt="Image"/>
+                    <div className="card-body">
+                      <h5 className="card-title">{room.name}</h5>
+                      <p className="card-text crop-text-1">{room.description}</p>
+                    </div>
+                    <div className="card-footer">
                       <button className="btn btn-blue btn-sm m-1">
                         <Link
                           to="/rooms/furniture"
@@ -134,11 +138,6 @@ export default function Dashboard() {
                       >
                         Delete
                       </Button>
-                    </div>
-                    <img src={room.picture_url} className="card-img-top card-image" alt="Image"/>
-                    <div className="card-body">
-                      <h5 className="card-title">{room.name}</h5>
-                      <p className="card-text crop-text-1">{room.description}</p>
                     </div>
                   </div>
                 </div>
