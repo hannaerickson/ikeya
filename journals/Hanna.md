@@ -1,3 +1,12 @@
+## January 26, 2023
+Last day! Spent some time with Missy trying to debug getting the update to work more fluidly, but think that will need to be left for a stretch goal. Spent some time on getting the API documentation done. Today we just need to make sure the README is completed and attempt deployment.
+
+## January 25, 2023
+Mostly done! Today I wrote a unit test to fetch all accounts as well as create furniture. I did a lot of styling to the site afterwards, re-vamping the main page, creating a few graphics, and custom button classes so all the colors of our site would flow. I noticed a bug with the pages not refreshing after creating a new room or piece of furniture and that took a while. It turns out half of the "state" was missing when it was declared at the beginning of the function, so everything worked, it just wouldn't close the modal afterwards. That's all fixed and working, definitely the ah-ha moment for today. The majority of the site's functionality is done. There are a few QOL features we'll work on time permitting, such as passing an ID so we can move the update button to the specific room cards instead of having one upate button and needing to manually select a room. I'd also like the ability for the update form to autopopulate with your current information. Right now if you want to update only the name, everything else is deleted unless you enter it back in.
+
+## January 24, 2023
+Today was a day filled with re-factoring code. I wanted most of our react components to share the same structure and flow for ease of reading and/or debugging later. That took the majority of the morning and in the afternoon I was having internet troubles. I started my unit test and needed to rebuild my images but couldn't due to my internet, so had to put that off.
+
 ## January 23, 2023
 On the agena today is bootstrap card styling (still) and just general visual appeal. Most of the functionality of the site is done, so this week unit tests also need to be written and worked on. Tyler and Abdoul did start on these previously so hopefully getting the remainder of the tests written shouldn't be too bad.
 
