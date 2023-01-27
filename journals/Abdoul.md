@@ -39,3 +39,19 @@ Was able to get the create some furntiure form working on the front end side wit
 #### January 23rd:
 
 I got one of my 2 unit tests to pass!!! Just had to change the name of one of my functions. The 2nd unit test is making me really mad though. The other test was easy enough but it's a different story with authentication needed. If i figure out how to get this working the rest of the tests should be easy but right now, no such luck. Sigh.
+
+##### January 24th:
+
+The 2nd unit test is still giving me problems, I was overthinking it at first, creating a whole new fake class Authenticator when all I needed was a function authenticator. I also had to import authenticator from our authenticator file. I'm still getting a pesky attribute error but that's probably because I'm not returning the correct data in either my test, or the fake repository I made.
+
+###### Janauary 25th:
+
+I FINALLY GOT THE UNIT TEST WORKING. I WAS MISSING A FIELD FROM OUR ROOMOUT MODEL AND THAT'S WHY THE TEST WASN'T PASSSING. Overthinking really is a pain in the butt man. So both unit tests I made are now working! Of course after the fact, I learned I only needed to make one unit test but at least I now know how to make unit tests for routes with authentication, and without it.
+
+###### Janauary 26th:
+
+Trying to get some skeleton animations on our front end page. I tried npm installing it and it wasn't working for some reason. I keep getting an error saying the module cannot find my react loading skeleton I just downloaded. Will continue to troubleshoot.
+
+###### Janauary 27th:
+
+I was up for 6 hours last night trying to get the skeleton animations to work but I just couldn't get the damn react app to locate my module.... Our project is still amazing but I think I'll just get that animation working as a stretch goal!
