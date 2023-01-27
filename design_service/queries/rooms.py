@@ -42,7 +42,9 @@ class RoomRepository:
                     return None
                 return self.record_to_room_out(record)
 
-    def get_current_user_rooms(self, username: str) -> Union[List[RoomOut], Error]:
+    def get_current_user_rooms(
+        self, username: str
+    ) -> Union[List[RoomOut], Error]:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -94,7 +96,6 @@ class RoomRepository:
                     [room.name, room.description, room.picture_url, room_id],
                 )
                 return self.room_in_to_out(room_id, room)
-
 
     def delete(self, room_id: int) -> bool:
         with pool.connection() as conn:
