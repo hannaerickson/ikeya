@@ -34,7 +34,7 @@ export default function Dashboard() {
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
     const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
     });
     if (response.ok) {
       const data = await response.json();
@@ -45,7 +45,7 @@ export default function Dashboard() {
   const deletion = async (id) => {
     const urlDelete = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const resp = await fetch(urlDelete, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
       method: "DELETE",
     });
     const data = await resp.json();

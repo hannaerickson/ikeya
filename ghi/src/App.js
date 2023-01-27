@@ -1,7 +1,6 @@
 //Functionality
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useToken } from "./Accounts/Auth";
-import LogoutComponent from "./Accounts/Logout";
 //Views
 import RoomsList from "./Views/RoomsList";
 import Main from "./Views/Main";
@@ -29,7 +28,6 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/rooms" element={<RoomsList />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/logout" element={<LogoutComponent />} />
             <Route path="/rooms/:room_id" element={<RoomView />} />
             <Route path="/roomsform" element={<RoomsForm />} />
             <Route path="/updateRoomForm" element={<UpdateRoomForm />} />

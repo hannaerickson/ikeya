@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { useToken } from "../Accounts/Auth";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [showLoginModal, setShowLoginModal] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleUsernameChange = (e) => {
@@ -24,7 +24,7 @@ export function LoginForm() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    login(username, password);
+    await login(username, password);
     handleCloseLogin();
     navigate("/dashboard");
   };

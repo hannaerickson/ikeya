@@ -7,7 +7,7 @@ function FurnitureForm() {
   const [picture_url, setPictureUrl] = useState("");
   const [room_id, setRoomId] = useState("");
   const [rooms, setRooms] = useState([]);
-  const [setShow] = useState(true);
+  const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
 
   const handleNameChange = (e) => {
@@ -23,7 +23,7 @@ function FurnitureForm() {
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
     const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
     });
     if (response.ok) {
       const data = await response.json();
@@ -42,10 +42,7 @@ function FurnitureForm() {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(furniture),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: "include",
     });
     if (response.ok) {
       const data = await response.json();
