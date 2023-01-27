@@ -143,3 +143,11 @@
   vertical-align: top;
   opacity: 50%;
 }
+
+.modal-backdrop.show {
+  opacity: 0.5;
+}
+
+.modal-backdrop {
+  background-color: gray;
+}
