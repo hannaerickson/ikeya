@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../Accounts/Auth";
+import "../CSS/Style.css";
 
-function UpdateRoomForm({id}) {
+function UpdateRoomForm({ id }) {
   const { token } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -32,6 +33,9 @@ function UpdateRoomForm({id}) {
     if (response.ok) {
       const data = await response.json();
       setRooms(data);
+      setName(data.name);
+      setDescription(data.description);
+      setPictureUrl(data.picture_url);
     }
   };
 
@@ -79,23 +83,25 @@ function UpdateRoomForm({id}) {
         <h1>Update Your Room</h1>
         <br />
         <form onSubmit={handleSubmit} id="update-room-form">
-          <div className="form-floating mb-3">
+          <label htmlFor="name">Room Name</label>
+          <div className="mb-3">
             <input
               onChange={handleNameChange}
-              placeholder="Name"
+              onFocus={(event) => (event.target.style.opacity = 1)}
+              onBlur={(event) => (event.target.style.opacity = 0.5)}
               type="text"
               name="name"
               id="name"
               value={name}
               className="form-control"
-              />
-            <label htmlFor="name">Room Name</label>
+            />
           </div>
-          <div className="form-group mb-3">
-            <label htmlFor="description">Description</label>
+          <label htmlFor="description">Description</label>
+          <div className="mb-3">
             <textarea
               onChange={handleDescriptionChange}
-              placeholder="Updated description"
+              onFocus={(event) => (event.target.style.opacity = 1)}
+              onBlur={(event) => (event.target.style.opacity = 0.5)}
               type="textarea"
               name="description"
               id="description"
@@ -103,17 +109,18 @@ function UpdateRoomForm({id}) {
               className="form-control"
             />
           </div>
-          <div className="form-floating mb-3">
+          <label htmlFor="picture_url">Picture URL</label>
+          <div className="mb-3 ">
             <input
               onChange={handlePictureChange}
-              placeholder="picture_url"
+              onFocus={(event) => (event.target.style.opacity = 1)}
+              onBlur={(event) => (event.target.style.opacity = 0.5)}
               type="text"
               name="picture_url"
               id="picture_url"
               value={picture_url}
               className="form-control"
             />
-            <label htmlFor="picture_url">Picture URL</label>
           </div>
           <button className="btn btn-yellow d-block mx-auto">Update!</button>
         </form>

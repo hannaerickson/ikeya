@@ -137,3 +137,9 @@
   background-color: #808080;
   color: white;
 }
+
+.form-control {
+  text-align: left;
+  vertical-align: top;
+  opacity: 50%;
+}
