@@ -137,3 +137,11 @@
   background-color: #808080;
   color: white;
 }
+
+.modal-backdrop.show {
+  opacity: .5;
+}
+
+.modal-backdrop {
+  background-color: gray;
+}
