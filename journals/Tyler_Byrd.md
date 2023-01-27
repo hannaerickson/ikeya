@@ -79,3 +79,8 @@ I created a unit test for our “Update a Room” function.  This was my first t
 I also completed another feature to add functionality to our “Room View” page.  I developed a conditional statement so that the “Delete Furniture” button only appears if the page being viewed belongs to the logged-in user.  
 
 The ah-ha moment of the day was that if you are unsure whether your unit test is correct, it is helpful to change a few values in the test to see if it still passes.  
+
+Thursday, January 26, 2023
+Today was our last day working on the application.  I updated the README file with the team member names, the unit tests, the setup instructions and a description of our target audience. My team members worked on the other portions of the ReadME file. 
+
+The ah-ha moment of the day is that it is helpful to keep a development journal when working on a application.  It has been so meaningful to look back at the progress that we as a team have accomplished over the last few weeks. 
