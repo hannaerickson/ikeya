@@ -20,8 +20,8 @@ export default function Main() {
             <img
               src="https://i.pinimg.com/736x/47/e9/4f/47e94f19d7c4a16516b13d6bf9b693c5.jpg"
               className="card-img-top"
-              alt="first"
-            />
+              alt="first" />
+
             <div className="card-body">
               <p className="card-text">
                 An online resource for finding home and room decor inspiration

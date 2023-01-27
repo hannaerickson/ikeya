@@ -14,16 +14,21 @@ export function SignupForm() {
   const [show, setShow] = useState(false);
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value);};
+    setUsername(e.target.value);
+  };
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);};
+    setPassword(e.target.value);
+  };
   const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);};
+    setFirstName(e.target.value);
+  };
   const handleLastNameChange = (e) => {
-    setLastName(e.target.value);};
+    setLastName(e.target.value);
+  };
   const handleCloseSignup = () => {
     setShowSignupModal(false);
-    handleClose();};
+    handleClose();
+  };
   const handleClose = () => setShow(false);
 
   async function handleSignup(e) {
@@ -118,12 +123,15 @@ export function LoginForm() {
   const [show, setShow] = useState(false);
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value);};
+    setUsername(e.target.value);
+  };
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);};
+    setPassword(e.target.value);
+  };
   const handleCloseLogin = () => {
     setShowLoginModal(false);
-    handleClose();};
+    handleClose();
+  };
   const handleClose = () => setShow(false);
 
   async function handleLogin(e) {

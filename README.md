@@ -39,9 +39,10 @@ These features provide a complete solution for users to create and manage their 
 
 ## Stretch Goal Functionality
 
-- When the user adds furniture to a room, the specific room_id is chosen when the button is pressed.
+- The ability to pass the specific room data when the "create furniture" button is clicked on a specific card so that the user doesn't need to select from a drop down.
 - The ability to link another URL to individual furniture pieces that lead to an available site to purchase that item. Details regarding price could also be displayed on the furniture card beside the button to navigate to the link.
 - Dashboard could display the furniture items inside a room as a carousel of images as opposed to the static image it has now. If no furniture exists in a room, the static room image would replace the carousel. Either way the static room image appears on that specific room view.
+- A 'like' button for users to interact or save rooms they enjoy.
 
 ## Set up
 

@@ -117,7 +117,7 @@ export default function Dashboard() {
                       </Link>
                     </button>
 
-                    <button onClick={(e) => {setId(e.target.value); handleShowUpdate();}}
+                    <button onClick={(e) => { setId(e.target.value); handleShowUpdate(); }}
                       value={room.id}
                       className="btn btn-yellow btn-sm m-1">Update</button>
 

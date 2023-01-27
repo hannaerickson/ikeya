@@ -59,7 +59,7 @@ export default function RoomView() {
       method: "GET",
       credentials: "include",
     });
-    if(response.ok){
+    if (response.ok) {
       const data = await response.json();
       setTokenUserName(data.account.username);
     }
@@ -85,94 +85,94 @@ export default function RoomView() {
   return (
     <MDBRow>
       <MDBCol md="8" style={{ backgroundColor: "white", height: "100vh" }}>
-        <br/>
-          { roomUserName === tokenUserName ? (
-            <>
-              <header className="p-3 text-center bg-light">
-                <div className="col-md-12 gap-3">
-                  <button className="btn btn-gray m-2">
-                    <Link
-                      to="/dashboard"
-                      style={{textDecoration: "none", color: "white"}}>
-                      Dashboard
-                    </Link>
-                  </button>
+        <br />
+        {roomUserName === tokenUserName ? (
+          <>
+            <header className="p-3 text-center bg-light">
+              <div className="col-md-12 gap-3">
+                <button className="btn btn-gray m-2">
+                  <Link
+                    to="/dashboard"
+                    style={{ textDecoration: "none", color: "white" }}>
+                    Dashboard
+                  </Link>
+                </button>
 
-                  <button onClick={handleShowFurniture} className="btn btn-blue m-2">Add Furniture</button>
-                  <Modal show={showFurniture} onHide={handleCloseFurniture}>
-                    <Modal.Body>
-                      <FurnitureForm id={id} handleSubmit={handleSubmit} />
-                    </Modal.Body>
-                  </Modal>
+                <button onClick={handleShowFurniture} className="btn btn-blue m-2">Add Furniture</button>
+                <Modal show={showFurniture} onHide={handleCloseFurniture}>
+                  <Modal.Body>
+                    <FurnitureForm id={id} handleSubmit={handleSubmit} />
+                  </Modal.Body>
+                </Modal>
 
-                  <button onClick={handleShowUpdate} className="btn btn-yellow m-2">Update</button>
-                  <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                    <Modal.Body>
-                      <UpdateRoomForm id={id} handleSubmit={handleSubmit} />
-                    </Modal.Body>
-                  </Modal>
+                <button onClick={handleShowUpdate} className="btn btn-yellow m-2">Update</button>
+                <Modal show={showUpdate} onHide={handleCloseUpdate}>
+                  <Modal.Body>
+                    <UpdateRoomForm id={id} handleSubmit={handleSubmit} />
+                  </Modal.Body>
+                </Modal>
 
-                </div>
-              </header>
-              <br></br>
-            </>
-          ) : (
-            ""
-          )}
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-            {furnitures.length ? (
-              furnitures.map((furniture) => {
-                return (
-                  <div className="col" key={furniture.id}>
-                    <div className="card bg-light mb-3 text-center h-100">
-                      <img src={furniture.picture_url} className="card-img-top card-image" alt="Image"/>
-                      <div className="card-body">
-                        <h5 className="card-title">{furniture.name}</h5>
-                      </div>
-                      { roomUserName === tokenUserName ? (
-                      <div className="card-footer">
-                          <Button
-                            variant="btn"
-                            className="btn-red text-right"
-                            onClick={() => {
-                              Swal.fire({
-                                title: "Are you sure?",
-                                text: "You won't be able to revert this!",
-                                icon: "warning",
-                                showCancelButton: true,
-                                confirmButtonColor: "#bb7e74",
-                                cancelButtonColor: "#808080",
-                                confirmButtonText: "Yes, delete it!",
-                              }).then((result) => {
-                                if (result.value) {
-                                  deletion(furniture.id);
-                                  Swal.fire(
-                                    "Deleted!",
-                                    "This piece of furniture has been deleted.",
-                                    "success"
-                                  );
-                                }
-                              });
-                            }}
-                          >
-                            Delete from room
-                          </Button>
-                        </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </div>
-                );
-              })
-            ) : (
-              <div className="w-100">
-                <figure className="figure">
-                  <img src="https://images2.imgbox.com/13/c6/JVWff3xJ_o.png" className="figure-img img-fluid rounded"/>
-                </figure>
               </div>
-            )}
-          </div>
+            </header>
+            <br></br>
+          </>
+        ) : (
+          ""
+        )}
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {furnitures.length ? (
+            furnitures.map((furniture) => {
+              return (
+                <div className="col" key={furniture.id}>
+                  <div className="card bg-light mb-3 text-center h-100">
+                    <img src={furniture.picture_url} className="card-img-top card-image" alt="Image" />
+                    <div className="card-body">
+                      <h5 className="card-title">{furniture.name}</h5>
+                    </div>
+                    {roomUserName === tokenUserName ? (
+                      <div className="card-footer">
+                        <Button
+                          variant="btn"
+                          className="btn-red text-right"
+                          onClick={() => {
+                            Swal.fire({
+                              title: "Are you sure?",
+                              text: "You won't be able to revert this!",
+                              icon: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#bb7e74",
+                              cancelButtonColor: "#808080",
+                              confirmButtonText: "Yes, delete it!",
+                            }).then((result) => {
+                              if (result.value) {
+                                deletion(furniture.id);
+                                Swal.fire(
+                                  "Deleted!",
+                                  "This piece of furniture has been deleted.",
+                                  "success"
+                                );
+                              }
+                            });
+                          }}
+                        >
+                          Delete from room
+                        </Button>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="w-100">
+              <figure className="figure">
+                <img src="https://images2.imgbox.com/13/c6/JVWff3xJ_o.png" className="figure-img img-fluid rounded" />
+              </figure>
+            </div>
+          )}
+        </div>
       </MDBCol>
 
 
