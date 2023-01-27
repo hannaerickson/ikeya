@@ -59,5 +59,4 @@ class FurnitureRepository:
 
     def furniture_in_to_out(self, id: int, furniture: FurnitureIn):
         old_data = furniture.dict()
-        print(old_data)
         return FurnitureOut(id=id, **old_data)

@@ -1,11 +1,11 @@
 //Functionality
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useToken } from "./Accounts/Auth";
-import Nav from "./Nav";
 import LogoutComponent from "./Accounts/Logout";
 //Views
 import RoomsList from "./Views/RoomsList";
-import Main from "./Main";
+import Main from "./Views/Main";
+import Nav from "./Views/Nav";
 import Dashboard from "./Views/Dashboard";
 import RoomView from "./Views/RoomView";
 //Forms
@@ -14,7 +14,6 @@ import FurnitureForm from "./ModalForms/FurnitureForm";
 import UpdateRoomForm from "./ModalForms/UpdateRoom";
 
 function GetToken() {
-  // Get token from JWT cookie (if already logged in)
   useToken();
   return null;
 }

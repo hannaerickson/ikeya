@@ -14,7 +14,6 @@ steps = [
         """,
     ],
     [
-        ## create the table
         """
         CREATE TABLE rooms (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -24,13 +23,11 @@ steps = [
             username VARCHAR(200) NOT NULL REFERENCES accounts(username)
         );
         """,
-        ## drop the table
         """
         DROP TABLE rooms;
         """,
     ],
     [
-        ## create the table
         """
         CREATE TABLE furniture (
             id SERIAL PRIMARY KEY NOT NULL,
@@ -39,7 +36,6 @@ steps = [
             room_id INT NOT NULL REFERENCES rooms(id) ON DELETE CASCADE
         );
         """,
-        ## drop the table
         """
         DROP TABLE furniture;
         """,

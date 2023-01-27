@@ -1,5 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Navbar, NavbarBrand } from "react-bootstrap";
+import { AuthContext } from "../Accounts/Auth";
+import { LoginForm } from "../ModalForms/LoginForm";
+import { SignupForm } from "../ModalForms/SignupForm";
+import { Modal } from "react-bootstrap";
+import "../CSS/Style.css";
 import {
   MDBNavbar,
   MDBContainer,
@@ -10,14 +15,9 @@ import {
   MDBCollapse,
 } from "mdb-react-ui-kit";
 
-import "./CSS/Style.css";
-import { AuthContext } from "./Accounts/Auth";
-import { LoginForm, SignupForm } from "./ModalForms/Modal";
-import { Modal } from "react-bootstrap";
 
 export default function Nav() {
   const { token, login } = useContext(AuthContext);
-
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showNavColorSecond, setShowNavColor] = useState(false);
@@ -25,7 +25,6 @@ export default function Nav() {
 
   const handleCloseLogin = () => setShowLoginModal(false);
   const handleShowLogin = () => setShowLoginModal(true);
-
   const handleCloseSignup = () => setShowSignupModal(false);
   const handleShowSignup = () => setShowSignupModal(true);
 

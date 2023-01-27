@@ -1,3 +1,5 @@
+from queries.accounts import AccountsQueries
+from authenticator import authenticator
 from fastapi import (
     APIRouter,
     Depends,
@@ -14,9 +16,6 @@ from models.models import (
     AccountForm,
     AccountList,
 )
-from queries.accounts import AccountsQueries
-from authenticator import authenticator
-
 
 router = APIRouter()
 
@@ -46,10 +45,9 @@ def list_accounts(
 )
 def show_one_account(
     username: str, response: Response, repo: AccountsQueries = Depends()
-):  # dependency injection, will make sense in unit testing
+):
     account = repo.get_user_by_id(username)
     if account is None:
-        # set a 404
         response.status_code = 404
     return account
 

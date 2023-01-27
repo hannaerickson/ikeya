@@ -1,5 +1,5 @@
 import React from "react";
-import "./CSS/Style.css";
+import "../CSS/Style.css";
 
 export default function Main() {
   return (
@@ -10,7 +10,6 @@ export default function Main() {
           className="figure-img img-fluid rounded"
           alt="Main"
         />
-        {/* <img src="https://images2.imgbox.com/df/7e/Gs9aOu3s_o.png" class="figure-img img-fluid rounded" alt="Main"/> */}
       </figure>
       <br />
 

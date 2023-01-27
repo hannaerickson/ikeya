@@ -58,7 +58,6 @@ class RoomRepository:
                     return None
                 rooms = []
                 for record in records:
-                    print("*********", record)
                     rooms.append(self.record_to_room_out(record))
                 return rooms
 
@@ -111,7 +110,6 @@ class RoomRepository:
 
     def room_in_to_out(self, id: int, room: RoomIn):
         old_data = room.dict()
-        print(old_data)
         return RoomOut(id=id, **old_data)
 
     def record_to_room_out(self, record):

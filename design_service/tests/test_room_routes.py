@@ -1,10 +1,8 @@
 import json
-from fastapi import Depends
 from fastapi.testclient import TestClient
 from queries.rooms import RoomRepository
-from queries.accounts import AccountsQueries
 from main import app
-from models.models import RoomOut, RoomIn, AccountOut
+from models.models import RoomOut, RoomIn
 from authenticator import authenticator
 
 
@@ -20,7 +18,7 @@ class RoomRepositoryMock:
 
     def get_all_rooms(self):
         return [RoomOut(id=1, name='room1', username='test_user1'), RoomOut(id=2, name='room2', username='test_user2')]
-    
+
     def update(self, room_id: int, room: RoomIn) -> RoomOut:
         room_dict = room.dict()
         return RoomOut(id=1, name='Bedroom', description='A bedroom with a view.', picture_url='www.test.jpg', username='test')

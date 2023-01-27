@@ -39,7 +39,6 @@ class AccountsQueries:
                     """,
                     [username],
                 )
-
                 record = result.fetchone()
                 if record is None:
                     return None

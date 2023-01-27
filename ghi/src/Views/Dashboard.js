@@ -29,10 +29,7 @@ export default function Dashboard() {
   const handleCloseFurniture = () => setShowFurniture(false);
   const handleShowFurniture = () => setShowFurniture(true);
   const handleCloseUpdate = () => setShowUpdate(false);
-
-  const handleShowUpdate = () => {
-    setShowUpdate(true)
-  };
+  const handleShowUpdate = () => setShowUpdate(true);
 
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;

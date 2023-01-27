@@ -1,3 +1,5 @@
+from typing import Union, List
+from authenticator import authenticator
 from fastapi import APIRouter, Depends, Response
 from queries.furniture import (
     FurnitureIn,
@@ -5,8 +7,6 @@ from queries.furniture import (
     FurnitureRepository,
     Error,
 )
-from typing import Union, List
-from authenticator import authenticator
 
 router = APIRouter()
 

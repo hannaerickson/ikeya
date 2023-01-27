@@ -11,7 +11,7 @@ client = TestClient(app=app)
 
 
 def get_current_account_data_mock():
-    return {"username": "Hmae221"}
+    return {"username": "testusername"}
 
 
 class FurnitureRepositoryMock:

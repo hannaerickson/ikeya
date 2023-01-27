@@ -14,6 +14,7 @@ function RoomsForm() {
     method: "GET",
     credentials: "include",
   };
+
   useEffect(() => {
     if (username === null) {
       fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, fetchConfig)
