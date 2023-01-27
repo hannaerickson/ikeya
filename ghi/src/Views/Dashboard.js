@@ -34,10 +34,10 @@ export default function Dashboard() {
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/me`;
     const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
     });
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json().then((res) => res.json());
       setList(data);
     }
   };
