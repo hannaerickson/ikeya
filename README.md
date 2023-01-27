@@ -61,5 +61,9 @@ To access the application on your local computer, please follow these steps:
 - design_service/tests/test_room_routes / test_create_room / Abdoul Nayete
 - design_service/tests/test_room_routes / test_get_rooms / Abdoul Nayete
 - design_service/tests/test_room_routes / test_update_room / Tyler Byrd
+
 - design_service/tests/test_furniture_routes / test_create_furniture / Hanna Erickson
+- design_service/tests/test_furniture_routes / test_get_furniture / Melissa Pompeo
+
 - design_service/tests/test_account_routes / test_get_all_accounts / Hanna Erickson
+- design_service/tests/test_account_routes / test_create_account / Melissa Pompeo
