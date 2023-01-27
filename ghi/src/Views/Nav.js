@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Navbar, NavbarBrand } from "react-bootstrap";
-import { AuthContext, useToken } from "../Accounts/Auth";
+import { AuthContext } from "../Accounts/Auth";
 import { LoginForm } from "../ModalForms/LoginForm";
 import { SignupForm } from "../ModalForms/SignupForm";
 import { Modal } from "react-bootstrap";
@@ -18,7 +18,6 @@ import {
 
 export default function Nav() {
   const { token, login } = useContext(AuthContext);
-  const [, , logout] = useToken();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [showNavColorSecond, setShowNavColor] = useState(false);
@@ -28,11 +27,6 @@ export default function Nav() {
   const handleShowLogin = () => setShowLoginModal(true);
   const handleCloseSignup = () => setShowSignupModal(false);
   const handleShowSignup = () => setShowSignupModal(true);
-
-  const handleLogout = (e) => {
-    e.preventDefault();
-    logout();
-  }
 
   return (
     <MDBNavbar className="MDBNavbar py-0" expand="lg" dark bgColor="dark">
@@ -63,7 +57,7 @@ export default function Nav() {
 
           <MDBNavbarNav className="d-flex justify-content-end">
             {!!token ? (
-              <MDBNavbarLink onClick={handleLogout} className="ml-auto" href="/logout">
+              <MDBNavbarLink className="ml-auto" href="/logout">
                 Logout
               </MDBNavbarLink>
             ) : (

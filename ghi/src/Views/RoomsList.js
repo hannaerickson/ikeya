@@ -11,7 +11,7 @@ function RoomsList() {
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms`;
     const response = await fetch(url, {
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     if (response.ok) {
       const data = await response.json();

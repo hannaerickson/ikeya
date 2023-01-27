@@ -34,7 +34,7 @@ export default function RoomView() {
   const getData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}/furniture`;
     const response = await fetch(url, {
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     if (response.ok) {
       const dataFurniture = await response.json();
@@ -45,7 +45,7 @@ export default function RoomView() {
   const getRoomData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const response = await fetch(url, {
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     if (response.ok) {
       const dataRooms = await response.json();
@@ -68,7 +68,7 @@ export default function RoomView() {
   const deletion = async (id) => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/furniture/${id}`;
     const resp = await fetch(url, {
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
       method: "DELETE",
     });
     const dataFurniture = await resp.json();
@@ -79,7 +79,7 @@ export default function RoomView() {
     getData();
     getRoomData();
     getTokenUserName();
-  }, [token, roomUserName, tokenUserName]);
+  }, [token, roomUserName, tokenUserName, furnitures]);
 
 
   return (

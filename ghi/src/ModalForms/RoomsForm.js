@@ -21,7 +21,7 @@ function RoomsForm() {
         .then((res) => res.json())
         .then((res) => setUserName(res.account.username));
     }
-  }, [token, username]);
+  }, [username]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +30,10 @@ function RoomsForm() {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(room),
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (response.ok) {
       const data = await response.json();

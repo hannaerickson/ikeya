@@ -28,7 +28,7 @@ function UpdateRoomForm({ id }) {
   const fetchData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const response = await fetch(url, {
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     if (response.ok) {
       const data = await response.json();
@@ -51,7 +51,7 @@ function UpdateRoomForm({ id }) {
         .then((res) => setUserName(res.account.username));
     }
     fetchData();
-  }, [token, username]);
+  }, [username]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -61,6 +61,10 @@ function UpdateRoomForm({ id }) {
       method: "PUT",
       credentials: "include",
       body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     if (response.ok) {
       const updatedRoom = await response.json();
