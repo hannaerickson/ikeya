@@ -28,12 +28,14 @@ The IKEYA application targets the mainstream consumer who is seeking home decor 
   Once logged in, users can create, view, update, and delete rooms within the application. This includes the ability to add a name, description, and picture URL for each room.
 - Furniture management:
   Users can add, view, and delete furniture items within a room. Each furniture item can have a name, description, and picture URL.
-- Room visualization:
-  Users can view a visual representation of their room, including the furniture items within it.
 - User dashboard:
   Users can view their created rooms, update room information, add new rooms, and also add furniture to rooms they have created.
+- Room visualization:
+  Users can view a visual representation of each of their rooms, including the furniture items within it.
+  Users can view a page containing all rooms created site-wide by all users, as well as the furniture items within it.
+  When viewing rooms created by other users, the current logged in user does not have the ability to delete or update the room in any way. When viewing their own rooms as navigated to by the "All Rooms" page this functionality is restored.
 - Search functionality:
-  Users can search for rooms other users have created by name.
+  Users can search for rooms other users have created by name or theme.
 
 These features provide a complete solution for users to create and manage their virtual rooms and furniture items. The application is designed to be user-friendly, with an intuitive interface and easy navigation.
 
