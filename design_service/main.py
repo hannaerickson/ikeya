@@ -11,9 +11,11 @@ app.include_router(accounts.router)
 app.include_router(furniture.router)
 
 origins = [
+    "https://teamikeya.gitlab.io/ikeya",
     "http://localhost:8000",
     "http://localhost:3000",
 ]
+
 
 app.add_middleware(
     CORSMiddleware,
