@@ -79,7 +79,7 @@ export default function RoomView() {
     getData();
     getRoomData();
     getTokenUserName();
-  }, [token, roomUserName, tokenUserName, furnitures]);
+  }, [token, roomUserName, tokenUserName]);
 
 
   return (
