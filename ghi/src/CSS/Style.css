@@ -137,3 +137,17 @@
   background-color: #808080;
   color: white;
 }
+
+.form-control {
+  text-align: left;
+  vertical-align: top;
+  opacity: 50%;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+}
+
+.modal-backdrop {
+  background-color: gray;
+}
