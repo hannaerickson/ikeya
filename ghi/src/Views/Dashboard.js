@@ -52,14 +52,20 @@ export default function Dashboard() {
     fetchData();
   };
 
+  const fetchToken = async () => {
+    const res = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
+      method: "GET",
+      credentials: "include",
+    })
+    if (res.ok) {
+      const data = await res.json();
+      setUsername(data?.account.username)
+    }
+  }
+
   useEffect(() => {
     if (username === null) {
-      fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/token`, {
-        method: "GET",
-        credentials: "include",
-      })
-        .then((res) => res.json())
-        .then((res) => setUsername(res.account.username));
+      fetchToken();
     }
     fetchData();
   }, [token, username]);
@@ -90,71 +96,80 @@ export default function Dashboard() {
         </div>
         <br />
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {list?.map((room) => {
-            return (
-              <div className="col" key={room.id}>
-                <div className="card bg-light mb-3 text-center h-100">
-                  <img
-                    src={room.picture_url}
-                    className="card-img-top card-image"
-                    alt="Image"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{room.name}</h5>
-                    <p className="card-text crop-text-1">{room.description}</p>
-                  </div>
-                  <div className="card-footer">
-                    <button className="btn btn-blue btn-sm m-1">
-                      <Link
-                        to="/rooms/furniture"
-                        state={room.id}
-                        style={{ textDecoration: "none", color: "white" }}
+          {list.length ? (
+            list.map((room) => {
+              return (
+                <div className="col" key={room.id}>
+                  <div className="card bg-light mb-3 text-center h-100">
+                    <img
+                      src={room.picture_url}
+                      className="card-img-top card-image"
+                      alt="Image"
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{room.name}</h5>
+                      <p className="card-text crop-text-1">{room.description}</p>
+                    </div>
+                    <div className="card-footer">
+                      <button className="btn btn-blue btn-sm m-1">
+                        <Link
+                          to="/rooms/furniture"
+                          state={room.id}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          Furniture
+                        </Link>
+                      </button>
+
+                      <button onClick={(e) => { setId(e.target.value); handleShowUpdate(); }}
+                        value={room.id}
+                        className="btn btn-yellow btn-sm m-1">Update</button>
+
+                      <Modal show={showUpdate} onHide={handleCloseUpdate}>
+                        <Modal.Body>
+                          <UpdateRoomForm id={id} handleSubmit={handleSubmit} />
+                        </Modal.Body>
+                      </Modal>
+
+                      <Button
+                        variant="btn-sm m-1"
+                        className="btn-red btn-sm text-right"
+                        onClick={() => {
+                          Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#bb7e74",
+                            cancelButtonColor: "#808080",
+                            confirmButtonText: "Yes, delete it!",
+                          }).then((result) => {
+                            if (result.value) {
+                              deletion(room.id);
+                              Swal.fire(
+                                "Deleted!",
+                                "Your room has been deleted.",
+                                "success"
+                              );
+                            }
+                          });
+                        }}
                       >
-                        Furniture
-                      </Link>
-                    </button>
-
-                    <button onClick={(e) => { setId(e.target.value); handleShowUpdate(); }}
-                      value={room.id}
-                      className="btn btn-yellow btn-sm m-1">Update</button>
-
-                    <Modal show={showUpdate} onHide={handleCloseUpdate}>
-                      <Modal.Body>
-                        <UpdateRoomForm id={id} handleSubmit={handleSubmit} />
-                      </Modal.Body>
-                    </Modal>
-
-                    <Button
-                      variant="btn-sm m-1"
-                      className="btn-red btn-sm text-right"
-                      onClick={() => {
-                        Swal.fire({
-                          title: "Are you sure?",
-                          text: "You won't be able to revert this!",
-                          icon: "warning",
-                          showCancelButton: true,
-                          confirmButtonColor: "#bb7e74",
-                          cancelButtonColor: "#808080",
-                          confirmButtonText: "Yes, delete it!",
-                        }).then((result) => {
-                          if (result.value) {
-                            deletion(room.id);
-                            Swal.fire(
-                              "Deleted!",
-                              "Your room has been deleted.",
-                              "success"
-                            );
-                          }
-                        });
-                      }}
-                    >
-                      Delete
-                    </Button>
+                        Delete
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          ) : (
+            <div className="w-100">
+              <figure className="figure">
+                <img src="https://images2.imgbox.com/13/c6/JVWff3xJ_o.png" className="figure-img img-fluid rounded" />
+              </figure>
+            </div>
+          )
+          }
         </div>
       </div>
     </div>

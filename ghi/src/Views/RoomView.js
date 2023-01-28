@@ -34,7 +34,7 @@ export default function RoomView() {
   const getData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}/furniture`;
     const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
     });
     if (response.ok) {
       const dataFurniture = await response.json();
@@ -45,7 +45,7 @@ export default function RoomView() {
   const getRoomData = async () => {
     const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/rooms/${id}`;
     const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include",
     });
     if (response.ok) {
       const dataRooms = await response.json();

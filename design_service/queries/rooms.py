@@ -57,7 +57,7 @@ class RoomRepository:
                 )
                 records = db.fetchall()
                 if not records:
-                    return None
+                    return []
                 rooms = []
                 for record in records:
                     rooms.append(self.record_to_room_out(record))
